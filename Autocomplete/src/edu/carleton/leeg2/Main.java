@@ -59,5 +59,6 @@ public class Main {
         System.out.println(" oo \"oo$$ $$o          \"\" \"\"\"  o$\" \"\"\"$        \"$$o$$  oo\"");
         System.out.println("\"     \"\"\"$\"\"$$$$o$ooooooooooo\"\"$oooo o o o       o$$\"\"\"\" \"$\"$\"");
         System.out.println("                                   \" \"\"\"\"\"\"\"$\"$\"$\"\"\"");
+        System.out.println("Original Comic: http://www.gocomics.com/calvinandhobbes/1986/03/07");
     }
 }
