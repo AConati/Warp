@@ -1,3 +1,9 @@
+/** Program printing Calvin 
+* Assignment 1
+* @author Grant Lee & Ari Conati 
+* CS 257
+*/	
+
 package edu.carleton.leeg2;
 
 public class Main {
