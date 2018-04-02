@@ -7,31 +7,16 @@ package edu.carleton.leeg2;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD
-=======
-
 import java.util.List;
->>>>>>> c1f7bb2048b68bb960e79b4c844778993eb91d2a
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AutocompleterTest {
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c1f7bb2048b68bb960e79b4c844778993eb91d2a
     private Autocompleter autocompleter;
 
     @BeforeEach
     void setUp() {
-<<<<<<< HEAD
-        autocompleter = new Autocompleter("edgeactor.txt");
-=======
         autocompleter = new Autocompleter("edgeactors.txt");
->>>>>>> c1f7bb2048b68bb960e79b4c844778993eb91d2a
     }
 
     @AfterEach
