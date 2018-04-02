@@ -1,4 +1,4 @@
-/** Tests the AutoCompleter.java Class
+    /** Tests the AutoCompleter.java Class
  * Assignment 1 Phase 2
  * @author Ari Conati & Grant Lee
  */
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class AutocompleterTest {
 
@@ -50,6 +51,7 @@ class AutocompleterTest {
                 "does not return trimmed name.");
 
     }
+
     @Test
     void testNullStringInput() {
         List<String> actual = autocompleter.getCompletions(null);
@@ -58,6 +60,7 @@ class AutocompleterTest {
                 "does not return an empty list.");
 
     }
+
     @Test
     void testWeirdCharacterInput() {
         List<String> actual = autocompleter.getCompletions("Beyonce");
@@ -66,6 +69,7 @@ class AutocompleterTest {
                 "(accented) characters not found when ASCII version used.");
 
     }
+
     @Test
     void testNameApostropheInput() {
         List<String> actual = autocompleter.getCompletions("OBrien");
@@ -81,6 +85,7 @@ class AutocompleterTest {
         assertNotEquals(empty, actual.toArray(), "Names with apostrophe" +
                 "characters not found when search string includes apostrophe.");
     }
+
     @Test
     void testNameHyphenInput() {
         List<String> actual = autocompleter.getCompletions("JeanPaul");
@@ -130,12 +135,13 @@ class AutocompleterTest {
                 "not treated as last names");
 
     }
+
     @Test
     void testLowercaseInput() {
         List<String> actual = autocompleter.getCompletions("faris");
         String[] expected = {"Faris, Anna"};
         assertEquals(expected, actual.toArray(), "If input is lowercase" +
-                "matches are not successfully found.")
+                "matches are not successfully found.");
     }
 
     @Test
@@ -164,7 +170,6 @@ class AutocompleterTest {
                 "when substring matched beginning of last name and across " +
                 "comma.");
     }
-
 
     @Test
     void testSameCategory() {
