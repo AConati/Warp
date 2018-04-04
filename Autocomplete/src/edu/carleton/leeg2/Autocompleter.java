@@ -99,8 +99,8 @@ public class Autocompleter {
 
     /**
      * @param args - Command line arguments: The first argument is
-     *             the data path to the file containing actors' names
-     *             and the second is the search string.
+     * the data path to the file containing actors' names
+     * and the second is the search string.
      * Main method loads the contents of a file containing actors' names
      * and prints the sorted list of matches.
      */
@@ -127,7 +127,6 @@ public class Autocompleter {
 
         /**
          * Constructor for Actor Object
-         *
          * @param name the string that is imported into actor object
          */
         public Actor(String name) {
@@ -144,7 +143,6 @@ public class Autocompleter {
 
         /**
          * Method used to get rid of punctuations and spaces in name
-         *
          * @param name the string that is being changed
          * @return a string that is cleaned to "lastname,firstname" format
          */
