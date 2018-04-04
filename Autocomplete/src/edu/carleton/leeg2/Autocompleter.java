@@ -37,7 +37,7 @@ public class Autocompleter {
      *
      * @param dataFilePath - the file path of the file containing actors' names
      * @param actors - The list to which the actors in the file at dataFilePath
-     *               will be added. (Modified as a result of this method)
+     * will be added. (Modified as a result of this method)
      * @return True if file was successfully loaded. False if file not found.
      */
 

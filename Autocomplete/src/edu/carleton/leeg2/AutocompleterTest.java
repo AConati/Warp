@@ -196,7 +196,7 @@ class AutocompleterTest {
         List<String> actual = autocompleter.getCompletions("Gyllenhaal");
         String[] expected = {"Gyllenhaal, Jake", "Gyllenhaal, Maggie"};
         assertEquals(expected, actual.toArray(), "When last names are exactly" + 
-		" equal should be alphabetical by first name.");
+		" equal should be based on index.");
     }
 
     @Test
@@ -204,7 +204,7 @@ class AutocompleterTest {
         List<String> actual = autocompleter.getCompletions("Dakota");
         String[] expected = {"Fanning, Dakota", "Johnson, Dakota"};
         assertEquals(expected, actual.toArray(), "When first names are exactly" + 
-		" equal should be alphabetical by last name.");
+		" equal and the indexes are equal should be alphabetical by last name.");
     }
 
     @Test
@@ -220,7 +220,7 @@ class AutocompleterTest {
         List<String> actual = autocompleter.getCompletions("Lang");
         String[] expected = {"Lange, Jessica", "Langella, Frank"};
         assertEquals(expected, actual.toArray(), "When beginning of last names" +
-		" are equal and of same index should be alphabetical.");
+		" are equal and of same index should follow the index rule.");
     }
 
     @Test
@@ -242,9 +242,9 @@ class AutocompleterTest {
     @Test
     void SameMatchesFirstTest() {
         List<String> actual = autocompleter.getCompletions("iett");
-        String[] expected = {"Binoche, Juliette", "Lewis, Juliette"};
+        String[] expected = {"Lewis, Juliette", "Binoche, Juliette"};
         assertEquals(expected, actual.toArray(), "When portions of first names are" + 
-		" equal and of same index should be alphabetical.");
+		" equal and of same index it should follow the index rule");
     }
 
     @Test
@@ -258,7 +258,7 @@ class AutocompleterTest {
     @Test
     void BeginningLast_MatchesFirst() {
         List<String> actual = autocompleter.getCompletions("greg");
-        String[] expected = {"Gregg, Clark", "Kinnear, Greg", "Peck, Gregory", "McGregor, Ewan"};
+        String[] expected = {"Gregg, Clark", "Peck, Gregory", "Kinnear, Greg", "McGregor, Ewan"};
         assertEquals(expected, actual.toArray(), "Beginning Last should come before" + 
 		" Beginning First.");
     }
@@ -290,7 +290,7 @@ class AutocompleterTest {
     @Test
     void BeginningFirst_MatchesFirst() {
         List<String> actual = autocompleter.getCompletions("Ice");
-        String[] expected = {"Cube, Ice", "Eve, Alice", "Straight, Beatrice", "Bejo, Bérénice"};
+        String[] expected = {"Cube, Ice", "Eve, Alice", "Bejo, Bérénice" , "Straight, Beatrice"};
         assertEquals(expected, actual.toArray(), "Beginning First should precede" +
 		" Matches First.");
     }
@@ -307,7 +307,7 @@ class AutocompleterTest {
     void BasicsCumTest() {
         List<String> actual = autocompleter.getCompletions("ent");
         String[] expected = {"Entertainer, Cedric the", "Osment, Haley Joel", "Potente, Franka", "Fiorentino, Linda",
-	    "Laurent, Mélanie", "Broadbent, Jim", "Cassel, Vincent", "Gallo, Vincent"};
+	    "Laurent, Mélanie", "Broadbent, Jim", "Gallo, Vincent", "Cassel, Vincent"};
         assertEquals(expected, actual.toArray(), "Go pass all other basic tests and try again...");
     }
 }
