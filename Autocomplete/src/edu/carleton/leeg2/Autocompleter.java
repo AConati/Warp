@@ -8,11 +8,16 @@
  */
 package edu.carleton.leeg2;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
+import java.util.Scanner;
 
 public class Autocompleter {
 
+
+    private List<Actor> actors;
     /**
      * @param dataFilePath the path to the data file containing the set of items to
      * from which auto-completed results will be drawn. (In the context of this assignment,
@@ -25,8 +30,32 @@ public class Autocompleter {
         // from a file into a list (or a hashmap or something like that)
         // the list of strings that are going to form the dataset of potential
         // auto-completions. The initialization will be up to you.
+        actors = new ArrayList<Actor>();
+        if(!load(dataFilePath, actors)) {
+            System.err.println("File not found.");
+            actors = null;
+        }
     }
 
+    private boolean load(String dataFilePath, List<Actor> actors) {
+
+        File file = new File(dataFilePath);
+        Scanner scanner = null;
+
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+
+        while(scanner.hasNextLine()) {
+            String name = scanner.nextLine();
+            Actor actor = new Actor(name);
+            actors.add(name);
+        }
+        return true;
+
+    }
     /**
      * @param searchString the string whose autocompletions are sought
      * @return the list of potential completions that match the search string,
@@ -35,5 +64,21 @@ public class Autocompleter {
      */
     public List<String> getCompletions(String searchString) {
         return new ArrayList<String>();
+    }
+
+    public static void printResults(List<String> list) {
+        for(String item : list) {
+            System.out.println(item);
+        }
+    }
+
+    public static void main(String[] args) {
+        if(!(args.length == 2)) {
+            System.err.println("Incorrect command line usage. Correct usage:" +
+                    "java Autocompleter pathToActorsFile searchString");
+            System.exit(0);
+        }
+        Autocompleter autocompleter = new Autocompleter(args[0]);
+        printResults(autocompleter.getCompletions(args[1]));
     }
 }
