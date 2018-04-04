@@ -69,11 +69,11 @@ public class Autocompleter {
      */
     public List<String> getCompletions(String searchString) {
         List<Actor> matches = new ArrayList<Actor>();
-        List<String> stringMatches = new ArrayList<String>;
+        List<String> stringMatches = new ArrayList<String>();
         searchString = Actor.refineName(searchString);
 
         if (actors == null) {
-            return matches;
+            return stringMatches;
         }
 
         for (Actor actor : actors) {
@@ -85,10 +85,10 @@ public class Autocompleter {
 
         Collections.sort(matches);
         for (Actor actor : matches) {
-            stringMatches.add(actor.toString);
+            stringMatches.add(actor.toString());
         }
 
-        return matches;
+        return stringMatches;
     }
 
     /**
