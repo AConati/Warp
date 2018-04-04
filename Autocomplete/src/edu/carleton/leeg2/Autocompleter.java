@@ -144,7 +144,7 @@ public class Autocompleter {
             if(name.contains(",")) {
                 this.comma = refinedName.indexOf(",");
             } else {
-                this.comma = name.length();
+                this.comma = refinedName.length();
             }
         }
 
