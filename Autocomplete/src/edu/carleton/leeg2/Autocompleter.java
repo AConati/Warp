@@ -118,7 +118,6 @@ public class Autocompleter {
             this.comma = refinedName.indexOf(",");
         }
 
-        public static String refineName(String name) {
         /**
          * Method used to get rid of punctuations and spaces in name
          * @param name the string that is being changed
@@ -150,7 +149,6 @@ public class Autocompleter {
             return fullName;
 
         }
-    }
 }
 
 
