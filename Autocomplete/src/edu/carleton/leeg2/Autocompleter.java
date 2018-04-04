@@ -9,12 +9,17 @@
  */
 package edu.carleton.leeg2;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Autocompleter {
 
+    private List<Actor> actors;
     /**
      * @param dataFilePath the path to the data file containing the set of items to
      * from which auto-completed results will be drawn. (In the context of this assignment,
@@ -23,6 +28,11 @@ public class Autocompleter {
      * to use different datasets and different approaches to doing the autocompletion.)
      */
     public Autocompleter(String dataFilePath) {
+        actors = new ArrayList<Actor>();
+        if(!load(dataFilePath, actors)) {
+            System.err.println("File not found.");
+            actors = null;
+        }
     }
 
     private boolean load(String dataFilePath, List<Actor> actors) {
