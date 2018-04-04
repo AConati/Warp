@@ -68,7 +68,8 @@ public class Autocompleter {
      * are sorted from best match to weakest match)
      */
     public List<String> getCompletions(String searchString) {
-        List<String> matches = new ArrayList<String>();
+        List<Actor> matches = new ArrayList<Actor>();
+        List<String> stringMatches = new ArrayList<String>;
         searchString = Actor.refineName(searchString);
 
         if (actors == null) {
@@ -78,11 +79,14 @@ public class Autocompleter {
         for (Actor actor : actors) {
             if (actor.getRefinedName().contains(searchString)) {
                 actor.setHierarchy(searchString);
-                matches.add(actor.toString());
+                matches.add(actor);
             }
         }
 
         Collections.sort(matches);
+        for (Actor actor : matches) {
+            stringMatches.add(actor.toString);
+        }
 
         return matches;
     }
