@@ -11,6 +11,7 @@ package edu.carleton.leeg2;
 import java.io.FileNotFoundException;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.io.File;
 import java.util.Scanner;
@@ -41,7 +42,7 @@ public class Autocompleter {
     private boolean load(String dataFilePath, List<Actor> actors) {
 
         File file = new File(dataFilePath);
-        Scanner scanner = null;
+        Scanner scanner;
 
         try {
             scanner = new Scanner(file);
@@ -52,7 +53,7 @@ public class Autocompleter {
         while(scanner.hasNextLine()) {
             String name = scanner.nextLine();
             Actor actor = new Actor(name);
-            actors.add(name);
+            actors.add(actor);
         }
         return true;
 
@@ -64,10 +65,25 @@ public class Autocompleter {
      *  are sorted from best match to weakest match)
      */
     public List<String> getCompletions(String searchString) {
-        return new ArrayList<String>();
+        List<String> matches = new ArrayList<String>();
+
+        if(actors == null) {
+            return matches;
+        }
+
+        for(Actor actor : actors) {
+            if(actor.toString().contains(searchString)) {
+                actor.setHierarchy(searchString);
+                matches.add(actor.toString());
+            }
+        }
+
+        Collections.sort(matches);
+
+        return matches;
     }
 
-    public static void printResults(List<String> list) {
+    public static void printResults(List<String> list){
         for(String item : list) {
             System.out.println(item);
         }
@@ -87,14 +103,14 @@ public class Autocompleter {
     /**
      *
      */
-    private static class Actor {
+    private static class Actor implements Comparable<Actor>{
         String fullName;
         String refinedName;
-        int hierarchy;
+        int hierarchy = 6;
         int index;
         int comma;
 
-        private Actor(String name) {
+        public Actor(String name) {
             this.fullName = name;
 
         }
@@ -108,6 +124,12 @@ public class Autocompleter {
             refine = refine.replaceAll("\\s\\-\\'", "");
         }
 
+        public int compareTo(Actor other) {
+            if(this.hierarchy != other.hierarchy) {
+                
+            }
+
+        }
 
     }
 }
