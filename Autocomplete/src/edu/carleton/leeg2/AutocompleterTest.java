@@ -8,7 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class AutocompleterTest {
@@ -27,40 +27,45 @@ class AutocompleterTest {
     //Edge Cases
     @Test
     void testEmptyStringInput() {
-        List<String> actual  = autocompleter.getCompletions("");
+        List<String> initial  = autocompleter.getCompletions("");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {};
-        assertEquals(expected, actual.toArray(), "Empty string input does not " +
+        assertArrayEquals(expected, actual.toArray(), "Empty string input does not " +
                 "return an empty list");
     }
 
     @Test
     void testNoMatchString() {
-        List<String> actual  = autocompleter.getCompletions("Bacone");
+        List<String> initial  = autocompleter.getCompletions("Bacone");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {};
-        assertEquals(expected, actual.toArray(), "String input with no matches " +
+        assertArrayEquals(expected, actual.toArray(), "String input with no matches " +
                 "does not return an empty list");
     }
 
     @Test
     void testStringWithSpaces() {
-        List<String> actual  = autocompleter.getCompletions("F a ri s");
+        List<String> initial  = autocompleter.getCompletions("F a ri s");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Faris, Anna"};
-        assertEquals(expected, actual.toArray(), "String input with spaces" +
+        assertArrayEquals(expected, actual.toArray(), "String input with spaces" +
                 " does not return trimmed name.");
     }
 
     @Test
     void testNullStringInput() {
-        List<String> actual = autocompleter.getCompletions(null);
+        List<String> initial = autocompleter.getCompletions(null);
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {};
-        assertEquals(expected, actual.toArray(), "Null string input" +
+        assertArrayEquals(expected, actual.toArray(), "Null string input" +
                 " does not return an empty list.");
     }
 
     @Test
     void testWeirdCharacterInput() {
 	    autocompleter = new Autocompleter("actors.txt");
-        List<String> actual = autocompleter.getCompletions("Beyonce");
+        List<String> initial = autocompleter.getCompletions("Beyonce");
+        String[] actual = initial.toArray(new String[0]);
         String[] empty = {};
         assertNotEquals(empty, actual.toArray(), "Names with non-ASCII" +
                 " (accented) characters not found when ASCII version used.");
@@ -68,7 +73,8 @@ class AutocompleterTest {
 
     @Test
     void testNameApostropheInput() {
-        List<String> actual = autocompleter.getCompletions("OBrien");
+        List<String> initial = autocompleter.getCompletions("OBrien");
+        String[] actual = initial.toArray(new String[0]);
         String[] empty = {};
         assertNotEquals(empty, actual.toArray(), "Names with apostrophe" +
                 " characters not found when apostrophe omitted in search");
@@ -76,7 +82,8 @@ class AutocompleterTest {
 
     @Test
     void testNameApostropheInput2() {
-        List<String> actual = autocompleter.getCompletions("O'Brien");
+        List<String> initial = autocompleter.getCompletions("O'Brien");
+        String[] actual = initial.toArray(new String[0]);
         String[] empty = {};
         assertNotEquals(empty, actual.toArray(), "Names with apostrophe" +
                 " characters not found when search string includes apostrophe.");
@@ -84,7 +91,8 @@ class AutocompleterTest {
 
     @Test
     void testNameHyphenInput() {
-        List<String> actual = autocompleter.getCompletions("JeanPaul");
+        List<String> initial = autocompleter.getCompletions("JeanPaul");
+        String[] actual = initial.toArray(new String[0]);
         String[] empty = {};
         assertNotEquals(empty, actual.toArray(), "Names with hyphen" +
                 " characters not found when hyphen omitted in search");
@@ -92,7 +100,8 @@ class AutocompleterTest {
 
     @Test
     void testNameHyphenInput2() {
-        List<String> actual = autocompleter.getCompletions("Jean-Paul");
+        List<String> initial = autocompleter.getCompletions("Jean-Paul");
+        String[] actual = initial.toArray(new String[0]);
         String[] empty = {};
         assertNotEquals(empty, actual.toArray(), "Names with hyphen" +
                 " characters not found when search string includes hyphen");
@@ -100,7 +109,8 @@ class AutocompleterTest {
 
     @Test
     void testNamePeriodInput() {
-        List<String> actual = autocompleter.getCompletions("FMurray");
+        List<String> initial = autocompleter.getCompletions("FMurray");
+        String[] actual = initial.toArray(new String[0]);
         String[] empty = {};
         assertNotEquals(empty, actual.toArray(), "Names with period" +
                 " characters not found when period omitted in search");
@@ -108,7 +118,8 @@ class AutocompleterTest {
 
     @Test
     void testNamePeriodInput2() {
-        List<String> actual = autocompleter.getCompletions("F.Murray");
+        List<String> initial = autocompleter.getCompletions("F.Murray");
+        String[] actual = initial.toArray(new String[0]);
         String[] empty = {};
         assertNotEquals(empty, actual.toArray(), "Names with period" +
                 " characters not found when search string includes period");
@@ -116,51 +127,57 @@ class AutocompleterTest {
 
     @Test
     void testSingleName() {
-        List<String> actual = autocompleter.getCompletions("Cher");
+        List<String> initial = autocompleter.getCompletions("Cher");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Cher", "Fletcher, Laura"};
-        assertEquals(expected, actual.toArray(), "Error when sorting" +
+        assertArrayEquals(expected, actual.toArray(), "Error when sorting" +
                 " single names.");
     }
 
     @Test
     void testSingleName2() {
-        List<String> actual = autocompleter.getCompletions("her");
+        List<String> initial = autocompleter.getCompletions("her");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Cher", "Fletcher, Laura"};
-        assertEquals(expected, actual.toArray(), "Single names" +
+        assertArrayEquals(expected, actual.toArray(), "Single names" +
                 " not treated as last names");
     }
 
     @Test
     void testLowercaseInput() {
-        List<String> actual = autocompleter.getCompletions("faris");
+        List<String> initial = autocompleter.getCompletions("faris");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Faris, Anna"};
-        assertEquals(expected, actual.toArray(), "If input is lowercase" +
+        assertArrayEquals(expected, actual.toArray(), "If input is lowercase" +
                 " matches are not successfully found.");
     }
 
     @Test
     void testRandomCaps() {
-        List<String> actual = autocompleter.getCompletions("fArIS");
+        List<String> initial = autocompleter.getCompletions("fArIS");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Faris, Anna"};
-        assertEquals(expected, actual.toArray(), "If input has nonsensical" +
+        assertArrayEquals(expected, actual.toArray(), "If input has nonsensical" +
                 " casing matches are not successfully found.");
     }
 
     @Test
     void testMultipleMatch() {
 	    autocompleter = new Autocompleter("edgeactors.txt");
-        List<String> actual = autocompleter.getCompletions("Ei");
+        List<String> initial = autocompleter.getCompletions("Ei");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Simein, Eileen", "Mein, Hannah"};
-        assertEquals(expected, actual.toArray(), "Incorrectly sorted" +
+        assertArrayEquals(expected, actual.toArray(), "Incorrectly sorted" +
                 " when substring matched beginning of first and middle of last.");
     }
 
     @Test
     void testMultipleMatch2() {
 	    autocompleter = new Autocompleter("edgeactors.txt");
-        List<String> actual = autocompleter.getCompletions("omar");
+        List<String> initial = autocompleter.getCompletions("omar");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Omario, Mario", "James, Omar"};
-        assertEquals(expected, actual.toArray(), "Incorrectly sorted" +
+        assertArrayEquals(expected, actual.toArray(), "Incorrectly sorted" +
                 " when substring matched beginning of last name and across " +
                 "comma.");
     }
@@ -168,146 +185,164 @@ class AutocompleterTest {
     @Test
     void testSameCategory() {
 	    autocompleter = new Autocompleter("edgeactors.txt");
-        List<String> actual = autocompleter.getCompletions("es");
+        List<String> initial = autocompleter.getCompletions("es");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Tress, Scott", "James, John"};
-        assertEquals(expected, actual.toArray(), "Incorrectly sorted" +
+        assertArrayEquals(expected, actual.toArray(), "Incorrectly sorted" +
                 " names in the same category based on index.");
     }
 
     @Test
     void commaSpaceTest() {
-        List<String> actual = autocompleter.getCompletions("ston,j");
+        List<String> initial = autocompleter.getCompletions("ston,j");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Aniston, Jennifer"};
-        assertEquals(expected, actual.toArray(), "Spaces should not influence" +
+        assertArrayEquals(expected, actual.toArray(), "Spaces should not influence" +
                 " the result.");
     }
 
     @Test
     void commaBigSpaceTest() {
-        List<String> actual = autocompleter.getCompletions("ston , j ");
+        List<String> initial = autocompleter.getCompletions("ston , j ");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Aniston, Jennifer"};
-        assertEquals(expected, actual.toArray(), "Spaces should not influence" +
+        assertArrayEquals(expected, actual.toArray(), "Spaces should not influence" +
                 " the result.");
     }
 
     //Basic Cases
     @Test
     void SameExactLastTest() {
-        List<String> actual = autocompleter.getCompletions("Gyllenhaal");
+        List<String> initial = autocompleter.getCompletions("Gyllenhaal");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Gyllenhaal, Jake", "Gyllenhaal, Maggie"};
-        assertEquals(expected, actual.toArray(), "When last names are exactly" + 
+        assertArrayEquals(expected, actual.toArray(), "When last names are exactly" + 
 		" equal should be based on index.");
     }
 
     @Test
     void SameExactFirstTest() {
-        List<String> actual = autocompleter.getCompletions("Dakota");
+        List<String> initial = autocompleter.getCompletions("Dakota");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Fanning, Dakota", "Johnson, Dakota"};
-        assertEquals(expected, actual.toArray(), "When first names are exactly" + 
+        assertArrayEquals(expected, actual.toArray(), "When first names are exactly" + 
 		" equal and the indexes are equal should be alphabetical by last name.");
     }
 
     @Test
     void SameExactCommaTest() {
-        List<String> actual = autocompleter.getCompletions("on, j");
+        List<String> initial = autocompleter.getCompletions("on, j");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Hudson, Jennifer", "Aniston, Jennifer"};
-        assertEquals(expected, actual.toArray(), "Comma should still follow " +
+        assertArrayEquals(expected, actual.toArray(), "Comma should still follow " +
                 "index rule.");
     }
 
     @Test
     void SameBeginningLastTest() {
-        List<String> actual = autocompleter.getCompletions("Lang");
+        List<String> initial = autocompleter.getCompletions("Lang");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Lange, Jessica", "Langella, Frank"};
-        assertEquals(expected, actual.toArray(), "When beginning of last names" +
+        assertArrayEquals(expected, actual.toArray(), "When beginning of last names" +
 		" are equal and of same index should follow the index rule.");
     }
 
     @Test
     void SameBeginningFirstTest() {
-        List<String> actual = autocompleter.getCompletions("Gret");
+        List<String> initial = autocompleter.getCompletions("Gret");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Garbo, Greta", "Gerwig, Greta"};
-        assertEquals(expected, actual.toArray(), "When beginning first names are" +
+        assertArrayEquals(expected, actual.toArray(), "When beginning first names are" +
 		" equal and of same index should be alphabetical.");
     }
 
     @Test
     void SameMatchesLastTest() {
-        List<String> actual = autocompleter.getCompletions("fflec");
+        List<String> initial = autocompleter.getCompletions("fflec");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Affleck, Ben", "Affleck, Casey"};
-        assertEquals(expected, actual.toArray(), "When portions of last names are" + 
+        assertArrayEquals(expected, actual.toArray(), "When portions of last names are" + 
 		" equal and of same index should be alphabetical.");
     }
 
     @Test
     void SameMatchesFirstTest() {
-        List<String> actual = autocompleter.getCompletions("iett");
+        List<String> initial = autocompleter.getCompletions("iett");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Lewis, Juliette", "Binoche, Juliette"};
-        assertEquals(expected, actual.toArray(), "When portions of first names are" + 
+        assertArrayEquals(expected, actual.toArray(), "When portions of first names are" + 
 		" equal and of same index it should follow the index rule");
     }
 
     @Test
     void SameMatchesCommaIntersection() {
-        List<String> actual = autocompleter.getCompletions("nes, J");
+        List<String> initial = autocompleter.getCompletions("nes, J");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Jones, January", "Jones, Jennifer"};
-        assertEquals(expected, actual.toArray(), "When comma intersections are equal," + 
+        assertArrayEquals(expected, actual.toArray(), "When comma intersections are equal," + 
 		" should follow original sorting rule.");
     }
 
     @Test
     void BeginningLast_MatchesFirst() {
-        List<String> actual = autocompleter.getCompletions("greg");
+        List<String> initial = autocompleter.getCompletions("greg");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Gregg, Clark", "Peck, Gregory", "Kinnear, Greg", "McGregor, Ewan"};
-        assertEquals(expected, actual.toArray(), "Beginning Last should come before" + 
+        assertArrayEquals(expected, actual.toArray(), "Beginning Last should come before" + 
 		" Beginning First.");
     }
 
     @Test
     void BeginningLastName_MatchesLast() {
-        List<String> actual = autocompleter.getCompletions("thew");
+        List<String> initial = autocompleter.getCompletions("thew");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Thewlis, David", "Broderick, Matthew", "McConaughey, Matthew"};
-        assertEquals(expected, actual.toArray(), "Beginning Last should precede" +
+        assertArrayEquals(expected, actual.toArray(), "Beginning Last should precede" +
 		" Matches First.");
     }
 
     @Test
     void BeginningLastName_MatchesFirst() {
-        List<String> actual = autocompleter.getCompletions("asta");
+        List<String> initial = autocompleter.getCompletions("asta");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Astaire, Fred", "Chastain, Jessica", "Kinski, Nastassja"};
-        assertEquals(expected, actual.toArray(), "Beginning Last should precede" +
+        assertArrayEquals(expected, actual.toArray(), "Beginning Last should precede" +
 		" Matches First.");
     }
 
     @Test
     void BeginningFirst_MatchesLast() {
-        List<String> actual = autocompleter.getCompletions("Dem");
+        List<String> initial = autocompleter.getCompletions("Dem");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = { "Moore, Demi", "Bardem, Javier"};
-        assertEquals(expected, actual.toArray(), "Beginning First should precede" + 
+        assertArrayEquals(expected, actual.toArray(), "Beginning First should precede" + 
 		" Matches Last.");
     }
 
     @Test
     void BeginningFirst_MatchesFirst() {
-        List<String> actual = autocompleter.getCompletions("Ice");
+        List<String> initial = autocompleter.getCompletions("Ice");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Cube, Ice", "Eve, Alice", "Bejo, Bérénice" , "Straight, Beatrice"};
-        assertEquals(expected, actual.toArray(), "Beginning First should precede" +
+        assertArrayEquals(expected, actual.toArray(), "Beginning First should precede" +
 		" Matches First.");
     }
 
     @Test
     void MatchesLast_MatchesFirst() {
-        List<String> actual = autocompleter.getCompletions("oom");
+        List<String> initial = autocompleter.getCompletions("oom");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Bloom, Orlando", "Rapace, Noomi"};
-        assertEquals(expected, actual.toArray(), "Matches Last should precede" + 
+        assertArrayEquals(expected, actual.toArray(), "Matches Last should precede" + 
 		" Matches First.");
     }
 
     @Test
     void BasicsCumTest() {
-        List<String> actual = autocompleter.getCompletions("ent");
+        List<String> initial = autocompleter.getCompletions("ent");
+        String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Entertainer, Cedric the", "Osment, Haley Joel", "Potente, Franka", "Fiorentino, Linda",
 	    "Laurent, Mélanie", "Broadbent, Jim", "Gallo, Vincent", "Cassel, Vincent"};
-        assertEquals(expected, actual.toArray(), "Go pass all other basic tests and try again...");
+        assertArrayEquals(expected, actual.toArray(), "Go pass all other basic tests and try again...");
     }
 }
