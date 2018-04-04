@@ -8,6 +8,7 @@
  */
 package edu.carleton.leeg2;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,4 +37,33 @@ public class Autocompleter {
     public List<String> getCompletions(String searchString) {
         return new ArrayList<String>();
     }
+
+
+    /**
+     *
+     */
+    private static class Actor {
+        String fullName;
+        String refinedName;
+        int hierarchy;
+        int index;
+        int comma;
+
+        private Actor(String name) {
+            this.fullName = name;
+
+        }
+
+        private String refineName(String name) {
+            String refine = name.toLowerCase();
+            refine = Normalizer.normalize(refine, Normalizer.Form.NFD);
+            refine = refine.replaceAll("[^\\p{ASCII}]","");
+            refine = refine.replaceAll("\\p{M}", "");
+            refine.trim();
+            refine = refine.replaceAll("\\s\\-\\'", "");
+        }
+
+
+    }
 }
+

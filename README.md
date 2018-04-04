@@ -11,7 +11,7 @@ Following guide provided by Jeff: http://cs.carleton.edu/faculty/jondich/courses
 
 ### - Assignment 2 CS 257:
 
-- [ ] Due Date: 11:59 PM 4/3
+- [x] Due Date: 11:59 PM 4/3
 Completed by Grant & Ari
 
 Getting to know JUnit and Test Driven Development (TDD)
