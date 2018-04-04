@@ -137,7 +137,7 @@ public class Autocompleter {
             if(name.contains(",")) {
                 this.comma = refinedName.indexOf(",");
             } else {
-                this.comma = name.length;
+                this.comma = name.length();
             }
         }
 
@@ -206,7 +206,7 @@ public class Autocompleter {
 
             this.index = refinedName.indexOf(searchString);
 
-            String first = refinedName.substring(comma+1, refinedName.length);
+            String first = refinedName.substring(comma + 1, refinedName.length());
 
             if (searchString.contains(",")) {
                 this.hierarchy = 5;
