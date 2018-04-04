@@ -1,6 +1,7 @@
 /**
  * Autocompleter.java
  * Jeff Ondich, 20 March 2018
+ * Ari Conati & Grant Lee
  *
  * This class exposes a very simple interface for generating auto-completions of search strings.
  * The purpose of this class is to give the students in CS257 an opportunity to practice creating
@@ -8,18 +9,12 @@
  */
 package edu.carleton.leeg2;
 
-import java.io.FileNotFoundException;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.io.File;
-import java.util.Scanner;
 
 public class Autocompleter {
 
-
-    private List<Actor> actors;
     /**
      * @param dataFilePath the path to the data file containing the set of items to
      * from which auto-completed results will be drawn. (In the context of this assignment,
@@ -28,15 +23,6 @@ public class Autocompleter {
      * to use different datasets and different approaches to doing the autocompletion.)
      */
     public Autocompleter(String dataFilePath) {
-        // Initialization goes here, as needed. For example, you might load
-        // from a file into a list (or a hashmap or something like that)
-        // the list of strings that are going to form the dataset of potential
-        // auto-completions. The initialization will be up to you.
-        actors = new ArrayList<Actor>();
-        if(!load(dataFilePath, actors)) {
-            System.err.println("File not found.");
-            actors = null;
-        }
     }
 
     private boolean load(String dataFilePath, List<Actor> actors) {
@@ -134,3 +120,6 @@ public class Autocompleter {
     }
 }
 
+=======
+}
+>>>>>>> 0cdfa258d6c73216c8a8b83585b747f1060fb586
