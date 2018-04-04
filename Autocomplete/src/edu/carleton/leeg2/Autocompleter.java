@@ -76,7 +76,7 @@ public class Autocompleter {
         }
 
         for (Actor actor : actors) {
-            if (actor.refinedName.contains(searchString)) {
+            if (actor.getRefinedName().contains(searchString)) {
                 actor.setHierarchy(searchString);
                 matches.add(actor.toString());
             }
@@ -119,11 +119,11 @@ public class Autocompleter {
      * The Actor nested static class that stores names in a neat fashion.
      */
     public static class Actor implements Comparable<Actor> {
-        String fullName;
-        String refinedName;
-        int hierarchy;
-        int index;
-        int comma;
+        private String fullName;
+        private String refinedName;
+        private int hierarchy;
+        private int index;
+        private int comma;
 
         /**
          * Constructor for Actor Object
@@ -134,7 +134,11 @@ public class Autocompleter {
             this.refinedName = refineName(name);
             this.index = -1;
             this.hierarchy = -1;
-            this.comma = refinedName.indexOf(",");
+            if(name.contains(",")) {
+                this.comma = refinedName.indexOf(",");
+            } else {
+                this.comma = name.length;
+            }
         }
 
         /**
@@ -168,7 +172,6 @@ public class Autocompleter {
                 return this.index - other.index;
             }
             return this.fullName.compareTo(other.fullName);
-
         }
 
         /**
@@ -195,9 +198,31 @@ public class Autocompleter {
          */
 
         public void setHierarchy(String searchString) {
+            if(!(refinedName.contains(searchString))) {
+                this.hierarchy = -1;
+                this.index = -1;
+                return;
+            }
+
+            this.index = refinedName.indexOf(searchString);
+
+            String first = refinedName.substring(comma+1, refinedName.length);
+
+            if (searchString.contains(",")) {
+                this.hierarchy = 5;
+            } else if (this.index == 0) {
+                this.hierarchy = 1;
+            } else if (first.indexOf(searchString) == 0) {
+                this.hierarchy = 2;
+            } else if (this.index < comma + 1) {
+                this.hierarchy = 3;
+            } else if (this.index > comma + 1) {
+                this.hierarchy = 4;
+            }
 
 
         }
+
         public String getRefinedName() {
             return this.refinedName;
         }
