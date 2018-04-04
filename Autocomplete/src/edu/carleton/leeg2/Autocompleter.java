@@ -1,7 +1,7 @@
 /**
  * Autocompleter.java
  * Jeff Ondich, 20 March 2018
- * Ari Conati & Grant Lee
+ * Ari Conati & Grant Lee, 3 April 2018
  *
  * This class exposes a very simple interface for generating auto-completions of search strings.
  * The purpose of this class is to give the students in CS257 an opportunity to practice creating
@@ -95,30 +95,43 @@ public class Autocompleter {
         Autocompleter autocompleter = new Autocompleter(args[0]);
         printResults(autocompleter.getCompletions(args[1]));
     }
-}
 
-    /**
+    /** The Actor nested static class that stores names in a neat fashion.
      *
      */
-    private static class Actor implements Comparable<Actor>{
+    private static class Actor implements Comparable<Actor> {
         String fullName;
         String refinedName;
         int hierarchy;
         int index;
         int comma;
 
+        /**
+         * Constructor for Actor Object
+         * @param name the string that is imported into actor object
+         */
         public Actor(String name) {
             this.fullName = name;
-
+            this.refinedName = refineName(name);
+            this.index = -1;
+            this.hierarchy = -1;
+            this.comma = refinedName.indexOf(",");
         }
 
         public static String refineName(String name) {
+        /**
+         * Method used to get rid of punctuations and spaces in name
+         * @param name the string that is being changed
+         * @return a string that is cleaned to "lastname,firstname" format
+         */
+        public static String refineName(String name) {
             String refine = name.toLowerCase();
             refine = Normalizer.normalize(refine, Normalizer.Form.NFD);
-            refine = refine.replaceAll("[^\\p{ASCII}]","");
+            refine = refine.replaceAll("[^\\p{ASCII}]", "");
             refine = refine.replaceAll("\\p{M}", "");
             refine.trim();
-            refine = refine.replaceAll("\\s\\-\\'", "");
+            refine = refine.replaceAll("[\\\\\\s\\-\\']", "");
+            return refine;
         }
 
 
@@ -130,8 +143,13 @@ public class Autocompleter {
                 return this.index - other.index;
             }
             return this.fullName.compareTo(other.fullName);
-        }
 
+        }
+        
+        public String toString() {
+            return fullName;
+
+        }
     }
 }
 
