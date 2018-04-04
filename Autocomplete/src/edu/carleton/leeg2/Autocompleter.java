@@ -175,15 +175,30 @@ public class Autocompleter {
 
         /**
          * @Override
-         * @return The actor's name in the last, first format
+         * @return - The actor's name in the last, first format
          */
         
         public String toString() {
             return this.fullName;
         }
 
-        public int setHierarchy(String searchString) {
-            return 2;
+        /**
+         *
+         * @param searchString - The substring to be searched.
+         * Sets the hierarchy instance variable of this object based on how closely
+         * it matches the search string. 1: Matches beginning of last
+         * name ; 2: Matches beginning of first name ; 3: Matches anywhere
+         * in the last name ; 4: Matches anywhere in the first name ;
+         * 5: Matches the middle of the string across the comma separating
+         * first and last name.
+         *
+         * Additionally, sets the index instance variable of this object
+         * to the index of the search string in the actor's name.
+         */
+
+        public void setHierarchy(String searchString) {
+
+
         }
         public String getRefinedName() {
             return this.refinedName;
