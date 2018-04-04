@@ -12,5 +12,6 @@ public class Main {
         Autocompleter test1 = new Autocompleter("actors.txt");
         //testing bjork
         System.out.println(test1.actors.get(75).getRefinedName());
+
     }
 }
