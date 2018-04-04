@@ -115,7 +115,7 @@ public class Autocompleter {
 
     public static void main(String[] args) {
         if (!(args.length == 2)) {
-            System.err.println("Incorrect command line usage. Correct usage:" +
+            System.err.println("Incorrect command line usage. Correct usage: " +
                     "java Autocompleter pathToActorsFile searchString");
             System.exit(0);
         }
