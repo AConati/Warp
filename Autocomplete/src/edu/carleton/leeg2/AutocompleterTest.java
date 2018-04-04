@@ -129,13 +129,14 @@ class AutocompleterTest {
     void testSingleName() {
         List<String> initial = autocompleter.getCompletions("Cher");
         String[] actual = initial.toArray(new String[0]);
-        String[] expected = {"Cher", "Fletcher, Laura"};
+        String[] expected = {"Cher", "Hutcherson, Josh", "Kutcher, Ashton", "Fletcher, Laura"};
         assertArrayEquals(expected, actual, "Error when sorting" +
                 " single names.");
     }
 
     @Test
     void testSingleName2() {
+        autocompleter = new Autocompleter("edgeactors.txt");
         List<String> initial = autocompleter.getCompletions("her");
         String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Cher", "Fletcher, Laura"};
@@ -252,7 +253,6 @@ class AutocompleterTest {
         List<String> initial = autocompleter.getCompletions("Gret");
         String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Garbo, Greta", "Gerwig, Greta"};
-        assertArrayEquals(expected, actual.toArray(), "When beginning first names are" +
         assertArrayEquals(expected, actual, "When beginning first names are" +
 		" equal and of same index should be alphabetical.");
     }
@@ -334,7 +334,6 @@ class AutocompleterTest {
         List<String> initial = autocompleter.getCompletions("oom");
         String[] actual = initial.toArray(new String[0]);
         String[] expected = {"Bloom, Orlando", "Rapace, Noomi"};
-        assertArrayEquals(expected, actual.toArray(), "Matches Last should precede" + 
         assertArrayEquals(expected, actual, "Matches Last should precede" +
 		" Matches First.");
     }

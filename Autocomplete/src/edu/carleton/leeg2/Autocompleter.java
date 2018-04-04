@@ -73,7 +73,6 @@ public class Autocompleter {
             return stringMatches;
         }
         List<Actor> matches = new ArrayList<Actor>();
-        List<String> stringMatches = new ArrayList<String>();
         searchString = Actor.refineName(searchString);
 
         if (actors == null) {
