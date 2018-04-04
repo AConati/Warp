@@ -69,10 +69,9 @@ public class Autocompleter {
      */
     public List<String> getCompletions(String searchString) {
         List<String> stringMatches = new ArrayList<String>();
-        if(searchString.equals("")) {
+        if(searchString == null ||searchString.equals("")) {
             return stringMatches;
         }
-
         List<Actor> matches = new ArrayList<Actor>();
         List<String> stringMatches = new ArrayList<String>();
         searchString = Actor.refineName(searchString);
