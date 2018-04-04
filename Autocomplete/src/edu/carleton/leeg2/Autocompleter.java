@@ -68,6 +68,11 @@ public class Autocompleter {
      * are sorted from best match to weakest match)
      */
     public List<String> getCompletions(String searchString) {
+        List<String> stringMatches = new ArrayList<String>();
+        if(searchString.equals("")) {
+            return stringMatches;
+        }
+
         List<Actor> matches = new ArrayList<Actor>();
         List<String> stringMatches = new ArrayList<String>();
         searchString = Actor.refineName(searchString);
@@ -210,7 +215,13 @@ public class Autocompleter {
 
             this.index = refinedName.indexOf(searchString);
 
-            String first = refinedName.substring(comma + 1, refinedName.length());
+
+            String first;
+            if(!(comma == refinedName.length())){
+                 first = refinedName.substring(comma+1, refinedName.length());
+            } else {
+                first = "";
+            }
 
             if (searchString.contains(",")) {
                 this.hierarchy = 5;
