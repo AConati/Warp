@@ -19,7 +19,8 @@ import java.util.Scanner;
 
 public class Autocompleter {
 
-    private List<Actor> actors;
+    public List<Actor> actors;
+
     /**
      * @param dataFilePath the path to the data file containing the set of items to
      * from which auto-completed results will be drawn. (In the context of this assignment,
@@ -29,7 +30,7 @@ public class Autocompleter {
      */
     public Autocompleter(String dataFilePath) {
         actors = new ArrayList<Actor>();
-        if(!load(dataFilePath, actors)) {
+        if (!load(dataFilePath, actors)) {
             System.err.println("File not found.");
             actors = null;
         }
@@ -46,7 +47,7 @@ public class Autocompleter {
             return false;
         }
 
-        while(scanner.hasNextLine()) {
+        while (scanner.hasNextLine()) {
             String name = scanner.nextLine();
             Actor actor = new Actor(name);
             actors.add(actor);
@@ -54,22 +55,23 @@ public class Autocompleter {
         return true;
 
     }
+
     /**
      * @param searchString the string whose autocompletions are sought
      * @return the list of potential completions that match the search string,
-     *  sorted in decreasing order of quality of the match (that is, the matches
-     *  are sorted from best match to weakest match)
+     * sorted in decreasing order of quality of the match (that is, the matches
+     * are sorted from best match to weakest match)
      */
     public List<String> getCompletions(String searchString) {
         List<String> matches = new ArrayList<String>();
         searchString = Actor.refineName(searchString);
 
-        if(actors == null) {
+        if (actors == null) {
             return matches;
         }
 
-        for(Actor actor : actors) {
-            if(actor.toString().contains(searchString)) {
+        for (Actor actor : actors) {
+            if (actor.toString().contains(searchString)) {
                 actor.setHierarchy(searchString);
                 matches.add(actor.toString());
             }
@@ -80,14 +82,14 @@ public class Autocompleter {
         return matches;
     }
 
-    public static void printResults(List<String> list){
-        for(String item : list) {
+    public static void printResults(List<String> list) {
+        for (String item : list) {
             System.out.println(item);
         }
     }
 
     public static void main(String[] args) {
-        if(!(args.length == 2)) {
+        if (!(args.length == 2)) {
             System.err.println("Incorrect command line usage. Correct usage:" +
                     "java Autocompleter pathToActorsFile searchString");
             System.exit(0);
@@ -96,10 +98,10 @@ public class Autocompleter {
         printResults(autocompleter.getCompletions(args[1]));
     }
 
-    /** The Actor nested static class that stores names in a neat fashion.
-     *
+    /**
+     * The Actor nested static class that stores names in a neat fashion.
      */
-    private static class Actor implements Comparable<Actor> {
+    public static class Actor implements Comparable<Actor> {
         String fullName;
         String refinedName;
         int hierarchy;
@@ -108,6 +110,7 @@ public class Autocompleter {
 
         /**
          * Constructor for Actor Object
+         *
          * @param name the string that is imported into actor object
          */
         public Actor(String name) {
@@ -120,6 +123,7 @@ public class Autocompleter {
 
         /**
          * Method used to get rid of punctuations and spaces in name
+         *
          * @param name the string that is being changed
          * @return a string that is cleaned to "lastname,firstname" format
          */
@@ -129,26 +133,33 @@ public class Autocompleter {
             refine = refine.replaceAll("[^\\p{ASCII}]", "");
             refine = refine.replaceAll("\\p{M}", "");
             refine.trim();
-            refine = refine.replaceAll("[\\\\\\s\\-\\']", "");
+            refine = refine.replaceAll("[\\\\\\s\\-\\'\\.]", "");
             return refine;
         }
 
-
         public int compareTo(Actor other) {
-            if(this.hierarchy != other.hierarchy) {
+            if (this.hierarchy != other.hierarchy) {
                 return this.hierarchy - other.hierarchy;
             }
-            if(this.index != other.index) {
+            if (this.index != other.index) {
                 return this.index - other.index;
             }
             return this.fullName.compareTo(other.fullName);
 
         }
-        
-        public String toString() {
-            return fullName;
 
+        public int setHierarchy(String searchString) {
+            return 2;
         }
+
+        public String toString() {
+            return this.fullName;
+        }
+
+        public String getRefinedName() {
+            return this.refinedName;
+        }
+    }
 }
 
 
