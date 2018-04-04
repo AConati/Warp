@@ -22,10 +22,7 @@ public class Autocompleter {
     private List<Actor> actors;
     /**
      * @param dataFilePath the path to the data file containing the set of items to
-     * from which auto-completed results will be drawn. (In the context of this assignment,
-     * this will be the path to the actors.txt file I provided you. But we'll also talk
-     * later about how you might use inheritance to create subclasses of Autocompleter
-     * to use different datasets and different approaches to doing the autocompletion.)
+     * from which auto-completed results will be drawn.
      */
     public Autocompleter(String dataFilePath) {
         actors = new ArrayList<Actor>();
@@ -34,6 +31,14 @@ public class Autocompleter {
             actors = null;
         }
     }
+
+    /**
+     *
+     * @param dataFilePath - the file path of the file containing actors' names
+     * @param actors - The list to which the actors in the file at dataFilePath
+     *               will be added. (Modified as a result of this method)
+     * @return True if file was successfully loaded. False if file not found.
+     */
 
     private boolean load(String dataFilePath, List<Actor> actors) {
 
@@ -80,11 +85,23 @@ public class Autocompleter {
         return matches;
     }
 
+    /**
+     * @param list - The list of strings to be printed.
+     * Prints the contents with each item on a separate line.
+     */
     public static void printResults(List<String> list){
         for(String item : list) {
             System.out.println(item);
         }
     }
+
+    /**
+     * @param args - Command line arguments: The first argument is
+     *             the data path to the file containing actors' names
+     *             and the second is the search string.
+     * Main method loads the contents of a file containing actors' names
+     * and prints the sorted list of matches.
+     */
 
     public static void main(String[] args) {
         if(!(args.length == 2)) {
@@ -133,6 +150,13 @@ public class Autocompleter {
             return refine;
         }
 
+        /**
+         *
+         * @param other - The actor to which this object is compared.
+         * @return - A negative integer if this object is a better match,
+         * zero if the actors are equally good matches, and a positive
+         * number if this object is a worse match.
+         */
 
         public int compareTo(Actor other) {
             if(this.hierarchy != other.hierarchy) {
@@ -144,6 +168,11 @@ public class Autocompleter {
             return this.fullName.compareTo(other.fullName);
 
         }
+
+        /**
+         * @Override
+         * @return The actor's name in the last, first format
+         */
         
         public String toString() {
             return fullName;
