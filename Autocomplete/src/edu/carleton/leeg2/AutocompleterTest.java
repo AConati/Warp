@@ -129,7 +129,7 @@ class AutocompleterTest {
     void testSingleName() {
         List<String> initial = autocompleter.getCompletions("Cher");
         String[] actual = initial.toArray(new String[0]);
-        String[] expected = {"Cher", "Hutcherson, Josh", "Kutcher, Ashton", "Fletcher, Laura"};
+        String[] expected = {"Cher", "Hutcherson, Josh", "Kutcher, Ashton", "Fletcher, Louise"};
         assertArrayEquals(expected, actual, "Error when sorting" +
                 " single names.");
     }

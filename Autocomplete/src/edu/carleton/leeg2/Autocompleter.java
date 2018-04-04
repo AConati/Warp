@@ -216,7 +216,7 @@ public class Autocompleter {
 
             String first;
             if(!(comma == refinedName.length())){
-                 first = refinedName.substring(comma+1, refinedName.length());
+                 first = refinedName.substring(comma + 1);
             } else {
                 first = "";
             }
