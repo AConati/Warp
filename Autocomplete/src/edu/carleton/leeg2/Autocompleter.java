@@ -62,6 +62,7 @@ public class Autocompleter {
      */
     public List<String> getCompletions(String searchString) {
         List<String> matches = new ArrayList<String>();
+        searchString = Actor.refineName(searchString);
 
         if(actors == null) {
             return matches;
@@ -102,7 +103,7 @@ public class Autocompleter {
     private static class Actor implements Comparable<Actor>{
         String fullName;
         String refinedName;
-        int hierarchy = 6;
+        int hierarchy;
         int index;
         int comma;
 
@@ -111,7 +112,7 @@ public class Autocompleter {
 
         }
 
-        private String refineName(String name) {
+        public static String refineName(String name) {
             String refine = name.toLowerCase();
             refine = Normalizer.normalize(refine, Normalizer.Form.NFD);
             refine = refine.replaceAll("[^\\p{ASCII}]","");
@@ -120,16 +121,18 @@ public class Autocompleter {
             refine = refine.replaceAll("\\s\\-\\'", "");
         }
 
+
         public int compareTo(Actor other) {
             if(this.hierarchy != other.hierarchy) {
-                
+                return this.hierarchy - other.hierarchy;
             }
-
+            if(this.index != other.index) {
+                return this.index - other.index;
+            }
+            return this.fullName.compareTo(other.fullName);
         }
 
     }
 }
 
-=======
-}
->>>>>>> 0cdfa258d6c73216c8a8b83585b747f1060fb586
+
