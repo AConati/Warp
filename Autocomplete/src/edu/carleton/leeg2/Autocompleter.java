@@ -19,7 +19,7 @@ import java.util.Scanner;
 
 public class Autocompleter {
 
-    public List<Actor> actors;
+    private List<Actor> actors; //List of actors loaded from file
 
     /**
      * @param dataFilePath the path to the data file containing the set of items to
@@ -70,15 +70,19 @@ public class Autocompleter {
     public List<String> getCompletions(String searchString) {
         List<String> stringMatches = new ArrayList<String>();
         if(searchString == null ||searchString.equals("")) {
-            return stringMatches;
+            return stringMatches; //return empty list if null/empty string
         }
         List<Actor> matches = new ArrayList<Actor>();
+
+        //remove punctuation, spacing from search string; set to lowercase
         searchString = Actor.refineName(searchString);
 
         if (actors == null) {
             return stringMatches;
         }
 
+        //If actor's name matches substring, add it to the list of matches
+        //and set its priority level/index for comparison with other matches
         for (Actor actor : actors) {
             if (actor.getRefinedName().contains(searchString)) {
                 actor.setHierarchy(searchString);
@@ -86,8 +90,10 @@ public class Autocompleter {
             }
         }
 
+        //Sort list using compareTo() method of Actor class
         Collections.sort(matches);
-        for (Actor actor : matches) {
+
+        for (Actor actor : matches) { //convert actor objects to strings for return
             stringMatches.add(actor.toString());
         }
 
@@ -128,9 +134,9 @@ public class Autocompleter {
     public static class Actor implements Comparable<Actor> {
         private String fullName;
         private String refinedName;
-        private int hierarchy;
-        private int index;
-        private int comma;
+        private int hierarchy; //Priority for actor - detailed in setHierarchy() method
+        private int index; //Lowest index of the search string in
+        private int comma; //Index of comma to distinguish between first and last name
 
         /**
          * Constructor for Actor Object
@@ -141,6 +147,9 @@ public class Autocompleter {
             this.refinedName = refineName(name);
             this.index = -1;
             this.hierarchy = -1;
+
+            //If the name contains no comma, it is a single name
+            //In this case, comma index set to the name's length
             if(name.contains(",")) {
                 this.comma = refinedName.indexOf(",");
             } else {
@@ -172,6 +181,10 @@ public class Autocompleter {
          */
 
         public int compareTo(Actor other) {
+
+            //Compare hierarchy level, then searchstring's index in case of equal
+            //hierarchy levels, then alphabetical comparison in case of equal index
+
             if (this.hierarchy != other.hierarchy) {
                 return this.hierarchy - other.hierarchy;
             }
@@ -205,6 +218,7 @@ public class Autocompleter {
          */
 
         public void setHierarchy(String searchString) {
+            //Set hierarchy, index to -1 if not a match
             if(!(refinedName.contains(searchString))) {
                 this.hierarchy = -1;
                 this.index = -1;
@@ -214,7 +228,11 @@ public class Autocompleter {
             this.index = refinedName.indexOf(searchString);
 
 
-            String first;
+            String first; //actor's first name
+
+            //If the comma index is set to length, the actor's name
+            //is a single last name, and the actor has no first name
+            //Otherwise it is the index directly after the index of the comma
             if(!(comma == refinedName.length())){
                  first = refinedName.substring(comma + 1);
             } else {
@@ -235,6 +253,12 @@ public class Autocompleter {
 
 
         }
+
+        /**
+         *
+         * @return - actor's name in last_name, first_name format, with
+         * all punctuation (-,',.) removed.
+         */
 
         public String getRefinedName() {
             return this.refinedName;
