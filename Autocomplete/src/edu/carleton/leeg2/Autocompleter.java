@@ -132,8 +132,8 @@ public class Autocompleter {
      * The Actor nested static class that stores names in a neat fashion.
      */
     private static class Actor implements Comparable<Actor> {
-        private String fullName;
-        private String refinedName;
+        private String fullName; //Name of actor in Last, First format
+        private String refinedName; // Name of actor with all spaces, punctuation, uppercase letters removed
         private int hierarchy; //Priority for actor - detailed in setHierarchy() method
         private int index; //Lowest index of the search string in
         private int comma; //Index of comma to distinguish between first and last name
@@ -239,15 +239,15 @@ public class Autocompleter {
                 first = "";
             }
 
-            if (searchString.contains(",")) {
+            if (searchString.contains(",")) { //matches across comma boundary
                 this.hierarchy = 5;
-            } else if (this.index == 0) {
+            } else if (this.index == 0) { //beginning of last name
                 this.hierarchy = 1;
-            } else if (first.indexOf(searchString) == 0) {
+            } else if (first.indexOf(searchString) == 0) { //beginning of first name
                 this.hierarchy = 2;
-            } else if (this.index < comma + 1) {
+            } else if (this.index < comma + 1) { //somewhere in last name
                 this.hierarchy = 3;
-            } else if (this.index > comma + 1) {
+            } else if (this.index > comma + 1) { //somewhere in first name
                 this.hierarchy = 4;
             }
 
