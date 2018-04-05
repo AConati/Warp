@@ -131,7 +131,7 @@ public class Autocompleter {
     /**
      * The Actor nested static class that stores names in a neat fashion.
      */
-    public static class Actor implements Comparable<Actor> {
+    private static class Actor implements Comparable<Actor> {
         private String fullName;
         private String refinedName;
         private int hierarchy; //Priority for actor - detailed in setHierarchy() method
@@ -191,14 +191,14 @@ public class Autocompleter {
             if (this.index != other.index) {
                 return this.index - other.index;
             }
-            return this.fullName.compareTo(other.fullName);
+            return this.refinedName.compareTo(other.refinedName);
         }
 
         /**
          * @Override
          * @return - The actor's name in the last, first format
          */
-        
+
         public String toString() {
             return this.fullName;
         }
