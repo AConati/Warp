@@ -134,7 +134,7 @@ public class Autocompleter {
     private static class Actor implements Comparable<Actor> {
         private String fullName; //Name of actor in Last, First format
         private String refinedName; // Name of actor with all spaces, punctuation, uppercase letters removed
-        private int hierarchy; //Priority for actor - detailed in setHierarchy() method
+        public int hierarchy; //Priority for actor - detailed in setHierarchy() method
         private int index; //Lowest index of the search string in
         private int comma; //Index of comma to distinguish between first and last name
 
@@ -164,11 +164,11 @@ public class Autocompleter {
          */
         public static String refineName(String name) {
             String refine = name.toLowerCase();
-            refine = Normalizer.normalize(refine, Normalizer.Form.NFD);
-            refine = refine.replaceAll("[^\\p{ASCII}]", "");
-            refine = refine.replaceAll("\\p{M}", "");
-            refine.trim();
-            refine = refine.replaceAll("[\\\\\\s\\-\\'\\.]", "");
+            //refine = Normalizer.normalize(refine, Normalizer.Form.NFD);
+            //refine = refine.replaceAll("[^\\p{ASCII}]", "");
+            //refine = refine.replaceAll("\\p{M}", "");
+            refine = refine.replaceAll(" ", "");
+            //refine = refine.replaceAll("[\\\\\\s\\-\\'\\.]", "");
             return refine;
         }
 
