@@ -167,7 +167,6 @@ public class Autocompleter {
             refine = Normalizer.normalize(refine, Normalizer.Form.NFD);
             refine = refine.replaceAll("[^\\p{ASCII}]", "");
             refine = refine.replaceAll("\\p{M}", "");
-            refine = refine.replaceAll(" ", "");
             refine = refine.replaceAll("[\\\\\\s\\-\\'\\.]", "");
             return refine;
         }
