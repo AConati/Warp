@@ -1,0 +1,21 @@
+Autocompleter test results, 6 April 2018
+
+People on the team: Ari Conati & Grant Lee
+
+People on Other Team: Chirrag Gohel & Liz Nichols
+
+The other team passed their own tests.
+
+- There was an issue where their code needed a extra exceptions for tests
+- They also needed an extra Main.class
+
+We have too many tests we will specify the tests that did not pass for the other team:
+
+The other team failed the test:
+
+Where a null input was entered
+
+Where multiple matches were found in the string
+
+
+
