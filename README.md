@@ -20,7 +20,7 @@ Following guide provided by Jeff: http://cs.carleton.edu/faculty/jondich/courses
 
 ### - Assignment 3 CS 257: 
 
-- [ ] Due Date: 11:59 PM 4/5
+- [x] Due Date: 11:59 PM 4/5
 Completed by Grant & Ari
 
 Implementation of the Autocomplete Function
