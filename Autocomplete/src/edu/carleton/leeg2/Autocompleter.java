@@ -164,11 +164,11 @@ public class Autocompleter {
          */
         public static String refineName(String name) {
             String refine = name.toLowerCase();
-            //refine = Normalizer.normalize(refine, Normalizer.Form.NFD);
-            //refine = refine.replaceAll("[^\\p{ASCII}]", "");
-            //refine = refine.replaceAll("\\p{M}", "");
+            refine = Normalizer.normalize(refine, Normalizer.Form.NFD);
+            refine = refine.replaceAll("[^\\p{ASCII}]", "");
+            refine = refine.replaceAll("\\p{M}", "");
             refine = refine.replaceAll(" ", "");
-            //refine = refine.replaceAll("[\\\\\\s\\-\\'\\.]", "");
+            refine = refine.replaceAll("[\\\\\\s\\-\\'\\.]", "");
             return refine;
         }
 
