@@ -13,41 +13,49 @@ import argparse
 import json
 import urllib.request
 
-def get_root_words(word, language):
+def get_audio_analysis(song_id):
     '''
-    Returns a list of root words for the specified word in the
-    specified language. The root words are represented as
-    dictionaries of the form
+    Returns a detailed audio analysis for a single track
+    identified by a unique Spotify ID.
+
+    When the request is successful, the HTTP status code 
+    200 OK will be returned. 
+
+    This will return a JSON object that includes the beats, metadata
+    bars, sections, segments, tatums, and track in the following 
+    style:
+	
+	{"bars": [{"start": 251.98282, "duration": 0.29765, "confidence": 0.652}],"meta":{
+	"analyzer_version:": "4.0.0", "platform": "Linux"...}}
     
-       {'root':root_word, 'partofspeech':part_of_speech}
-
-    For example, the results for get_root_words('thought', 'eng')
-    would be:
-
-       [{'root':'thought', 'partofspeech':'noun'},
-        {'root':'think', 'partofspeech':'verb'}]
-
-    The language parameter must be a 3-letter ISO language code
-    (e.g. 'eng', 'fra', 'deu', 'spa', etc.).
-
-    Raises exceptions on network connection errors and on data
-    format errors.
+    The parameter "song_id" is a long combination of capital letters,
+    lowercase letters, and numbers that can be found at the end of 
+    a song's url. For example the URL for the song "Sympathy for 
+    the Devil" is https://open.spotify.com/track/1iDcKYNvo6gglrOG6lvnHL.
+    The song's song id would be: 1iDcKYNvo6gglrOG6lvnHL.
+	
+    When the request is called incorrectly an error code and error object
+    will most likely be returned.
     '''
-    base_url = 'http://developer.ultralingua.com/api/stems/{0}/{1}'
-    url = base_url.format(language, word)
+    base_url = 'https://api.spotify.com/v1/tracks/{0}'
+    url = base_url.format (song_id)
     data_from_server = urllib.request.urlopen(url).read()
     string_from_server = data_from_server.decode('utf-8')
-    root_word_list = json.loads(string_from_server)
+    track_analysis_list = json.loads(string_from_server)
     result_list = []
-    for root_word_dictionary in root_word_list:
-        root = root_word_dictionary['text']
-        part_of_speech = root_word_dictionary['partofspeech']
-        part_of_speech_category = part_of_speech['partofspeechcategory']
-        if type(root) != type(''):
-            raise Exception('root has wrong type: "{0}"'.format(root))
-        if type(part_of_speech_category) != type(''):
-            raise Exception('part of speech has wrong type: "{0}"'.format(part_of_speech))
-        result_list.append({'root':root, 'partofspeech':part_of_speech_category})
+    for track_analysis_dictionary in track_analysis_list:
+        song_track = song_analysis_dictionary['track']
+        song_tempo = song_track['tempo']
+	song_key = song_track['key']
+        
+        if type(song_id) != type(''):
+            raise Exception('song_id has wrong type: "{0}"'.format(song_id))
+  	if type(song_tempo) != type(''):
+            raise Exception('song_tempo has wrong type: "{0}"'.format(song_tempo))
+	if type(song_key) != type(''):
+            raise Exception('song_key has wrong type: "{0}"'.format(song_key))
+
+        result_list.append({'Song ID':song_id, 'Tempo of Song':song_tempo, 'Key of Track':song_key})
     return result_list
 
 def get_conjugations(verb, language):
@@ -98,7 +106,7 @@ def get_conjugations(verb, language):
     return result_list
 
 def main(args):
-    if args.action == 'root':
+    if args.action == 'analyze':
         root_words = get_root_words(args.word, args.language)
         for root_word in root_words:
             root = root_word['root']
@@ -115,16 +123,13 @@ def main(args):
             print('{0} [{1} {2} {3}]'.format(text, tense, person, number))
     
 if __name__ == '__main__':
-    # When I use argparse to parse my command line, I usually
-    # put the argparse setup here in the global code, and then
-    # call a function called main to do the actual work of
-    # the program.
-    parser = argparse.ArgumentParser(description='Get word info from the Ultralingua API')
 
-    parser.add_argument('action',
-                        metavar='action',
-                        help='action to perform on the word ("root" or "conjugate")',
-                        choices=['root', 'conjugate'])
+    parser = argparse.ArgumentParser(description='Get song info from Spotify API')
+
+    parser.add_argument('request',
+                        metavar='request',
+                        help='request a information about an artist or a song ("analyze" or "get_top_songs")',
+                        choices=['analyze', 'conjugate'])
 
     parser.add_argument('language',
                         metavar='language',
