@@ -58,50 +58,21 @@ def get_audio_analysis(song_id):
         result_list.append({'Song ID':song_id, 'Tempo of Song':song_tempo, 'Key of Track':song_key})
     return result_list
 
-def get_conjugations(verb, language):
-    '''
-    Returns a list of conjugations for the specified verb in the
-    specified language. The conjugations are represented as
-    dictionaries of the form
-    
-       {'text':..., 'tense':..., 'person':..., 'number':...}
-
-    For example, the results for get_root_words('parler', 'fra')
-    would include:
-
-       [{'text':'parle', 'tense':'present', 'person':'first', 'number':'singular'},
-        {'text':'parles', 'tense':'present', 'person':'second', 'number':'singular'},
-        ...
-       ]
-
-    The language parameter must be a 3-letter ISO language code
-    (e.g. 'eng', 'fra', 'deu', 'spa', etc.).
-
-    Raises exceptions on network connection errors and on data
-    format errors.
-    '''
-    base_url = 'http://developer.ultralingua.com/api/conjugations/{0}/{1}'
-    url = base_url.format(language, verb)
+def get_top_tracks (artist_id, country):
+	
+    base_url = 'https://api.spotify.com/v1/artists/{0}/top-tracks?country={1}'
+    url = base_url.format(artist_id, country)
 
     data_from_server = urllib.request.urlopen(url).read()
     string_from_server = data_from_server.decode('utf-8')
-    conjugation_list = json.loads(string_from_server)
+    track_list = json.loads(string_from_server)
 
     result_list = []
-    for conjugation_dictionary in conjugation_list:
-        text = conjugation_dictionary.get('surfaceform', '')
-        tense = conjugation_dictionary['partofspeech'].get('tense', '')
-        person = conjugation_dictionary['partofspeech'].get('person', '')
-        number = conjugation_dictionary['partofspeech'].get('number', '')
-        if type(text) != type(''):
-            raise Exception('text has wrong type: "{0}"'.format(text))
-        if type(tense) != type(''):
-            raise Exception('tense has wrong type: "{0}"'.format(tense))
-        if type(person) != type(''):
-            raise Exception('person has wrong type: "{0}"'.format(person))
-        if type(number) != type(''):
-            raise Exception('number has wrong type: "{0}"'.format(number))
-        result_list.append({'text':text, 'tense':tense, 'person':person, 'number':number})
+    for track_dictionary in track_list
+        name = track_dictionary['name']
+        popularity = track_dictionary['popularity']
+	
+        result_list.append({'name':name, 'popularity':popularity})
 
     return result_list
 
