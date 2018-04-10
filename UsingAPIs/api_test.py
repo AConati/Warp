@@ -62,7 +62,7 @@ def get_top_tracks (artist_id, country):
 	
     base_url = 'https://api.spotify.com/v1/artists/{0}/top-tracks?country={1}'
     url = base_url.format(artist_id, country)
-
+	
     data_from_server = urllib.request.urlopen(url).read()
     string_from_server = data_from_server.decode('utf-8')
     track_list = json.loads(string_from_server)
