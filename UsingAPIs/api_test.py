@@ -46,13 +46,13 @@ def get_audio_analysis(song_id):
     for track_analysis_dictionary in track_analysis_list:
         song_track = song_analysis_dictionary['track']
         song_tempo = song_track['tempo']
-	song_key = song_track['key']
+        song_key = song_track['key']
         
         if type(song_id) != type(''):
             raise Exception('song_id has wrong type: "{0}"'.format(song_id))
-  	if type(song_tempo) != type(''):
+        if type(song_tempo) != type(''):
             raise Exception('song_tempo has wrong type: "{0}"'.format(song_tempo))
-	if type(song_key) != type(''):
+        if type(song_key) != type(''):
             raise Exception('song_key has wrong type: "{0}"'.format(song_key))
 
         result_list.append({'Song ID':song_id, 'Tempo of Song':song_tempo, 'Key of Track':song_key})
@@ -68,7 +68,7 @@ def get_top_tracks (artist_id, country):
     track_list = json.loads(string_from_server)
 
     result_list = []
-    for track_dictionary in track_list
+    for track_dictionary in track_list:
         name = track_dictionary['name']
         popularity = track_dictionary['popularity']
 	
@@ -78,19 +78,20 @@ def get_top_tracks (artist_id, country):
 
 def main(args):
     if args.action == 'analyze':
-        root_words = get_root_words(args.word, args.language)
-        for root_word in root_words:
-            root = root_word['root']
-            part_of_speech = root_word['partofspeech']
-            print('{0} [{1}]'.format(root, part_of_speech))
+        song_analysis = get_audio_analysis(args.id)
+        for track_info in song_analysis:
+            song_track = track_info['track']
+            song_tempo = track_info['tempo']
+            song_key = track_info['key']
+            print('{0} [{1} {2}]'.format(song_track, song_tempo, song_key))
 
     elif args.action == 'conjugate':
         conjugations = get_conjugations(args.word, args.language)
         for conjugation in conjugations:
             text = conjugation['text']
             tense = conjugation['tense']
-            person = conjugation['person']
-            number = conjugation['number']
+	    person = conjugation['person']
+	    number = conjugation['number']
             print('{0} [{1} {2} {3}]'.format(text, tense, person, number))
     
 if __name__ == '__main__':
@@ -99,15 +100,17 @@ if __name__ == '__main__':
 
     parser.add_argument('request',
                         metavar='request',
-                        help='request a information about an artist or a song ("analyze" or "get_top_songs")',
-                        choices=['analyze', 'conjugate'])
+                        help='request a information about an artist or a song ("analyze" or "top")',
+                        choices=['analyze', 'top'])
 
-    parser.add_argument('language',
-                        metavar='language',
-                        help='the language as a 3-character ISO code',
-                        choices=['eng', 'fra', 'spa', 'deu', 'ita', 'por'])
+    parser.add_argument('id',
+                        metavar='id',
+                        help='the id of what information is being requested about')
 
-    parser.add_argument('word', help='the word you want to act on')
+    parser.add_argument('country',
+			required = 'request' in sys.argv,
+		        help='the country of the market a particular artist\'s songs were popular in')
 
-    args = parser.parse_args()
+    args = parser.parse_args()                  
+
     main(args)
