@@ -13,6 +13,8 @@ import sys
 import argparse
 import json
 import urllib.request
+import urllib.parse
+import base64
 
 def get_audio_analysis(song_id):
     '''
@@ -40,10 +42,15 @@ def get_audio_analysis(song_id):
     '''
     base_url = 'https://api.spotify.com/v1/tracks/{0}'
     url = base_url.format (song_id)
-    data_from_server = urllib.request.urlopen(url).read()
+    url_request = urllib.request.Request(url)
+    url_request.add_header('Authorization', ('Bearer' + getToken()))
+    print(url_request)
+    with urllib.request.Request(url_request) as response:
+        data_from_server = response.read()
     string_from_server = data_from_server.decode('utf-8')
     track_analysis_list = json.loads(string_from_server)
     result_list = []
+
     for track_analysis_dictionary in track_analysis_list:
         song_track = song_analysis_dictionary['track']
         song_tempo = song_track['tempo']
@@ -81,7 +88,34 @@ def get_top_tracks (artist_id, country, token):
 
     return result_list
 
+def getToken():
+
+    #Code for creating an base64 encoded 
+    client_id = '4d6407fff77d422888b19cbe554c1a46'
+    client_secret = '8b53b7d5ab2c4df5b3a4330840db39d1'
+    client_info = client_id + ':' + client_secret
+    client_info_bytes = client_info.encode('utf-8')
+    client_info_string = base64.b64encode(client_info_bytes).decode('utf-8')
+
+    authorization_value = 'Basic ' + client_info_string
+
+    url = 'https://accounts.spotify.com/api/token'
+    headers = {'Authorization': authorization_value}
+    values = {'grant_type': 'client_credentials'}
+
+    data = urllib.parse.urlencode(values)
+    data = data.encode('utf-8')
+    request = urllib.request.Request(url, data, headers)
+    with urllib.request.urlopen(request) as response:
+        the_result = response.read()
+    list_of_auth = json.loads(the_result.decode('utf-8'))
+    token = list_of_auth['access_token']
+    return token
+
+
+
 def main(args):
+
     if args.request == 'analyze':
         song_analysis = get_audio_analysis(args.id)
         for track_info in song_analysis:
@@ -110,13 +144,10 @@ if __name__ == '__main__':
                         metavar='id',
                         help='the id of what information is being requested about')
 
-    parser.add_argument('country',
-			            metavar='country',
-		                help='the country of the market a particular artist\'s songs were popular in')
-    
-    parser.add_argument('token',
-                        metavar='token',
-                        help='Authorization token')
+    parser.add_argument('--country',
+			required = 'top' in sys.argv,
+		        help='the country of the market a particular artist\'s songs were popular in')
+
     args = parser.parse_args()                  
 
     main(args)
