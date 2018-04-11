@@ -7,7 +7,6 @@
     from an HTTP-based API, parse the results (JSON in this case),
     and manage the potential errors.
 '''
-
 import subprocess
 import sys
 import argparse
@@ -72,10 +71,11 @@ def get_top_tracks (artist_id, country, token):
     url = base_url.format(artist_id, country, token)
     track_list_string = subprocess.getoutput("GET " + url)
     
-    #The dictionary returned uses false, true instead of False, True - change to correct version so Python can eval
+    #The JSON format returned uses false, true instead of False, True - change to correct version so Python can eval
+    #Same with null, none
     track_list_string = track_list_string.replace("false", "False")
     track_list_string = track_list_string.replace("true", "True")
-    
+    track_list_string = track_list_string.replace("null", "None")
     #Evaluate the output and store it as a dictionary variable
     track_list = eval(track_list_string)
     
@@ -125,7 +125,7 @@ def main(args):
             print('{0} [{1} {2}]'.format(song_track, song_tempo, song_key))
 
     elif args.request == 'top':
-        tracks = get_top_tracks(args.id, args.country, args.token)
+        tracks = get_top_tracks(args.id, args.country, getToken())
         for track in tracks:
             song_track = track['name']
             song_popularity = track['popularity']  
@@ -144,9 +144,9 @@ if __name__ == '__main__':
                         metavar='id',
                         help='the id of what information is being requested about')
 
-    parser.add_argument('--country',
-			required = 'top' in sys.argv,
-		        help='the country of the market a particular artist\'s songs were popular in')
+    parser.add_argument('country',
+		                metavar='country',
+                        help='the country of the market a particular artist\'s songs were popular in')
 
     args = parser.parse_args()                  
 
