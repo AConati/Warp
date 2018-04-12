@@ -1,6 +1,3 @@
-# assignments-grantIee
-assignments-grantIee created by GitHub Classroom
-
 ### -  Assignment 1 CS 257:
 
 - [x] Due Date: 11:59 PM 3/29
