@@ -41,29 +41,29 @@ def get_audio_analysis(song_id):
     '''
     base_url = 'https://api.spotify.com/v1/tracks/{0}'
     url = base_url.format (song_id)
-    url_request = urllib.request.Request(url)
-    url_request.add_header('Authorization', ('Bearer' + getToken()))
-    print(url_request)
-    with urllib.request.Request(url_request) as response:
-        data_from_server = response.read()
+    request = urllib.request.Request(url)
+    string_header_value = 'Bearer ' + getToken()
+    request.add_header('Authorization', string_header_value)
+    data_from_server = urllib.request.urlopen(request).read()
     string_from_server = data_from_server.decode('utf-8')
     track_analysis_list = json.loads(string_from_server)
     result_list = []
 
     for track_analysis_dictionary in track_analysis_list:
-        song_track = song_analysis_dictionary['track']
-        song_tempo = song_track['tempo']
-        song_key = song_track['key']
+        print(track_analysis_dictionary)
+       #song_track = track_analysis_dictionary['track']
+       #song_tempo = song_track['tempo']
+       #song_key = song_track['key']
         
-        if type(song_id) != type(''):
-            raise Exception('song_id has wrong type: "{0}"'.format(song_id))
-        if type(song_tempo) != type(''):
-            raise Exception('song_tempo has wrong type: "{0}"'.format(song_tempo))
-        if type(song_key) != type(''):
-            raise Exception('song_key has wrong type: "{0}"'.format(song_key))
+       # if type(song_id) != type(''):
+           # raise Exception('song_id has wrong type: "{0}"'.format(song_id))
+       # if type(song_tempo) != type(''):
+           # raise Exception('song_tempo has wrong type: "{0}"'.format(song_tempo))
+       # if type(song_key) != type(''):
+           # raise Exception('song_key has wrong type: "{0}"'.format(song_key))
 
-        result_list.append({'Song ID':song_id, 'Tempo of Song':song_tempo, 'Key of Track':song_key})
-    return result_list
+       # result_list.append({'Song ID':song_id, 'Tempo of Song':song_tempo, 'Key of Track':song_key})
+   # return result_list
 
 def get_top_tracks (artist_id, country):
 	
