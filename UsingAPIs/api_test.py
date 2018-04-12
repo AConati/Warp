@@ -63,8 +63,7 @@ def get_audio_analysis(song_id):
         raise Exception('song_key has wrong type: "{0}"'.format(song_key))
 
     result_list.append({'song_id': song_id, 'song_tempo':song_tempo, 'song_key':song_key})
-    
-    return result_list.append
+    return result_list
 
 def get_top_tracks (artist_id, country, token):
 	
@@ -118,11 +117,12 @@ def getToken():
 def main(args):
 
     if args.request == 'analyze':
-        song_analysis = get_audio_analysis(args.id)
-        song_track = song_analysis['song_id']
-        song_tempo = song_analysis['song_tempo']
-        song_key = song_analysis['song_key']
-        print('{0}: tempo: {1}, key: {2}]'.format(song_track, song_tempo, song_key))
+        song_list = get_audio_analysis(args.id)
+        for track_dictionary in song_list:
+            song_track = track_dictionary['song_id']
+            song_tempo = track_dictionary['song_tempo']
+            song_key = track_dictionary['song_key']
+            print('{0}: tempo: {1}, key: {2}]'.format(song_track, song_tempo, song_key))
 
     elif args.request == 'top':
         tracks = get_top_tracks(args.id, args.country, getToken())
