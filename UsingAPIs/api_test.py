@@ -69,16 +69,8 @@ def get_top_tracks (artist_id, country, token):
 	
     base_url = 'https://api.spotify.com/v1/artists/{0}/top-tracks?country={1} -H "Authorization: Bearer {2}"'
     url = base_url.format(artist_id, country, token)
-    track_list_string = subprocess.getoutput("GET " + url)
-    
-    #The JSON format returned uses false, true instead of False, True - change to correct version so Python can eval
-    #Same with null, none
-    track_list_string = track_list_string.replace("false", "False")
-    track_list_string = track_list_string.replace("true", "True")
-    track_list_string = track_list_string.replace("null", "None")
-    #Evaluate the output and store it as a dictionary variable
-    track_list = eval(track_list_string)
-    
+    track_list_string = subprocess.getoutput("GET " + url) 
+    track_list = json.loads(track_list_string)
     result_list = []
     track_list = track_list['tracks']
     for track_dictionary in track_list:
