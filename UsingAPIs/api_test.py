@@ -88,6 +88,7 @@ def get_top_tracks (artist_id, country, token):
 
     return result_list
 
+#def search_id(term, category, 
 def getToken():
 
     #Code for creating an base64 encoded 
@@ -138,14 +139,13 @@ if __name__ == '__main__':
     parser.add_argument('request',
                         metavar='request',
                         help='request a information about an artist or a song ("analyze" or "top")',
-                        choices=['analyze', 'top'])
+                        choices=['analyze', 'top', 'identify'])
 
     parser.add_argument('id',
                         metavar='id',
                         help='the id of what information is being requested about')
 
     parser.add_argument('--country',
-                        #required 'request' == 'top',
 		        metavar= 'country',
                         help='the country of the market a particular artist\'s songs were popular in')
 
