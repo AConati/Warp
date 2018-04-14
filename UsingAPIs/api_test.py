@@ -76,7 +76,8 @@ def get_top_tracks (artist_id, country, token):
     for track_dictionary in track_list:
         name = track_dictionary['name']
         popularity = track_dictionary['popularity']
-        result_list.append({'name':name, 'popularity':popularity})
+        album_name = track_dictionary['album']['name']
+        result_list.append({'name':name, 'popularity':popularity, 'album':album_name})
 
     return result_list
 
@@ -120,8 +121,9 @@ def main(args):
         tracks = get_top_tracks(args.id, args.country, getToken())
         for track in tracks:
             song_track = track['name']
-            song_popularity = track['popularity']  
-            print('{0} - popularity rating: {1}'.format(song_track, song_popularity))
+            song_popularity = track['popularity']
+            song_album = track['album']
+            print('Track: {0}\nAlbum: {1}\nSpotify popularity rating: {2}\n'.format(song_track, song_album, song_popularity))
     
 if __name__ == '__main__':
 
@@ -136,9 +138,9 @@ if __name__ == '__main__':
                         metavar='id',
                         help='the id of what information is being requested about')
 
-    parser.add_argument('--country',
-                        #required 'request' == 'top',
-		        metavar= 'country',
+    parser.add_argument('-country',
+                        #required = True,
+                        metavar = 'country',
                         help='the country of the market a particular artist\'s songs were popular in')
 
     args = parser.parse_args()                  
