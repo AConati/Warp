@@ -42,10 +42,11 @@ def get_audio_analysis(song_id):
     '''
     #Formatting the URL Request with Header
     base_url = 'https://api.spotify.com/v1/audio-analysis/{0}'
-    url = base_url.format (song_id)
+    song_id  = urllib.parse.quote(' '.join(str(x) for x in song_id).encode('utf-8'))
+    url = base_url.format(song_id)
     request = urllib.request.Request(url)
-    string_header_value = 'Bearer ' + getToken()
-    request.add_header('Authorization', string_header_value)
+    string_header_value3 = 'Bearer ' + getToken()
+    request.add_header('Authorization', string_header_value3)
     data_from_server = urllib.request.urlopen(request).read()
     string_from_server = data_from_server.decode('utf-8')
     track_analysis_dict = json.loads(string_from_server)
@@ -82,16 +83,14 @@ def get_top_tracks (artist_id, country, token):
 
     return result_list
 
-def search_id(term, category, country, limit, offset):
+def search_id(term, category):
 
-    base_url = 'https://api.spotify.com/v1/search?q={0}&type={1}{2}{3}{4}'
+    base_url = 'https://api.spotify.com/v1/search?q={0}&type={1}{2}'
     #Getting spaces and additional characters into the correct format for url
     term = urllib.parse.quote(' '.join(str(x) for x in term).encode('utf-8'))
     category = urllib.parse.quote(','.join(str(x) for x in category).encode('utf-8'))
-    country = '' if country is None else '&market=' + country 
-    limit = '' if limit is None else '&limit=' + limit
-    offset = '' if offset is None else '&offset=' + offset
-    url = base_url.format(term, category, country, limit, offset)
+    limit ='&limit=5'
+    url = base_url.format(term, category,limit)
     request = urllib.request.Request(url)
     string_header_value1 = 'application/json'
     string_header_value2 = 'application/json'
@@ -102,14 +101,29 @@ def search_id(term, category, country, limit, offset):
     data_from_server = urllib.request.urlopen(request).read()
     string_from_server = data_from_server.decode('utf-8')
     results = json.loads(string_from_server)
+    result_list = []
 
-    # BIG REQUEST: Please parse out the correct values from the dictionary
-    return 'hello'
+    #Parse out the correct values from the dictionary
+    list_of_tracks = results['tracks']
+    track_of_list = list_of_tracks['items']
+    
+    for trackPackages in track_of_list:
+        album = trackPackages['album']
+        artists = album['artists']
+        album_name = album['name']
+        album_release_date = album['release_date']
+        track_name = trackPackages['name']
+        popularity = trackPackages['popularity']
+        track_id = trackPackages['id']
 
-
-
-
-
+        for artist_Dictionary in artists:
+            artist_name = artist_Dictionary['name']
+            artist_id = artist_Dictionary['id']
+            result_list.append({'track_id': track_id, 'track_name': track_name,
+                'track_release_date': album_release_date,'artist_name': artist_name,
+                'artist_id': artist_id, 'album_name': album_name, 'popularity': popularity})
+    return result_list
+            
 def getToken():
 
     #Code for creating an base64 encoded 
@@ -144,7 +158,7 @@ def main(args):
             song_track = track_dictionary['song_id']
             song_tempo = track_dictionary['song_tempo']
             song_key = track_dictionary['song_key']
-            print('{0}: tempo: {1}, key: {2}]'.format(song_track, song_tempo, song_key))
+            print('Song tempo: {1}\nSong key: {2}'.format(song_track, song_tempo, song_key))
 
     elif args.request == 'top':
         tracks = get_top_tracks(args.id, args.country, getToken())
@@ -155,20 +169,27 @@ def main(args):
             print('Track: {0}\nAlbum: {1}\nSpotify popularity rating: {2}\n'.format(song_track, song_album, song_popularity))
 
     elif args.request == 'search':
-        print(search_id(args.id, args.category, args.market, args.limit, args.offset))
-    
+        search_result = search_id(args.id, args.category) 
+        for track_info in search_result:
+            album_name = track_info['album_name']
+            popularity = track_info['popularity']
+            song_name = track_info['track_name']
+            song_id = track_info['track_id']
+            song_release_date = track_info['track_release_date']
+            artist_name = track_info['artist_name']
+            artist_id = track_info['artist_id']
+            print('{0}. From the album {1} by {2} that was released in {3}:\n    Song Name: {4}\n    SongID: {5}\n    ArtistID: {6}\n'.format(popularity, album_name, artist_name, song_release_date, song_name, song_id, artist_id))
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Get information from the Spotify API about tracks, artists, and more!')
 
     request = parser.add_argument('request',
-                        metavar='request',
                         help='request a information about an artist or a song ("analyze","top", or "search")',
                         choices=['analyze', 'top', 'search'])
 
     parser.add_argument('id',
-                        metavar='id',
-                        nargs = '+',
+                        nargs = '*',
                         help='the id of what information is being requested about')
 
     requiredIdentify =  parser.add_argument_group('flags required for search request')
@@ -176,27 +197,16 @@ if __name__ == '__main__':
     requiredTop = parser.add_argument_group('flags for top request')
 
     requiredIdentify.add_argument('-cat','--category', 
-                        metavar = 'category',
+                        metavar = 'CATEGORIES',
+                        dest = 'category',
                         nargs = '+',
                         help = 'the medium of the content that is being identified',
                         choices = ['album', 'artist', 'playlist', 'track'])
 
     requiredTop.add_argument('country',
-		        metavar= 'country',
-                        nargs = 1 if request == 'top' else '?' ,
+		        metavar= 'COUNTRYID',
+                        nargs = '?',
                         help='the market a particular artist\'s songs were popular in')
-
-    requiredIdentify.add_argument('-mar', '--market',
-                        metavar = 'market',
-                        help = 'the market where the item search is sold')
-
-    requiredIdentify.add_argument('-lim', '--limit', 
-                        metavar = 'limit',
-                        help = 'limit for the number of responses')
-                        
-    requiredIdentify.add_argument('-off', '--offset',
-                        metavar = 'offset',
-                        help = 'the starting index of the returned results')
 
     args = parser.parse_args()
 
