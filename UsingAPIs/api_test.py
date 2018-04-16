@@ -166,7 +166,7 @@ def main(args):
             song_track = track['name']
             song_popularity = track['popularity']
             song_album = track['album']
-            print('Track: {0}\nAlbum: {1}\nSpotify popularity rating: {2}\n'.format(song_track, song_album, song_popularity))
+            print('Track: {0}\nAlbum: {1}\nSpotify popularity rating: {2}\n'.format(song_track,song_album, song_popularity))
 
     elif args.request == 'search':
         search_result = search_id(args.id, args.category) 
@@ -203,8 +203,9 @@ if __name__ == '__main__':
                         help = 'the medium of the content that is being identified',
                         choices = ['album', 'artist', 'playlist', 'track'])
 
-    requiredTop.add_argument('country',
+    requiredTop.add_argument('-mark,  --market',
 		        metavar= 'COUNTRYID',
+                        dest = 'country',
                         nargs = '?',
                         help='the market a particular artist\'s songs were popular in')
 
