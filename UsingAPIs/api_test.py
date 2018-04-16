@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 '''
+        irint(args.country)
     api_test.py
     Ari Conati & Grant Lee, 09 April 2018
 
@@ -73,7 +74,6 @@ def get_top_tracks (artist_id, country, token):
     track_list_string = subprocess.getoutput("GET " + url) 
     track_list = json.loads(track_list_string)
     result_list = []
-    print(track_list)
     track_list = track_list['tracks']
     for track_dictionary in track_list:
         name = track_dictionary['name']
@@ -161,7 +161,7 @@ def main(args):
             print('Song tempo: {1}\nSong key: {2}'.format(song_track, song_tempo, song_key))
 
     elif args.request == 'top':
-        tracks = get_top_tracks(args.id, args.country, getToken())
+        tracks = get_top_tracks(args.id[0], args.id[1], getToken())
         for track in tracks:
             song_track = track['name']
             song_popularity = track['popularity']
