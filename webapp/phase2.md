@@ -15,3 +15,17 @@
 * Person searches for all performances that took place at a specific location (Location)
 * Person searches for all performances that features a specific of conductors (Conductors)
 * *Person makes a search that uses multiple search terms from the list above...*
+
+* Person sorts a performances by a specific date (Date)
+* Person sorts a performance by the specific piece performed (Piece)
+* Person sorts all performances by a specific venue (Venue)
+* Person sorts all performances by a specific solo instrument (Solo Instrument)
+* Person sorts all performances by a specific solo artist (Solo Artist)
+* Person sorts all performances by a specific conductor (Conductor)
+* Person sorts all performances by a specific location (Location)
+* Person sorts all performances by a specific of conductors (Conductors)
+* *Person may sort using multiple terms above...*
+
+* Person may want to see all performances on a map
+* Person may want to see graphs regarding which pieces the orchestra tends to perform more
+
