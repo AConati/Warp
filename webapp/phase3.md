@@ -26,13 +26,9 @@ Our dataset is fairly large and we feel that we should try to begin with a small
 ### Searching for a specific performance:
 
 
-
-
 ------
 
 ### Search for all performances by location:
-
-
 
 
 ------
