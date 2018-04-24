@@ -66,4 +66,7 @@ Our dataset is fairly large and we feel that we should try to begin with a small
 ```
 
 
-
+#### Search for performances of a specific piece
+**Endpoint:** /performance/<piece_id>
+**Summary:** Returns the performances which featured the piece spefified by the piece_id
+**Response Format:** A JSON list of performance dictionaries. Each performance dictionary will have the following keys: 'da
