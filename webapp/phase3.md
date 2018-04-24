@@ -14,23 +14,18 @@ Our dataset is fairly large and we feel that we should try to begin with a small
 
 
 * Performance
-	* Venue : Location
+	* Venue >---- Location
 	* Conductor
 	* Date
-	* Work Title : Composer
+	* Work Title >----  Composer
 		* Movement
-	* Soloist Name : Soloist Instrument
+	* Soloist Name-Soloist Instrument
 
 ------
 
 #### Search for a particular composer:
-<<<<<<< HEAD
 **Endpoint:**/performances/\<composer_id\>\ 
 **Summary:** Returns the performances that performed music by the composer\
-=======
-**Endpoint:**/performance/\<composer_id\> <br> 
-**Summary:** Returns the performances that performed music by the composer \
->>>>>>> 2271b1e398aaf7d6dd5afb17d56b09cee53e125a
 **Response Format:** A JSON list of composer dictionaries. Each composer dictionary will have the following keys: 'performance_id', 'name', and 'works'. Where 'works' corresponds to list of *work dictionaries*. Each work dictionary will have keys 'title' and 'movements'. Where 'movements' corresponds to a list of 'movement'(s). A typical response to a query of this type will look like this:
 
 ```{java}
