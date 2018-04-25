@@ -190,7 +190,7 @@ the keys "id", "name", and "instrument". A typical response to a query will look
 * Person searches for all performances that features a specific of conductors (Conductors)
 * *Person makes a search that uses multiple search terms from the list above...*
 
-*All of these user stories by the endpoint 
+*All of these user stories are satisfied by the endpoint 
 /performances?venue=\<venue_name\>&location=\<location_name\>&conductor=\<conductor_name\>&date_start=\<start_date\>&end_date=\<end_date\>&piece_performed=\<piece_performed\>&compose=\<compose\>&soloist=\<soloist\>&soloist_instrument=\<soloist_instrument\>
  which returns performance objects which satisfy the get parameters of the query.*
 
