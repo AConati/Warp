@@ -19,7 +19,7 @@
 * Person searches for all performances that features a specific conductor (Conductor)
 * Person searches for all performances that took place at a specific location (Location)
 * Person searches for all performances that features a specific of conductors (Conductors)
-* *Person makes a search that uses multiple search terms from the list above...*  \
+* *Person makes a search that uses multiple search terms from the list above...*  
 
 **SORTING RESULTS:**
 * Person sorts a performances by a specific date (Date)
