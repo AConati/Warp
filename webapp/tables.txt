@@ -59,3 +59,25 @@ CREATE TABLE venues_locations (
 );
 
 Reasoning:
+
+CREATE TABLE conductors (
+    conductor_id integer,
+    name text
+);
+
+CREATE TABLE performances_conductors (
+    performance_id integer,
+    conductor_id integer
+);
+
+CREATE TABLE pieces (
+    piece_id integer,
+    title text,
+    composer text
+);
+
+CREATE TABLE performances_pieces (
+    piece_id integer,
+    performance_id integer
+);
+
