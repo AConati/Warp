@@ -61,23 +61,61 @@ CREATE TABLE venues_locations (
 Reasoning:
 
 CREATE TABLE conductors (
-    conductor_id integer,
+    conductor_id SERIAL,
     name text
 );
+
+Reasoning:
 
 CREATE TABLE performances_conductors (
     performance_id integer,
     conductor_id integer
 );
 
+Reasoning:
+
 CREATE TABLE pieces (
-    piece_id integer,
+    piece_id SERIAL,
     title text,
     composer text
 );
 
+Reasoning:
+
 CREATE TABLE performances_pieces (
-    piece_id integer,
+    piece_id SERIAL,
     performance_id integer
 );
+
+Reasoning:
+
+CREATE TABLE soloists (
+    soloist_id SERIAL,
+    name text,
+    instrument text
+);
+
+Reasoning:
+
+CREATE TABLE instruments (
+    intrument_id SERIAL,
+    name text,
+);
+
+Reasoning:
+
+CREATE TABLE soloists_instruments (
+    soloist_id integer,
+    intrument_id integer
+);
+
+Reasoning:
+
+CREATE TABLE performances_soloists (
+    performance_id integer,
+    soloist_id integer
+);
+
+Reasoning:
+
 
