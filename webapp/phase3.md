@@ -59,7 +59,7 @@ performance:
 ### Search for all pieces performed by NY Philharmonic:
 
 **Endpoint:** /pieces
-**Summary:** Returns the complete list of pieces_performed contained in the database.
+**Summary:** Returns the complete list of pieces_performed contained in the database.   
 **Response format:** A JSON list of piece dictionaries. Each piece dictionary will have
 the keys "id", "title", and "composer". A typical response to a query will look like this:
 
@@ -76,8 +76,8 @@ the keys "id", "title", and "composer". A typical response to a query will look 
 
 ### Search for all soloists who have performed with NY Philharmonic:
 
-**Endpoint:** /soloists
-**Summary:** Returns the complete list of soloists contained in the database.
+**Endpoint:** /soloists  
+**Summary:** Returns the complete list of soloists contained in the database.  
 **Response format:** A JSON list of soloist dictionaries. Each soloist dictionary will have
 the keys "id", "name", and "instrument". A typical response to a query will look like this:
 
@@ -94,8 +94,8 @@ the keys "id", "name", and "instrument". A typical response to a query will look
 
 ### Search for all conductors who have conducted NY Philharmonic:
 
-**Endpoint:** /conductors
-**Summary:** Returns the complete list of conductors contained in the database.
+**Endpoint:** /conductors  
+**Summary:** Returns the complete list of conductors contained in the database.  
 **Response format:** A JSON list of conductor dictionaries. Each conductor dictionary will have
 the keys "id" and "name".
 
@@ -112,8 +112,8 @@ the keys "id" and "name".
 
 ### Search for all instruments which have had solo parts in NY Philharmonic performances:
 
-**Endpoint:** /soloist_instruments
-**Summary:** Returns the complete list of soloists in the database which play the given instrument.
+**Endpoint:** /soloist_instruments  
+**Summary:** Returns the complete list of soloists in the database which play the given instrument.  
 **Response format:** A JSON list of soloist dictionaries. Each soloist dictionary will have
 the keys "id", "name", and "instrument". A typical response to a query will look like this:
 
@@ -130,8 +130,8 @@ the keys "id", "name", and "instrument". A typical response to a query will look
 
 ### Search for all venues that the NY Philharmonic has performed at
 
-**Endpoint:** /venues
-**Summary:** Returns the complete list of venues in the database.
+**Endpoint:** /venues  
+**Summary:** Returns the complete list of venues in the database.  
 **Response format:** A JSON list of venue dictionaries. Each venue dictionary will have the keys
 "id", "name", and "location". A typical response to a query will look like this:
 
@@ -146,10 +146,10 @@ the keys "id", "name", and "instrument". A typical response to a query will look
 
 ------
 
-### Search for all performances by location:
+### Search for all performences by location:
 
-**Endpoint:** /locations
-**Summary:** Returns the complete list of locations in the database.
+**Endpoint:** /locations  
+**Summary:** Returns the complete list of locations in the database.  
 **Response format:** A JSON list of location dictionaries. Each location dictionary will have the keys
 "id" and "location". A typical response to a query will look like this:
 
@@ -164,8 +164,8 @@ the keys "id", "name", and "instrument". A typical response to a query will look
 
 ### Search for all dates on which the NY Philharmonic performed
 
-**Endpoint:** /dates
-**Summary:** Returns the complete list of dates in the database.
+**Endpoint:** /dates  
+**Summary:** Returns the complete list of dates in the database.  
 **Response format:** A JSON list of date dictionaries. Each date dictionary will have the keys
 "id" and "date". A typical response to a query will look like this:
 
@@ -177,3 +177,30 @@ the keys "id", "name", and "instrument". A typical response to a query will look
 ]
 
 ------
+
+###API endpoints which correspond to user stories:
+
+* Person looks up a performances on a specific date (Date)
+* Person looks up a performance by the specific piece performed (Piece)
+* Person searches for all performances at a specific venue (Venue)
+* Person searches for all performances that featured a specific solo instrument (Solo Instrument)
+* Person searches for all performances that features a specific solo artist (Solo Artist)
+* Person searches for all performances that features a specific conductor (Conductor)
+* Person searches for all performances that took place at a specific location (Location)
+* Person searches for all performances that features a specific of conductors (Conductors)
+* *Person makes a search that uses multiple search terms from the list above...*
+
+*All of these user stories by the endpoint 
+/performances?venue=\<venue_name\>&location=\<location_name\>&conductor=\<conductor_name\>&date_start=\<start_date\>&end_date=\<end_date\>&piece_performed=\<piece_performed\>&compose=\<compose\>&soloist=\<soloist\>&soloist_instrument=\<soloist_instrument\>
+ which returns performance objects which satisfy the get parameters of the query.*
+
+* Person searches for all locations the NYP has performed at (location)
+* Person searches for all venues the NYP has performed at (venue)
+* Person searches for all pieces the NYP has performed (piece)
+* Person searches for all dates the NYP has peformed on (date)
+* Person searches for all soloists that have performed with NYP (soloist)
+* Person searches for conductors that have conducted NYP (conductor)
+* Person searches for all instruments that had solo parts (soloist instrument)
+
+The requirements of these user stories are satisfied by the endpoints /locations, /venues, /pieces, /dates,
+/soloists, /conductors, and /soloist_instruments, respectively.
