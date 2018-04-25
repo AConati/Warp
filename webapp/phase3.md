@@ -58,7 +58,7 @@ performance:
 
 ### Search for all pieces performed by NY Philharmonic:
 
-**Endpoint:** /pieces
+**Endpoint:** /pieces  
 **Summary:** Returns the complete list of pieces_performed contained in the database.   
 **Response format:** A JSON list of piece dictionaries. Each piece dictionary will have
 the keys "id", "title", and "composer". A typical response to a query will look like this:
@@ -178,7 +178,7 @@ the keys "id", "name", and "instrument". A typical response to a query will look
 
 ------
 
-###API endpoints which correspond to user stories:
+### API endpoints which correspond to user stories:
 
 * Person looks up a performances on a specific date (Date)
 * Person looks up a performance by the specific piece performed (Piece)
