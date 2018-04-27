@@ -21,7 +21,7 @@
 ```SQL
 CREATE TABLE performances (
     id SERIAL,
-    date_id integer,
+    date DATE,
     venue_id integer,
     conductor_id integer,
     piece_id integer,
@@ -32,20 +32,6 @@ CREATE TABLE performances (
 **Reasoning:**   
 This is the table responsible for keeping track of each performance. This is the main table that keeps track of all results that will ever be presented to the end user.
 
-------
-
-**Table Name:** Dates
-
-**Command:**    
-```SQL
-CREATE TABLE dates (
-    id SERIAL,
-    date DATE
-);
-```
-**Reasoning:**
-Dates should have its own separate table because there can be multiple dates that correspond to a performance. For example, there can be multiple dates for the nutcracker suite.
- 
 ------
 
 **Table Name:** Venues 
@@ -97,7 +83,7 @@ This is the table for each individual conductor which has a one to many relation
 ```SQL
 CREATE TABLE pieces (
     id SERIAL,
-    title text,
+    name text,
     composer text
 );
 ```
@@ -112,7 +98,7 @@ This is the table for each individual piece performed, this will have a composer
 ```SQL
 CREATE TABLE composers (
     id SERIAL,
-    title text
+    name text
 );
 ```
 **Reasoning:**
@@ -147,20 +133,6 @@ CREATE TABLE instruments (
 ```
 **Reasoning:**
 This is the table for instruments.
-
-------
-
-**Table Name:** Link_Performance_Date
-
-**Command:** 
-```SQL
-CREATE TABLE performances_dates (
-    performance_id integer,
-    date_id integer
-);
-```
-**Reasoning:**
-This is the table that links the performance and dates.
 
 ------
 
