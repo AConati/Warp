@@ -222,6 +222,19 @@ This links the performance to soloist.
 ------
 
 
+**Table Name:** Link_Composer_Piece
+
+**Command:** 
+```SQL
+CREATE TABLE composers_pieces (
+    composer_id integer,
+    piece_id integer
+);
+```
+**Reasoning:**
+This links composers to pieces.
+
+------
 
 
 
