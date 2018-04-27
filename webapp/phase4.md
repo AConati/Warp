@@ -25,7 +25,7 @@ CREATE TABLE performances (
     venue_id integer,
     conductor_id integer,
     piece_id integer,
-    soloists MULTISET
+    soloists_id integer
 );
 
 ```
@@ -69,7 +69,7 @@ Because the venue will vary from performance to performance, there will be a sep
 ```SQL
 CREATE TABLE locations (
     id SERIAL,
-    name text,
+    name text
 );
 ```
 **Reasoning:**
@@ -82,7 +82,7 @@ This is the table for locations that correspond to a venue.
 **Command:** 
 ```SQL
 CREATE TABLE conductors (
-    conductor_id SERIAL,
+    id SERIAL,
     name text
 );
 ```
@@ -96,7 +96,7 @@ This is the table for each individual conductor which has a one to many relation
 **Command:** 
 ```SQL
 CREATE TABLE pieces (
-    piece_id SERIAL,
+    id SERIAL,
     title text,
     composer text
 );
@@ -111,8 +111,8 @@ This is the table for each individual piece performed, this will have a composer
 **Command:** 
 ```SQL
 CREATE TABLE composers (
-    composer_id SERIAL,
-    title text,
+    id SERIAL,
+    title text
 );
 ```
 **Reasoning:**
@@ -126,7 +126,7 @@ This is the table for composers.
 **Command:** 
 ```SQL
 CREATE TABLE soloists (
-    soloist_id SERIAL,
+    id SERIAL,
     name text,
     instrument text
 );
@@ -142,7 +142,7 @@ This is the table for each individual piece performed, this will have an instrum
 ```SQL
 CREATE TABLE instruments (
     intrument_id SERIAL,
-    name text,
+    name text
 );
 ```
 **Reasoning:**
@@ -170,7 +170,7 @@ This is the table that links the performance and dates.
 ```SQL
 CREATE TABLE performances_venues (
     performance_id integer,
-    venue_id integer,
+    venue_id integer
 );
 ```
 **Reasoning:**
