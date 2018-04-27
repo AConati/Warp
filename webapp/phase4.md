@@ -82,7 +82,7 @@ This is the table for locations that correspond to a venue.
 **Command:** 
 ```SQL
 CREATE TABLE conductors (
-    conductor_id SERIAL,
+    id SERIAL,
     name text
 );
 ```
@@ -96,7 +96,7 @@ This is the table for each individual conductor which has a one to many relation
 **Command:** 
 ```SQL
 CREATE TABLE pieces (
-    piece_id SERIAL,
+    id SERIAL,
     title text,
     composer text
 );
@@ -111,7 +111,7 @@ This is the table for each individual piece performed, this will have a composer
 **Command:** 
 ```SQL
 CREATE TABLE composers (
-    composer_id SERIAL,
+    id SERIAL,
     title text
 );
 ```
@@ -126,7 +126,7 @@ This is the table for composers.
 **Command:** 
 ```SQL
 CREATE TABLE soloists (
-    soloist_id SERIAL,
+    id SERIAL,
     name text,
     instrument text
 );
