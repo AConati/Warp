@@ -15,13 +15,15 @@
 
 ------
 
+## Individual Tables:
+
 **Table Name:** Performances  
 
 **Command:** 
 ```SQL
 CREATE TABLE performances (
     id SERIAL,
-    date DATE,
+    date text,
     venue_id integer,
     conductor_id integer,
     piece_id integer,
@@ -127,44 +129,33 @@ This is the table for each individual piece performed, this will have an instrum
 **Command:** 
 ```SQL
 CREATE TABLE instruments (
-    intrument_id SERIAL,
+    id SERIAL,
     name text
 );
 ```
 **Reasoning:**
 This is the table for instruments.
 
-------
+------  
+
+## Performance Link Tables:
 
 **Table Name:** Link_Performance_Venue
 
 **Command:** 
 ```SQL
 CREATE TABLE performances_venues (
-    performance_id integer,
+    id integer,
     venue_id integer
 );
 ```
 **Reasoning:**
 This table links performance and venue.
 
-------
-
-**Table Name:** Link_Venue_Location
-
-**Command:** 
-```SQL
-CREATE TABLE venues_locations (
-    venue_id integer,
-    location_id integer
-);
-```
-**Reasoning:**
-This links venues to their corresponding location.
 
 ------
 
-**Table Name:** Link_Performance_Conductors
+**Table Name:** Link_Performance_Conductor
 
 **Command:** 
 ```SQL
@@ -184,26 +175,12 @@ This links the performance and the conductor
 **Command:** 
 ```SQL
 CREATE TABLE performances_pieces (
-    piece_id SERIAL,
-    performance_id integer
+    performance_id SERIAL,
+    piece_id integer
 );
 ```
 **Reasoning:**
 This links the performance and the piece 
-
-------
-
-**Table Name:** Link_Soloist_Instrument 
-
-**Command:** 
-```SQL
-CREATE TABLE soloists_instruments (
-    soloist_id integer,
-    intrument_id integer
-);
-```
-**Reasoning:**
-This links the soloist and their instrument.
 
 ------
 
@@ -221,14 +198,59 @@ This links the performance to soloist.
 
 ------
 
-
-**Table Name:** Link_Composer_Piece
+**Table Name:** Link_Performance_location
 
 **Command:** 
 ```SQL
-CREATE TABLE composers_pieces (
-    composer_id integer,
-    piece_id integer
+CREATE TABLE performances_soloists (
+    performance_id integer,
+    location_id integer
+);
+```
+**Reasoning:**
+This links the performance to location. 
+
+------
+
+**Table Name:** Link_Performance_Composer
+
+**Command:** 
+```SQL
+CREATE TABLE performance_composer (
+    performance_id integer,
+    composer_id integer
+);
+```
+**Reasoning:**
+This links the performance to composer. 
+
+------
+
+**Table Name:** Link_Performance_Instrument
+
+**Command:** 
+```SQL
+CREATE TABLE performance_instrument (
+    performance_id integer,
+    instrument_id integer
+);
+```
+**Reasoning:**
+This links the performance to instrument.
+
+------
+
+
+## Individual Link Tables: 
+
+
+**Table Name:** piece_composer
+
+**Command:** 
+```SQL
+CREATE TABLE piece_composer (
+    piece_id integer,
+    composer_id integer
 );
 ```
 **Reasoning:**
@@ -236,5 +258,32 @@ This links composers to pieces.
 
 ------
 
+**Table Name:** venue_locattion
+
+**Command:** 
+```SQL
+CREATE TABLE venue_location (
+    venue_id integer,
+    location_id integer
+);
+```
+**Reasoning:**
+This links venues to their corresponding location.
+
+------
+
+**Table Name:** soloist_instrument
+
+**Command:** 
+```SQL
+CREATE TABLE soloist_instrument (
+    soloist_id integer,
+    instrument_id integer
+);
+```
+**Reasoning:**
+This links the soloist and their instrument.
+
+------
 
 
