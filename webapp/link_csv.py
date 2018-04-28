@@ -27,7 +27,9 @@ def main():
 
 def load_dictionary(data_file_path, dictionary):
     data_file = open(data_file_path)
+    count = 0
     for line in data_file:
+        count += 1
         field_start = line.index("\"") + 1
         field_end = field_start + line[field_start:].index("\"")
         field = line[field_start:field_end]
