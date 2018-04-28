@@ -89,19 +89,23 @@ write.csv(data5, file="assignments-grantIee/webapp/data/data2.csv")
 
 
 # Link Venue Location
-venLoc <- data5[,2:3]
-
+venLoc <- data5[,3:2]
+uniqVenLoc <- unique(venLoc)
 write.csv(venLoc, sep="@", row.names = FALSE, file="assignments-grantIee/webapp/data/RawData/venLoc.csv")
+write.csv(uniqueVenLoc, sep="@", row.names = FALSE, file="assignments-grantIee/webapp/data/RawData/uniqVenLoc.csv")
 
 
 # Link Soloist Instrument
 solIns <- data5[8:7]
-
+uniqSolIns <- unique(solIns)
 write.csv(solIns, sep="@", row.names = FALSE, file="assignments-grantIee/webapp/data/RawData/solIns.csv")
+write.csv(uniqSolIns, sep="@", row.names = FALSE, file="assignments-grantIee/webapp/data/RawData/uniqSolIns.csv")
 
 
 # Link Composer Piece
-comPie <- data5[,4:6]
-comPie <- comPie[,-2]
+pieCom <- data5[,6:4]
+pieCom <- pieCom[,-2]
+uniqPieCom <- unique(pieCom)
 
-write.csv(comPie, sep="@", row.names = FALSE, file="assignments-grantIee/webapp/data/RawData/comPie.csv")
+write.csv(uniqPieCom, sep="@", row.names = FALSE, file="assignments-grantIee/webapp/data/RawData/uniqPieCom.csv")
+write.csv(pieCom, sep="@", row.names = FALSE, file="assignments-grantIee/webapp/data/RawData/pieCom.csv")
