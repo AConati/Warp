@@ -21,7 +21,7 @@
 ```SQL
 CREATE TABLE performances (
     id SERIAL,
-    date DATE,
+    date text,
     venue_id integer,
     conductor_id integer,
     piece_id integer,
@@ -127,7 +127,7 @@ This is the table for each individual piece performed, this will have an instrum
 **Command:** 
 ```SQL
 CREATE TABLE instruments (
-    intrument_id SERIAL,
+    id SERIAL,
     name text
 );
 ```
@@ -141,7 +141,7 @@ This is the table for instruments.
 **Command:** 
 ```SQL
 CREATE TABLE performances_venues (
-    performance_id integer,
+    id integer,
     venue_id integer
 );
 ```
@@ -155,7 +155,7 @@ This table links performance and venue.
 **Command:** 
 ```SQL
 CREATE TABLE venues_locations (
-    venue_id integer,
+    id integer,
     location_id integer
 );
 ```
@@ -169,7 +169,7 @@ This links venues to their corresponding location.
 **Command:** 
 ```SQL
 CREATE TABLE performances_conductors (
-    performance_id integer,
+    id integer,
     conductor_id integer
 );
 
@@ -184,7 +184,7 @@ This links the performance and the conductor
 **Command:** 
 ```SQL
 CREATE TABLE performances_pieces (
-    piece_id SERIAL,
+    id SERIAL,
     performance_id integer
 );
 ```
@@ -198,7 +198,7 @@ This links the performance and the piece
 **Command:** 
 ```SQL
 CREATE TABLE soloists_instruments (
-    soloist_id integer,
+    id integer,
     intrument_id integer
 );
 ```
@@ -212,7 +212,7 @@ This links the soloist and their instrument.
 **Command:** 
 ```SQL
 CREATE TABLE performances_soloists (
-    performance_id integer,
+    id integer,
     soloist_id integer
 );
 ```
@@ -227,7 +227,7 @@ This links the performance to soloist.
 **Command:** 
 ```SQL
 CREATE TABLE composers_pieces (
-    composer_id integer,
+    id integer,
     piece_id integer
 );
 ```
