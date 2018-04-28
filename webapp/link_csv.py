@@ -20,8 +20,11 @@ def main():
        #lineArray = line.split("@")
         #field1 = lineArray[0]
         #field2 = lineArray[1]
-        link = dictionary1[field1] + "," + dictionary2[field2]
-        print(link)
+        try:    
+            link = dictionary1[field1] + "," + dictionary2[field2]
+            print(link)
+        except:
+            pass            
 
 
 
