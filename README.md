@@ -8,3 +8,5 @@ List of Projects:
 	* A project devoted to teaching JUnit tests and git
 * UsingAPIs
 	* Getting to know APIs
+* WebApp
+	* Building a web application with a backend and frontend
