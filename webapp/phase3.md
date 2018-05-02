@@ -178,6 +178,27 @@ the keys "id", "name", and "instrument". A typical response to a query will look
 
 ------
 
+### Search for all soloists who play a given instrument
+
+**Endpoint:** /soloists?instrument=<inst_id>
+**Summary:** Returns the list of soloists in the database who play the instrument specified by the id in the GET parameter.
+
+------
+
+### Search for all venues in a given location
+
+**Endpoint:** /venues?location=<loc_id>
+**Summary:** Returns the list of venues in the database which are located in the locations specified by the id in the GET parameter
+
+------
+
+### Search for all pieces composed by a particular composer
+
+**Endpoint:** /pieces?composers=<composer_id>
+**Summary:** Returns the list of pieces in the database composed by the composer specified by the id in the GET parameter
+
+------
+
 ### API endpoints which correspond to user stories:
 
 * Person looks up a performances on a specific date (Date)
