@@ -17,6 +17,25 @@ app = flask.Flask(__name__)
 def hello():
 	return 'Do you even vim?'
 
+@app.route('/pieces/')
+
+@app.route('/soloists/')
+
+@app.route('/conductors')
+
+@app.route('/instruments')
+
+@app.route('/venues/')
+
+@app.route('/locations')
+
+@app.route('/dates')
+
+@app.route('/composers')
+
+@app.route('/performances/')
+
+
 
 
 
