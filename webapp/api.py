@@ -27,7 +27,7 @@ def _fetch_all_rows_for_query(query):
     try:
         connection = psycopg2.connect(database=config.database, user=config.user, password=config.password)
     except Exception as e:
-        print('Connection error:', e, file=sys.stderr)
+        print('Connection error:', e, file == sys.stderr)
         return []
 
     rows = []
@@ -36,15 +36,17 @@ def _fetch_all_rows_for_query(query):
         cursor.execute(query)
         rows = cursor.fetchall() # This can be trouble if your query results are really big.
     except Exception as e:
-        print('Error querying database:', e, file=sys.stderr)
+        print('Error querying database:', e, file==sys.stderr)
 
     connection.close()
     return rows
 
+'''
 @app.after_request
 def set_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
+'''
 
 @app.route('/')
 def hello():
@@ -66,9 +68,10 @@ def get_conductors():
 	query = 'SELECT id, name FROM conductors ORDER BY name'
 	conductor_list = []
 	for row in _fetch_all_rows_for_query(query):
-		url = flask.url_for('get_conductor_by_id', conductor_id=row[0], _external=True)
+		url = flask.url_for('get_conductors', conductor_id=row[0], _external=True)
 		conductor = {'conductor_id':row[0], 'name':row[1], 'url':url}
-		return json.dumps(conductor)
+		conductor_list.append(conductor)
+	return json.dumps(conductor_list)
 
 
 @app.route('/instruments')
