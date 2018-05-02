@@ -55,6 +55,20 @@ def hello():
 @app.route('/soloists/')
 
 @app.route('/conductors')
+def get_conductors():
+	"""
+	Returns the list of conductors in the database. A conductor
+	will be represented by a JSON dictionary with keys "id" (int),
+	"name" (int), and 'url' (string). The value associated with 
+	'url' is a URL you can use to retrieve this same conductor
+	in the future.
+	"""
+	query = 'SELECT id, name FROM conductors ORDER BY name'
+	conductor_list = []
+	for row in _fetch_all_rows_for_query(query):
+		url = flask.url_for('get_conductor_by_id', conductor_id=row[0], _external=True)
+		conductor = {'conductor_id':row[0], 'name':row[1], 'url':url}
+		return json.dumps(conductor)
 
 
 @app.route('/instruments')
