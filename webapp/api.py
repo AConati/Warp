@@ -56,12 +56,44 @@ def hello():
 
 @app.route('/conductors')
 
-
 @app.route('/instruments')
+def get_instruments():
+    '''
+    '''
+    query = '''SELECT * FROM instruments'''
+    instrument_list = []
+    for row in fetch_all_rows_for_query(query):
+        url = flask.url_for('get_instruments', instrument_id=row[0], _external=True)
+        instrument = {'instrument_id': row[0], 'instrument_name': row[1], 'url': url}
+        instrument_list.append(instrument)
+    
+    return json.dumps(instrument_list)
 
 @app.route('/venues/')
+def get_venues():
+    '''
+    '''
+    url = flask.url_for('get_venues', venue_id=row[0], _external=True)
+    query = '''SELECT * FROM venues'''
+    venue_list = []
+    for row in fetch_all_rows_for_query(query):
+        venue = {'venue_id': row[0], 'venue_name': row[1], 'location': row[2]}
+        venue_list.append(venue)
 
+    return json.dumps(venue_list)
+    
 @app.route('/locations')
+def get_locations():
+    '''
+    '''
+    url = flask.url_for('get_locations', location_id=row[0], _external=True)
+    query = '''SELECT * FROM locations'''
+    location_list = []
+    for row in fetch_all_rows_for_query(query):
+        location = {'location_id': row[0], 'location_name': row[1]}
+        location_list.append(location)
+
+    return json.dumps(location_list)
 
 @app.route('/dates')
 
