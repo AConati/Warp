@@ -27,7 +27,7 @@ def _fetch_all_rows_for_query(query):
     try:
         connection = psycopg2.connect(database=config.database, user=config.user, password=config.password)
     except Exception as e:
-        print('Connection error:', e, file=sys.stderr)
+        print('Connection error:', e, file == sys.stderr)
         return []
 
     rows = []
@@ -36,15 +36,17 @@ def _fetch_all_rows_for_query(query):
         cursor.execute(query)
         rows = cursor.fetchall() # This can be trouble if your query results are really big.
     except Exception as e:
-        print('Error querying database:', e, file=sys.stderr)
+        print('Error querying database:', e, file==sys.stderr)
 
     connection.close()
     return rows
 
+'''
 @app.after_request
 def set_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
+'''
 
 @app.route('/')
 def hello():
@@ -55,6 +57,21 @@ def hello():
 @app.route('/soloists/')
 
 @app.route('/conductors')
+def get_conductors():
+	"""
+	Returns the list of conductors in the database. A conductor
+	will be represented by a JSON dictionary with keys "id" (int),
+	"name" (int), and 'url' (string). The value associated with 
+	'url' is a URL you can use to retrieve this same conductor
+	in the future.
+	"""
+	query = 'SELECT id, name FROM conductors ORDER BY name'
+	conductor_list = []
+	for row in _fetch_all_rows_for_query(query):
+		url = flask.url_for('get_conductors', conductor_id=row[0], _external=True)
+		conductor = {'conductor_id':row[0], 'name':row[1], 'url':url}
+		conductor_list.append(conductor)
+	return json.dumps(conductor_list)
 
 @app.route('/instruments')
 def get_instruments():
