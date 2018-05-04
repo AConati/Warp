@@ -191,7 +191,6 @@ def get_locations():
 	same location in the future.
     '''
     query = 'SELECT id, name FROM locations ORDER BY name'
-
     location_list = []
     for row in _fetch_all_rows_for_query(query):
     	url = flask.url_for('get_locations', location_id=row[0], _external=True)
@@ -205,6 +204,24 @@ def getDates():
     '''
     TBD THIS ONE MIGHT BE TRICKY >:)
     '''
+
+@app.route('/performances/')
+def get_performances():
+    '''
+    '''
+    url = flask.url_for('get_performances', performance_id=row[0], _external=True)
+    query = 'SELECT * FROM performances ORDER by date, id'
+    performance_list = []
+    previous_date = ''
+    for row in fetch_all_rows_for_query(query):
+        if row[1] != previous_date:
+            soloist_list = []
+            performance_list.append({'performance_id': row[0], 'date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloists': soloist_list})
+        else:
+            last_index = len(performance_list) - 1
+            performance_list[last_index]['soloists'].append(row[5])
+
+    return json.dumps(performance_list)
 
 @app.route('/composers')
 def get_composers():
