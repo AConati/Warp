@@ -144,7 +144,6 @@ def get_instruments():
 	is a URL you can use to retrieve this same instrument in the future.
     '''
     query = 'SELECT id, name FROM instruments ORDER BY name'
-
     instrument_list = []
     for row in fetch_all_rows_for_query(query):
         url = flask.url_for('get_instruments', instrument_id=row[0], _external=True)
