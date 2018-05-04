@@ -145,7 +145,7 @@ def get_instruments():
     '''
     query = 'SELECT id, name FROM instruments ORDER BY name'
     instrument_list = []
-    for row in fetch_all_rows_for_query(query):
+    for row in _fetch_all_rows_for_query(query):
         url = flask.url_for('get_instruments', instrument_id=row[0], _external=True)
         instrument = {'instrument_id': row[0], 'instrument_name': row[1], 'url': url}
         instrument_list.append(instrument)
@@ -165,7 +165,7 @@ def get_venues():
 		http://.../venues/?sort=location
 		http://.../venues/?sort=name
     '''
-    query = '''SELECT id, name, location FROM venues ORDER BY'''
+    query = '''SELECT id, name, location FROM venues ORDER BY '''
 	
     sort_argument = flask.request.args.get('sort')
     if sort_argument == 'location':
@@ -174,7 +174,7 @@ def get_venues():
        query += 'name'
 
     venue_list = []
-    for row in fetch_all_rows_for_query(query):
+    for row in _fetch_all_rows_for_query(query):
     	url = flask.url_for('get_venues', venue_id=row[0], _external=True)
         venue = {'venue_id': row[0], 'venue_name': row[1], 'venue_location': row[2], 'url': url}
         venue_list.append(venue)
@@ -192,7 +192,7 @@ def get_locations():
     '''
     query = 'SELECT id, name FROM locations ORDER BY name'
     location_list = []
-    for row in fetch_all_rows_for_query(query):
+    for row in _fetch_all_rows_for_query(query):
     	url = flask.url_for('get_locations', location_id=row[0], _external=True)
         location = {'location_id': row[0], 'location_name': row[1], 'url': url}
         location_list.append(location)
@@ -302,23 +302,23 @@ def get_performance():
 	instrument = flask.request.args.get('instrument', type = int)
 
 	for row in rows:
-		if conductor is not None and conductor != row['conductor']:
+		if conductor is not None and conductor != row[3]:
 			continue
-		if venue is not None and venue != row['venue']:
+		if venue is not None and venue != row[2]:
 			continue
-		if location is not None and location != row['location']:
+		if location is not None and location != row[2]:
 			continue
-		if piece is not None and piece != row['piece']:
+		if piece is not None and piece != row[4]:
 			continue
-		if composer is not None and composer != row['composer']:
+		if composer is not None and composer != row[4]:
 			continue
-		if soloist is not None and soloist != row['soloist']:
+		if soloist is not None and soloist != row[5]:
 			continue
-		if instrument is not None and instrument != row['instrument']:
+		if instrument is not None and instrument != row[5]:
 			continue
-		if row['date'] < start_date:
+		if row[1] <= start_date:
 			continue
-		if row['date'] > end_date:
+		if row[1] >= end_date:
 			continue
 		url = flask.url_for('get_performance', performance_id=row[0], _external=True)
 		performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 
@@ -337,7 +337,7 @@ def help():
 
 if __name__ == '__main__':
 	if len(sys.argv) != 3:
-		print('Usage: {0} hostport'.format(sys.argv[0]))
+		print('Usage: {0} hos tport'.format(sys.argv[0]))
 		print('	Example: {0} perlman.mathcs.carleton.edu 5101'.format(sys.argv[0]))
 		exit()
 	
