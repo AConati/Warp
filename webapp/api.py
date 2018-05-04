@@ -77,7 +77,7 @@ def get_conductors():
 def get_instruments():
     '''
     '''
-    query = '''SELECT * FROM instruments'''
+    query = 'SELECT * FROM instruments ORDER BY name'
     instrument_list = []
     for row in fetch_all_rows_for_query(query):
         url = flask.url_for('get_instruments', instrument_id=row[0], _external=True)
@@ -91,7 +91,7 @@ def get_venues():
     '''
     '''
     url = flask.url_for('get_venues', venue_id=row[0], _external=True)
-    query = '''SELECT * FROM venues'''
+    query = 'SELECT * FROM venues'
     venue_list = []
     for row in fetch_all_rows_for_query(query):
         venue = {'venue_id': row[0], 'venue_name': row[1], 'location': row[2]}
@@ -104,7 +104,7 @@ def get_locations():
     '''
     '''
     url = flask.url_for('get_locations', location_id=row[0], _external=True)
-    query = '''SELECT * FROM locations'''
+    query = 'SELECT * FROM locations ORDER BY name'
     location_list = []
     for row in fetch_all_rows_for_query(query):
         location = {'location_id': row[0], 'location_name': row[1]}
@@ -115,8 +115,36 @@ def get_locations():
 @app.route('/dates')
 
 @app.route('/composers')
+def get_composers():
+    '''
+    '''
+    url = flask.url_for('get_composers', composer_id=row[0], _external=True)
+    query = 'SELECT * FROM composers ORDER BY name'
+    composer_list = []
+    for row in fetch_all_rows_for_query(query):
+        composer = {'composer_id': row[0], 'composer_name': row[1]}
+        composer_list.append(composer)
+
+    return json.dumps(composer_list)
 
 @app.route('/performances/')
+def get_performances():
+    '''
+    '''
+    url = flask.url_for('get_performances', performance_id=row[0], _external=True)
+    query = 'SELECT * FROM performances ORDER by date'
+    performance_list = []
+    previous_date = ''
+    for row in fetch_all_rows_for_query(query):
+        if row[1] != previous_date:
+            soloist_list = []
+            performance_list.append({'performance_id': row[0], 'date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloists': soloist_list})
+        else:
+            last_index = len(performance_list) - 1
+            performance_list[last_index]['soloists'].append(row[5])
+
+    return json.dumps(performance_list)
+
 
 @app.route('/help')
 def help():
