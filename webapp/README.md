@@ -10,3 +10,9 @@
 **phase3:** Web Application, Phase 3: API design     
 
 **phase4:** Web Application, Phase 4: database design and population   
+
+
+**Todo for This Weekend (5/4):**
+- [ ] Fix Database to fit our needs
+- [ ] Reconfigure some of the endpoints 
+- [ ] Draw out UI/UX
