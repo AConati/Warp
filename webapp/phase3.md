@@ -46,7 +46,7 @@ performance:
 							{"id": 23, "composer_name": "Wolfgang Amadeus Mozart"}
 					} 
 				 "soloist":
-					{"id": 25, "soloist_name": "Arthur Rubinstein", 
+					{"id": 25, "soloist_name": "Artur Rubinstein", 
 						"soloist_instrument":
 							{"id": 1, "soloist_instrument": "piano"}
 			}

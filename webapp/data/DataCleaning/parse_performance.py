@@ -11,7 +11,9 @@ def main():
     load_dictionary(sys.argv[3], conductor_dictionary)
     load_dictionary(sys.argv[4], piece_dictionary)
     load_dictionary(sys.argv[5], soloist_dictionary)
-    count = 1
+    count = 0
+    previous_date = ''
+    previous_piece = ''
     for line in read_file:
         line = line.rstrip()
         lineArray = line.split("@")
@@ -20,11 +22,15 @@ def main():
         conductor = lineArray[4].replace('"','')
         piece = lineArray[5].replace('"','')
         soloist = lineArray[7].replace('"','')
+
+        if date != previous_date or piece != previous_piece:
+            count += 1
+            previous_date = date
+            previous_piece = piece
         try:
             performance = str(count) + "," + date + "," + venue_dictionary[venue] + "," + conductor_dictionary[conductor] + "," + piece_dictionary[piece] + "," + soloist_dictionary[soloist]
         except:
             pass
-        count += 1
         print(performance)
 
 
