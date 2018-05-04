@@ -53,6 +53,16 @@ def hello():
 	return 'Do you even vim?'
 
 @app.route('/pieces/')
+def get_pieces():
+    '''
+    '''
+    query = 'SELECT * FROM pieces ORDER by composer,id'
+    piece_list = []
+	for row in _fetch_all_rows_for_query(query):
+        piece = {'piece_id': row0[0], 'title':row[1], 'title':row[2], 'url':url}
+        piece_list.append(piece)
+        
+    return json.dumps(piece_list)
 
 @app.route('/soloists/')
 
@@ -90,11 +100,11 @@ def get_instruments():
 def get_venues():
     '''
     '''
-    url = flask.url_for('get_venues', venue_id=row[0], _external=True)
     query = 'SELECT * FROM venues'
     venue_list = []
     for row in fetch_all_rows_for_query(query):
-        venue = {'venue_id': row[0], 'venue_name': row[1], 'location': row[2]}
+    url = flask.url_for('get_venues', venue_id=row[0], _external=True)
+        venue = {'venue_id': row[0], 'venue_name': row[1], 'location': row[2], 'url': url}
         venue_list.append(venue)
 
     return json.dumps(venue_list)
@@ -103,11 +113,11 @@ def get_venues():
 def get_locations():
     '''
     '''
-    url = flask.url_for('get_locations', location_id=row[0], _external=True)
     query = 'SELECT * FROM locations ORDER BY name'
     location_list = []
     for row in fetch_all_rows_for_query(query):
-        location = {'location_id': row[0], 'location_name': row[1]}
+    url = flask.url_for('get_locations', location_id=row[0], _external=True)
+        location = {'location_id': row[0], 'location_name': row[1], 'url': url}
         location_list.append(location)
 
     return json.dumps(location_list)
@@ -118,11 +128,11 @@ def get_locations():
 def get_composers():
     '''
     '''
-    url = flask.url_for('get_composers', composer_id=row[0], _external=True)
     query = 'SELECT * FROM composers ORDER BY name'
     composer_list = []
     for row in fetch_all_rows_for_query(query):
-        composer = {'composer_id': row[0], 'composer_name': row[1]}
+    url = flask.url_for('get_composers', composer_id=row[0], _external=True)
+        composer = {'composer_id': row[0], 'composer_name': row[1], 'url': url}
         composer_list.append(composer)
 
     return json.dumps(composer_list)
@@ -132,7 +142,7 @@ def get_performances():
     '''
     '''
     url = flask.url_for('get_performances', performance_id=row[0], _external=True)
-    query = 'SELECT * FROM performances ORDER by date'
+    query = 'SELECT * FROM performances ORDER by date, id'
     performance_list = []
     previous_date = ''
     for row in fetch_all_rows_for_query(query):
