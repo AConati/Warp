@@ -303,7 +303,7 @@ def get_performance():
 		url = flask.url_for('get_performance', performance_id=row[0], _external=True)
 
         if row[0] == previous_id:
-            performance_list['soloist_id'].append(row[5])
+            performance_list[len(performance_list) - 1]['soloist_id'].append(row[5])
         else:
 		    performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloist_id': [row[5]], 'url': url}
             previous_id = row[0]
