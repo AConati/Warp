@@ -12,6 +12,7 @@ import flask
 import json
 import config
 import psycopg2
+from collections import defaultdict
 
 app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
@@ -213,28 +214,6 @@ def get_dates():
 
     json.dumps(date_list)
 
-    '''
-    TBD THIS ONE MIGHT BE TRICKY >:)
-    '''
-
-@app.route('/performances/')
-def get_performances():
-    '''
-    '''
-    url = flask.url_for('get_performances', performance_id=row[0], _external=True)
-    query = 'SELECT * FROM performances ORDER by date, id'
-    performance_list = []
-    previous_date = ''
-    for row in fetch_all_rows_for_query(query):
-        if row[1] != previous_date:
-            soloist_list = []
-            performance_list.append({'performance_id': row[0], 'date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloists': soloist_list})
-        else:
-            last_index = len(performance_list) - 1
-            performance_list[last_index]['soloists'].append(row[5])
-
-    return json.dumps(performance_list)
-
 @app.route('/composers')
 def get_composers():
 	'''
@@ -324,7 +303,8 @@ def get_performance():
 		performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 
 					   'conductor_id': row[3], 'piece_id': row[4], 'soloist_id': row[5], 'url': url} 
 		performance_list.append(performance)
-
+    	
+	
 	return json.dumps(performance_list)
 
 @app.route('/help')
