@@ -269,6 +269,7 @@ def get_performance():
 	query = 'SELECT id, date, venue_id, conductor_id, piece_id, soloist_id FROM performances'
 	rows = _fetch_all_rows_for_query(query)
 
+    previous_id = 0
 	performance_list = []
 	start_date = flask.request.args.get('start_date', default = '1842-12-07')
 	end_date = flask.request.args.get('end_date', default = '2017-07-07')
@@ -300,8 +301,12 @@ def get_performance():
 		if row[1] >= end_date:
 			continue
 		url = flask.url_for('get_performance', performance_id=row[0], _external=True)
-		performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 
-					   'conductor_id': row[3], 'piece_id': row[4], 'soloist_id': row[5], 'url': url} 
+
+        if row[0] == previous_id:
+            performance_list['soloist_id'].append(row[5])
+        else:
+		    performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloist_id': [row[5]], 'url': url}
+            previous_id = row[0]
 		performance_list.append(performance)
     	
 	
