@@ -31,17 +31,18 @@ Our dataset is fairly large and we feel that we should try to begin with a small
 performance:	
 		[
 			{"id": 27,
-				"dates":  
+				"date":  
 					{"id": 18, "date_name": 10/29/70},
+				"venue": 
+				{"id": 13, "venue_name": "Musikverein", 
+					"location": 
+						{"id": 21, "location_name": "Vienna, Austria"}
+					},
 				"conductor": 
 					{"id": 12, "conductor_name": "Herbert von Karajan"},
-				"venue": 
-					{"id": 13, "venue_name": "Musikverein", 
-						"location": 
-							{"id": 21, "location_name": "Vienna, Austria"}
-					},
-				 "piece_performed": 
-					{"id": 12, "piece_performed_name": "Piano Concerto No. 20 in D minor, K.466", 
+				
+				 "piece": 
+					{"id": 12, "piece_name": "Piano Concerto No. 20 in D minor, K.466", 
 						"composer":
 							{"id": 23, "composer_name": "Wolfgang Amadeus Mozart"}
 					} 
