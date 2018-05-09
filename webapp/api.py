@@ -270,7 +270,7 @@ def get_performance():
 	rows = _fetch_all_rows_for_query(query)
 
     previous_id = 0
-	performance_list = []
+    performance_list = []
     current_performance_soloists = []
     add_current_performance = False
 	start_date = flask.request.args.get('start_date', default = '1842-12-07')

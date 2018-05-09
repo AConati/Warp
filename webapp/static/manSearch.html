@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<h1>Advanced Search</h1>
+<body>
+    <div class = "searchBar" id = "searchBar">
+        <button type="button" onclick="addSearchBar()">+</button>
+        <input type="text"> 
+        <select id = "infoDropDown">
+            <option value="all">All</option>
+            <option value="comoposer">Composer</option>
+            <option value="conductor">Conductor</option>
+            <option value="date">Date</option>
+            <option value="piece">Piece</option>
+            <option value="soloist">Soloist</option>
+            <option value="venue">Venue</option>
+    </div>
+</body>
+<script>
+
+function addSearchBar() {
+    var bar = document.createElement("DIV");
+    var dropDown = document.getElementById("infoDropDown")
+    var dropDownCopy = dropDown.cloneNode(true);
+    var button = document.createElement("BUTTON");
+    var buttonText = document.createTextNode("-");
+    var searchField = document.createElement("INPUT");
+    button.appendChild(buttonText);
+    bar.appendChild(button);
+    bar.appendChild(searchField);
+    bar.appendChild(dropDownCopy);
+    document.body.appendChild(bar);
+}
+
+</script>
