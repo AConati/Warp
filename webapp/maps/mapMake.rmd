@@ -1,0 +1,16 @@
+---
+title: "Mapping"
+author: "Grant Lee"
+date: "May 9, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+map <- get_map(location = c(lon = mean(gun$Longitude) -2, lat = median(gun$Latitude)), zoom = 4, maptype = "terrain", scale = 2)
+
+ggmap(map) + geom_point(data = gun, aes(x = gun$Longitude, y = gun$Latitude, fill = "red", alpha = 0.8), size = 3, shape = 21) + guides(fill = FALSE, alpha = FALSE, size = FALSE)
+```
