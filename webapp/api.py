@@ -271,6 +271,8 @@ def get_performance():
 
     previous_id = 0
 	performance_list = []
+    current_performance_soloists = []
+    add_current_performance = False
 	start_date = flask.request.args.get('start_date', default = '1842-12-07')
 	end_date = flask.request.args.get('end_date', default = '2017-07-07')
 	conductor = flask.request.args.get('conductor', type = int)
@@ -282,7 +284,14 @@ def get_performance():
 	instrument = flask.request.args.get('instrument', type = int)
 
 	for row in rows:
-		if conductor is not None and conductor != row[3]:
+
+        if add_current_performance and row[0] == previous_id:
+            performance_list[len(performance_list) - 1]['soloist_id'].append(row[5])
+            continue
+
+        current_performance_soloists.append(row[5])
+		
+        if conductor is not None and conductor != row[3]:
 			continue
 		if venue is not None and venue != row[2]:
 			continue
@@ -300,14 +309,14 @@ def get_performance():
 			continue
 		if row[1] >= end_date:
 			continue
+
+        add_current_performance = True
 		url = flask.url_for('get_performance', performance_id=row[0], _external=True)
 
-        if row[0] == previous_id:
-            performance_list[len(performance_list) - 1]['soloist_id'].append(row[5])
-        else:
-		    performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloist_id': [row[5]], 'url': url}
-            previous_id = row[0]
-		performance_list.append(performance)
+        performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloist_id': current_performance_soloists, 'url': url}
+        previous_id = row[0]
+        current_performance_soloists = []
+        performance_list.append(performance)
     	
 	
 	return json.dumps(performance_list)
