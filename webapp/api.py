@@ -284,8 +284,10 @@ def get_performance():
 	instrument = flask.request.args.get('instrument', type = int)
 
 	for row in rows:
+        if row[0] != previous_id:
+            add_current_performance = False
 
-        if add_current_performance and row[0] == previous_id:
+        if add_current_performance:
             performance_list[len(performance_list) - 1]['soloist_id'].append(row[5])
             continue
 
