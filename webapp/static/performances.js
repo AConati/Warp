@@ -39,7 +39,7 @@ function getBaseURL() {
 }
 
 function onAuthorsButtonClicked() {
-    var url = getBaseURL() + '/authors/';
+    var url = getBaseURL() + '/performances';
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -50,20 +50,20 @@ function onAuthorsButtonClicked() {
 
         // Once you have your list of author dictionaries, use it to build
         // an HTML table displaying the author names and lifespan.
-        .then(function(authorsList) {
+        .then(function(performanceList) {
                 // Build the table body.
                 var tableBody = '';
-                for (var k = 0; k < authorsList.length; k++) {
+                for (var k = 0; k < performanceList.length; k++) {
                 tableBody += '<tr>';
 
-                tableBody += '<td><a onclick="getAuthor(' + authorsList[k]['id'] + ",'"
-                + authorsList[k]['first_name'] + ' ' + authorsList[k]['last_name'] + "')\">"
-                + authorsList[k]['last_name'] + ', '
-                + authorsList[k]['first_name'] + '</a></td>';
+                tableBody += '<td><a onclick="get_performance(' + performanceList[k]['performance_id'] + ",'"
+                + performanceList[k]['performance_date'] + ' ' + performanceList[k]['venue_id'] + "')\">"
+                + performanceList[k]['conductor_id'] + ', '
+                + performanceList[k]['piece_id'] + '</a></td>';
 
-                tableBody += '<td>' + authorsList[k]['birth_year'] + '-';
-                if (authorsList[k]['death_year'] != 0) {
-                tableBody += authorsList[k]['death_year'];
+                tableBody += '<td>' + performanceList[k]['birth_year'] + '-';
+                if (performanceList[k]['death_year'] != 0) {
+                tableBody += performanceList[k]['death_year'];
                 }
                 tableBody += '</td>';
                 tableBody += '</tr>';
