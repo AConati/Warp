@@ -286,6 +286,8 @@ def get_performance():
 	for row in rows:
         if row[0] != previous_id:
             add_current_performance = False
+            previous_id = row[0]
+            current_performance_soloists = []
 
         if add_current_performance:
             performance_list[len(performance_list) - 1]['soloist_id'].append(row[5])
@@ -316,8 +318,6 @@ def get_performance():
 		url = flask.url_for('get_performance', performance_id=row[0], _external=True)
 
         performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloist_id': current_performance_soloists, 'url': url}
-        previous_id = row[0]
-        current_performance_soloists = []
         performance_list.append(performance)
     	
 	
