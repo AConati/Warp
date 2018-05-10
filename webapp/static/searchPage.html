@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href = "searchPage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class = "quick_search">
+        <h1>Quick Search</h>
+        <p>Enter a composer, soloist, venue, etc... associated with the NY Philharmonic:</p>
+        <form class = search_options>
+            <label for = "select">Search:</label>
+            <select name = "select" id = "search_options_select">
+                <option value = "all">All</option>
+                <option value = "composers">Composers</option>
+                <option value = "pieces">Pieces</option>
+                <option value = "soloists">Soloists</option>
+                <option value = "soloist_instruments">Soloist Instruments</option>
+                <option value = "venues">Venues</option>
+                <option value = "locations"> Locations</option>
+            </select>
+        <input type = "text" id = "simple_search">
+        <button type="submit"><i class = "fa fa-search"></i></button>
+    </form>
+    <div class = "performance_search">
+        <h1>Search Performances</h>
+        <p>Enter search criteria to find matching NY Philharmonic performances:</p>
+        <div class = "search_criteria">
+            <form class = "search_element">
+                <label for="composer" class = "search_label" id = "composer_label">Composer</label>
+                <input type="text" id = "composer_input" name = "composer">
+            </form>
+            <form class = "search_element">
+                <label for="conductor" class = "search_label" id = "conductor_label">Conductor</label>
+                <input type="text" id = "conductor_input" name = "conductor">
+            </form>
+            <form class = "search_element">
+                <label for="date" class = "search_label" id = "date_label">Date</label>
+                <input type="text" id = "date_input" name = "date">
+            </form>
+            <form class = "search_element">
+                <label for="instrument" class = "search_label" id = "instrument_label">Instrument</label>
+                <input type="text" id = "instrument_input">
+            </form>
+            <form class = "search_element">
+                <label for="piece" class = "search_label" id = "piece_label">Piece</label>
+                <input type="text" id = "piece_input" name = "piece">
+            </form>
+            <form class = "search_element">
+                <label for="soloist" class = "search_label" id = "soloist_label">Soloist</label>
+                <input type="text" id = "soloist_input" name = "soloist">
+            </form>
+            <form class = "search_element">
+                <label for="venue" class = "search_label" id = "venue_label">Venue</label>
+                <input type="text" id = "venue_input" name = "venue">
+            </form>
+            <button type="submit"><i class = "fa fa-search"></i></button>
+        </div>
+    </div>
+</body>
