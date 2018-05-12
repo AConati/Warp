@@ -18,12 +18,8 @@ app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
 def _fetch_all_rows_for_query(query):
     '''
-    Returns a list of rows obtained from the books database by the specified SQL
+    Returns a list of rows obtained from the NYPhil database by the specified SQL
     query. If the query fails for any reason, an empty list is returned.
-
-    Note that this is not necessarily the right error-handling choice. Would users
-    of the API like to know the nature of the error? Do we as API implementors
-    want to share that information? There are many considerations to balance.
     '''
     try:
         connection = psycopg2.connect(database=config.database, user=config.user, password=config.password)
@@ -264,6 +260,9 @@ def get_performance():
     The dates will be auto-formatted in the following order:
 
                 YYYY-MM-DD or YYYY/MM/DD
+
+    Example URL:
+                http://perlman.mathcs.carleton.edu:5122/performances?start_date=1929-12-12&end_date=1929-12-28
     '''		
     query = 'SELECT id, date, venue_id, conductor_id, piece_id, soloist_id FROM performances'
     rows = _fetch_all_rows_for_query(query)
@@ -308,9 +307,9 @@ def get_performance():
             continue
         if instrument is not None and instrument != row[5]:
             continue
-        if row[1] <= start_date:
+        if row[1] < start_date:
             continue
-        if row[1] >= end_date:
+        if row[1] > end_date:
             continue
 
         add_current_performance = True
