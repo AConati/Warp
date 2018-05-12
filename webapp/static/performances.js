@@ -38,7 +38,8 @@ function getBaseURL() {
     return baseURL;
 }
 
-function onPerformancesButtonClicked() {
+//Create Table with All Soloists
+function onSoloistButtonClicked() {
     var url = getBaseURL() + '/soloists/';
 
     // Send the request to the Books API /authors/ endpoint
@@ -75,6 +76,47 @@ function onPerformancesButtonClicked() {
             console.log(error);
             });
 }
+
+//Function for Pieces
+function onSoloistButtonClicked() {
+    var url = getBaseURL() + '';
+
+    // Send the request to the Books API /authors/ endpoint
+    fetch(url, {method: 'get'})
+
+        // When the results come back, transform them from JSON string into
+        // a Javascript object (in this case, a list of author dictionaries).
+        .then((response) => response.json())
+
+        // Once you have your list of author dictionaries, use it to build
+        // an HTML table displaying the author names and lifespan.
+        .then(function(soloistList) {
+                // Build the table body.
+                var tableBody = '';
+                for (var k = 0; k < soloistList.length; k++) {
+                tableBody += '<tr>';
+                tableBody += '<td>';
+                tableBody += soloistList[k]['soloist_id'] + '</td><td>'
+                + soloistList[k]['soloist_name'] + '</td><td>'
+                + soloistList[k]['soloist_instrument'] + '</td>';
+                tableBody += '</tr>';
+                }
+                
+
+                // Put the table body we just built inside the table that's already on the page.
+                var resultsTableElement = document.getElementById('results_table');
+                if (resultsTableElement) {
+                    resultsTableElement.innerHTML = tableBody;
+                }
+        })
+
+    // Log the error if anything went wrong during the fetch.
+    .catch(function(error) {
+            console.log(error);
+            });
+}
+
+
 /*
 function getAuthor(authorID, authorName) {
     // Very similar pattern to onAuthorsButtonClicked, so I'm not

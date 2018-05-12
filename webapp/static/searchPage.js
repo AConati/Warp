@@ -5,7 +5,7 @@ function initialize() {
     var simpleSearch = document.getElementById('simple_search');
     var performanceSearchList = document.getElementsByClassName('search_input');
     var performanceSearchButton = document.getElementsById(performance_search_button);
-    String getParams = "";
+    var getParams = "";
     if(performanceSearchButton){ 
         for (var i = 0; i < performanceSearchList.length; i++) {
             if(performanceSearchList[i].value != "") {
@@ -28,8 +28,9 @@ function getBaseURL() {
         return baseURL;
 }
 
-function onSearchButtonClicked(String getParams) {
+function onSearchButtonClicked(getParams) {
    var url = getBaseURL() + '/performances/' + getParams;
+   console.log("HELLO");
 }
 
 /*
