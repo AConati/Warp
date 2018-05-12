@@ -197,17 +197,17 @@ def get_locations():
 
 @app.route('/dates')
 def get_dates():
-    query = 'SELECT id, date FROM performances'
+    query = 'SELECT id, date FROM performances ORDER BY date'
     date_list = []
     previous_date = ''
-    for row in fetch_all_rows_for_query(query):
+    for row in _fetch_all_rows_for_query(query):
         if row[1] != previous_date:
             url = flask.url_for('get_dates', date_id=row[0], _external=True)
-            date = {'performance_id':row [0], 'date': row[1], 'url': url}
+            date = {'performance_id': row[0], 'date': row[1], 'url': url}
             date_list.append(date)
             previous_date = row[1]
 
-    json.dumps(date_list)
+    return json.dumps(date_list)
 
 @app.route('/composers')
 def get_composers():

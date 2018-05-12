@@ -138,8 +138,8 @@ function onPiecesButtonClicked() {
                 tableBody += '<tr>';
                 tableBody += '<td>';
                 tableBody += pieceList[k]['piece_id'] + '</td><td>'
-                + soloistList[k]['piece_name'] + '</td><td>'
-                + soloistList[k]['composer_name'] + '</td>';
+                + pieceList[k]['piece_name'] + '</td><td>'
+                + pieceList[k]['composer_name'] + '</td>';
                 tableBody += '</tr>';
                 }
                 
@@ -291,8 +291,8 @@ function onLocationsButtonClicked() {
                 for (var k = 0; k < locationList.length; k++) {
                 tableBody += '<tr>';
                 tableBody += '<td>';
-                tableBody += venueList[k]['location_id'] + '</td><td>'
-                + venueList[k]['location_name'] + '</td>';
+                tableBody += locationList[k]['location_id'] + '</td><td>'
+                + locationList[k]['location_name'] + '</td>';
                 tableBody += '</tr>';
                 }
                 
@@ -366,8 +366,8 @@ function onComposersButtonClicked() {
                 for (var k = 0; k < composerList.length; k++) {
                 tableBody += '<tr>';
                 tableBody += '<td>';
-                tableBody += dateList[k]['composer_id'] + '</td><td>'
-                + dateList[k]['composer_name'] + '</td>';
+                tableBody += composerList[k]['composer_id'] + '</td><td>'
+                + composerList[k]['composer_name'] + '</td>';
                 tableBody += '</tr>';
                 }
                 
@@ -399,7 +399,7 @@ function onPerformancesButtonClicked() {
         // an HTML table displaying the author names and lifespan.
         .then(function(performanceList) {
                 // Build the table body.
-                var tableBody = '<tr><th>ID</th><th>Date</th><th>Venue</th><th>Conductor</th><th>Piece</th><th>Soloist</th></tr>';
+                var tableBody = '<tr><th>ID</th><th>Date</th><th>Venue</th><th>Conductor</th><th>Piece</th><th>Soloists</th></tr>';
                 for (var k = 0; k < performanceList.length; k++) {
                 tableBody += '<tr>';
                 tableBody += '<td>';
