@@ -42,12 +42,12 @@ def _fetch_all_rows_for_query(query):
     connection.close()
     return rows
 
-'''
+
 @app.after_request
 def set_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
-'''
+
 
 @app.route('/')
 def hello():
@@ -103,7 +103,6 @@ def get_soloists():
         http://.../soloists/?sort=instrument
     '''
     query = '''SELECT id, name, instrument FROM soloists ORDER BY '''
-
     sort_argument = flask.request.args.get('sort')
     if sort_argument == 'instrument':
         query += 'instrument'
@@ -111,7 +110,7 @@ def get_soloists():
         query += 'name'
 
     soloist_list = []
-    for row in _fetch_all_row_for_query(query):
+    for row in _fetch_all_rows_for_query(query):
         url = flask.url_for('get_soloists', soloist_id=row[0], _external=True)
         soloist = {'soloist_id':row[0], 'soloist_name':row[1], 'soloist_instrument':row[2], 'url':url}
         soloist_list.append(soloist)
