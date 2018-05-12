@@ -29,7 +29,7 @@ initialize();
 function initialize() {
     var element = document.getElementById('authors_button');
     if (element) {
-        element.onclick = onAuthorsButtonClicked;
+        element.onclick = onPerformancesButtonClicked;
     }
 }
 
@@ -38,8 +38,8 @@ function getBaseURL() {
     return baseURL;
 }
 
-function onAuthorsButtonClicked() {
-    var url = getBaseURL() + '/performances';
+function onPerformancesButtonClicked() {
+    var url = getBaseURL() + '/soloists/';
 
     // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
@@ -50,24 +50,18 @@ function onAuthorsButtonClicked() {
 
         // Once you have your list of author dictionaries, use it to build
         // an HTML table displaying the author names and lifespan.
-        .then(function(performanceList) {
+        .then(function(soloistList) {
                 // Build the table body.
                 var tableBody = '';
-                for (var k = 0; k < performanceList.length; k++) {
+                for (var k = 0; k < soloistList.length; k++) {
                 tableBody += '<tr>';
-
-                tableBody += '<td><a onclick="get_performance(' + performanceList[k]['performance_id'] + ",'"
-                + performanceList[k]['performance_date'] + ' ' + performanceList[k]['venue_id'] + "')\">"
-                + performanceList[k]['conductor_id'] + ', '
-                + performanceList[k]['piece_id'] + '</a></td>';
-
-                tableBody += '<td>' + performanceList[k]['birth_year'] + '-';
-                if (performanceList[k]['death_year'] != 0) {
-                tableBody += performanceList[k]['death_year'];
-                }
-                tableBody += '</td>';
+                tableBody += '<td>';
+                tableBody += soloistList[k]['soloist_id'] + '</td><td>'
+                + soloistList[k]['soloist_name'] + '</td><td>'
+                + soloistList[k]['soloist_instrument'] + '</td>';
                 tableBody += '</tr>';
                 }
+                
 
                 // Put the table body we just built inside the table that's already on the page.
                 var resultsTableElement = document.getElementById('results_table');
@@ -81,7 +75,7 @@ function onAuthorsButtonClicked() {
             console.log(error);
             });
 }
-
+/*
 function getAuthor(authorID, authorName) {
     // Very similar pattern to onAuthorsButtonClicked, so I'm not
     // repeating those comments here. Read through this code
@@ -93,22 +87,22 @@ function getAuthor(authorID, authorName) {
         .then((response) => response.json())
 
         .then(function(booksList) {
-                var tableBody = '<tr><th>' + authorName + '</th></tr>';
-                for (var k = 0; k < booksList.length; k++) {
+            var tableBody = '<tr><th>' + authorName + '</th></tr>';
+            for (var k = 0; k < booksList.length; k++) {
                 tableBody += '<tr>';
                 tableBody += '<td>' + booksList[k]['title'] + '</td>';
                 tableBody += '<td>' + booksList[k]['publication_year'] + '</td>';
                 tableBody += '</tr>';
-                }
-                var resultsTableElement = document.getElementById('results_table');
-                if (resultsTableElement) {
+            }
+            var resultsTableElement = document.getElementById('results_table');
+            if (resultsTableElement) {
                 resultsTableElement.innerHTML = tableBody;
-                }
-                })
+            }
+        })
 
     .catch(function(error) {
-            console.log(error);
-            });
+        console.log(error);
+    });
 }
 
-
+*/
