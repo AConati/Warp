@@ -380,7 +380,7 @@ function onComposersButtonClicked() {
 
     // Log the error if anything went wrong during the fetch.
     .catch(function(error) {
-            console.log(error);
+            console.log(rror);
             });
 }
 
@@ -405,10 +405,10 @@ function onPerformancesButtonClicked() {
                 tableBody += '<td>';
                 tableBody += performanceList[k]['performance_id'] + '</td><td>'
                 + performanceList[k]['performance_date'] + '</td><td>' 
-                + performanceList[k]['venue_id'] + '</td><td>'
-                + performanceList[k]['conductor_id'] + '</td><td>'
-                + performanceList[k]['piece_id'] + '</td><td>' 
-                + performanceList[k]['soloist_id'] + '</td>';
+                + performanceList[k]['venue_name'] + '</td><td>'
+                + performanceList[k]['conductor_name'] + '</td><td>'
+                + performanceList[k]['piece_name'] + '</td><td>' 
+                + performanceList[k]['soloist_name'] + '</td>';
                 tableBody += '</tr>';
                 }
                 
