@@ -103,13 +103,16 @@ function onSearchButtonClicked() {
 
 }
 
-function loadDictionary(element_type) {
+function loadDictionary(element_type, dictionary) {
+    var returnList;
     var url = getBaseURL() + '/' + element_type;
     fetch(url,{method: 'get'})
         .then((response) => response.json())
 
         .then(function(elementList) {
-           return elementList;
+            for (var k = 0; k < elementList.length; k++) {
+                resultList[k] = Object.assign({}, elementList[k]);
+            }
         })
 
         .catch(function(error) {
