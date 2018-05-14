@@ -14,23 +14,23 @@ function initialize() {
         performanceSearchButton.onclick = onSearchButtonClicked;
     }
     if(composerInputField) {
-        composerInputField.addEventListener('input', function() { autocomplete("composer_input", "composer", composerInputField.value); });
+        composerInputField.addEventListener('input', function() { autocomplete("composer_input", "composers", composerInputField.value); });
     }
 
     if(conductorInputField) {
-        conductorInputField.addEventListener('input', function() { autocomplete("conductor_input", "conductor", conductorInputField.value); });
+        conductorInputField.addEventListener('input', function() { autocomplete("conductor_input", "conductors", conductorInputField.value); });
     }
     if(pieceInputField) {
-        pieceInputField.addEventListener('input', function() { autocomplete("piece_input", "piece", pieceInputField.value); });
+        pieceInputField.addEventListener('input', function() { autocomplete("piece_input", "pieces", pieceInputField.value); });
     }
     if(soloistInputField) {
-        soloistInputField.addEventListener('input', function() { autocomplete("soloist_input", "soloist", soloistInputField.value); });
+        soloistInputField.addEventListener('input', function() { autocomplete("soloist_input", "soloists", soloistInputField.value); });
     } 
     if(instrumentInputField) {
-        instrumentInputField.addEventListener('input', function() { autocomplete("instrument_input", "instrument", instrumentInputField.value); });
+        instrumentInputField.addEventListener('input', function() { autocomplete("instrument_input", "instruments", instrumentInputField.value); });
     }
     if(venueInputField) {
-        venueInputField.addEventListener('input', function() { autocomplete("venue_input", "venue", venueInputField.value); });
+        venueInputField.addEventListener('input', function() { autocomplete("venue_input", "venues", venueInputField.value); });
     }
         
         
@@ -38,7 +38,7 @@ function initialize() {
 }
 
 function getBaseURL() {
-    var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + 'api_port';
+    var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
         return baseURL;
 }
 
@@ -95,60 +95,64 @@ function autocomplete(id, element_type, input) {
         thirdMatches[0] = 'Chopin, Frederic';
     }*/
     var url = getBaseURL() + '/' + element_type;
-    fetch(url,{method: 'get'});
+    fetch(url,{method: 'get'})
         .then((response) => response.json())
 
         .then(function(elementList) {
             
-            for(var k = 0; k < elementList.length(); k++) {
-                var element = elementList['name'];
+            for(var k = 0; k < elementList.length; k++) {
+                var element = elementList[k]['composer_name'];
                 var tier = setHierarchy(element, input);
                 if(tier == -1)
                     continue;
-                else if(tier == 1)
-                    firsttMatches.push(element, input);
+                else if(tier == 1) {
+                    firstMatches.push(element);
+                }
                 else if(tier == 2)
-                    secondMatches.push(element, input);
+                    secondMatches.push(element);
                 else if(tier == 3)
-                    thirdMatches.push(element, input);
+                    thirdMatches.push(element);
             }
+
+            var numberOfMatches = 0;
+            firstMatches.sort();
+
+            for (var i = 0; i < firstMatches.length; i++) {
+                console.log(options);
+                options += '<option value=\"' + firstMatches[i] + '\">';
+                numberOfMatches++;
+                if(numberOfMatches >= 5) {
+                    document.getElementById(id).innerHTML = options;
+            return;
+                }
+            }
+    
+        secondMatches.sort();
+        for (var i = 0; i < secondMatches.length; i++) {
+            options += '<option value=\"' + secondMatches[i] + '\">';
+            numberOfMatches++;
+            if(numberOfMatches >= 5){
+                document.getElementById(id).innerHTML = options;
+                return;
+            }
+        }
+
+        thirdMatches.sort();
+        for (var i = 0; i < thirdMatches.length; i++) {
+            options += '<option value=\"' + thirdMatches[i] + '\">';
+            numberOfMatches++;
+            if(numberOfMatches >= 5) {
+                document.getElementById(id).innerHTML = options;
+                return;
+            }
+        }
+        document.getElementById(id).innerHTML = options;
         })
+
 
     .catch(function(error) {
         console.log(error);
         });
-    
-    var numberOfMatches = 0;
-    firstMatches.sort();
-    for (var i = 0; i < firstMatches.length; i++){
-        options += '<option value="' + firstMatches[i] + '">';
-        numberOfMatches++;
-        if(numberOfMatches >= 5){
-            document.getElementById(id).innerHTML = options;
-            return;
-        }
-    }
-    
-    secondMatches.sort();
-    for (var i = 0; i < secondMatches.length; i++) {
-        options += '<option value="' + secondMatches[i] + '">';
-        numberOfMatches++;
-        if(numberOfMatches >= 5){
-            document.getElementById(id).innerHTML = options;
-            return;
-        }
-    }
-
-    thirdMatches.sort();
-    for (var i = 0; i < thirdMatches.length; i++) {
-        options += '<option value="' + thirdMatches[i] + '">';
-        numberOfMatches++;
-        if(numberOfMatches >= 5){
-            document.getElementById(id).innerHTML = options;
-            return;
-        }
-    }
-    document.getElementById(id).innerHTML = options;
 }
 
 function setHierarchy(element, searchString) {

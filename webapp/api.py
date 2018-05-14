@@ -264,6 +264,7 @@ def get_performance():
     Example URL:
                 http://perlman.mathcs.carleton.edu:5122/performances?start_date=1929-12-12&end_date=1929-12-28
     '''		
+    #Query construction for each unique column of performance
     query = 'SELECT t1.id, t1.date, t1.venue_id, t1.conductor_id, t1.piece_id, t1.soloist_id, t2.name, t3.name, t4.name, t5.name FROM performances t1 INNER JOIN venues t2 ON t1.venue_id = t2.id INNER JOIN conductors t3 ON t1.conductor_id = t3.id INNER JOIN pieces t4 ON t1.piece_id = t4.id INNER JOIN soloists t5 ON t1.soloist_id = t5.id'
     rows = _fetch_all_rows_for_query(query)
 
@@ -280,6 +281,7 @@ def get_performance():
     composer = flask.request.args.get('composer', type = int)
     soloist = flask.request.args.get('soloist', type = int)
     instrument = flask.request.args.get('instrument', type = int)
+    performance_id = flask.request.args.get('performance_id', type = int)
 
     for row in rows:
         if row[0] != previous_id:
@@ -293,6 +295,7 @@ def get_performance():
 
         current_performance_soloists.append(row[9])
 
+        #Filtering for the desired performance
         if conductor is not None and conductor != row[3]:
             continue
         if venue is not None and venue != row[2]:
@@ -310,6 +313,8 @@ def get_performance():
         if row[1] < start_date:
             continue
         if row[1] > end_date:
+            continue
+        if performance_id is not None and performance_id != row[0]:
             continue
 
         add_current_performance = True
