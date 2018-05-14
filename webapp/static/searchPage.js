@@ -18,7 +18,8 @@ function initialize() {
     var instrumentInputField = document.getElementById("insturment_input_field");
     var venueInputField = document.getElementById("venue_input_field");
 
-    composerDictionary = loadDictionary("composers");
+    var composerDictionary = loadDictionary("composers");
+    console.log(composerDictionary);
     conductorDictionary = loadDictionary("conductors");
     pieceDictionary = loadDictionary("pieces");
     soloistDictionary = loadDictionary("soloists");
@@ -109,13 +110,17 @@ function loadDictionary(element_type) {
         .then((response) => response.json())
 
         .then(function(elementList) {
-           return elementList;
+            return elementList;
         })
 
-        .catch(function(error) {
-            console.log(error);
-        });
+    .catch(function(error) {
+        console.log(error);
+    });
 }
+
+loadDictionary(element_type).then((res) => {
+    console.log(res);
+    });
 
 function getDictionary(element_type) {
     switch(element_type) {
@@ -136,7 +141,7 @@ function getDictionary(element_type) {
 
         case "venues":
             return venueDictionary;
-    
+    } 
     return false;
 }
         
