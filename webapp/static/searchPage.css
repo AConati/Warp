@@ -7,7 +7,7 @@ body:before, body:after {
     background: linear-gradient(#99b3ff, #e6ecff);
     left: 0;
     right: 0;
-    height: 10px;
+    height: 20px;
 }
 
 body:before {
@@ -19,7 +19,7 @@ body:after {
 }
 
 body {
-    background-image: url('fresh_snow.png');
+    background-image: url('Images/fresh_snow.png');
     text-align: center;
 }
 

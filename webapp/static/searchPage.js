@@ -1,4 +1,11 @@
 
+var composerDictionary;
+var conductorDictionary;
+var pieceDictionary;
+var soloistDictionary;
+var instrumentDictionary;
+var venueDictionary;
+
 initialize();
 
 function initialize() {
@@ -10,6 +17,14 @@ function initialize() {
     var soloistInputField = document.getElementById("soloist_input_field");
     var instrumentInputField = document.getElementById("insturment_input_field");
     var venueInputField = document.getElementById("venue_input_field");
+
+    composerDictionary = loadDictionary("composers");
+    conductorDictionary = loadDictionary("conductors");
+    pieceDictionary = loadDictionary("pieces");
+    soloistDictionary = loadDictionary("soloists");
+    instrumentDictionary = loadDictionary("instruments");
+    venueDictionary = loadDictionary("venues");
+    
     if(performanceSearchButton) {
         performanceSearchButton.onclick = onSearchButtonClicked;
     }
@@ -32,8 +47,8 @@ function initialize() {
     if(venueInputField) {
         venueInputField.addEventListener('input', function() { autocomplete("venue_input", "venues", venueInputField.value); });
     }
-        
-        
+    
+
 
 }
 
@@ -44,20 +59,24 @@ function getBaseURL() {
 
 function onSearchButtonClicked() {
     var performanceSearchList = document.getElementsByClassName('search_input');
+    var startDateInputField = document.getElementById('start_date_input_field');
+    var endDateInputField = document.getElementById('end_date_input_field');
     var getParams = "";
+    getParams = getParams + startDateInputField.value + '&' + endDateInputField.value;
     for (var i = 0; i < performanceSearchList.length; i++) {
         if(performanceSearchList[i].value != "") {
+            getParams += '&';
             getParams += performanceSearchList[i].value;
         }
     }
     console.log(getParams);
     var url = getBaseURL() + '/performances/' + getParams;
     location.href = 'x.html'
-/*    fetch(url, {method: 'get'});
+    fetch(url, {method: 'get'});
         .then((response) => response.json())
         
         .then(function(performancesList) {
-            var tableBody = '<tr><th>ID</th><th>Name</th><th>Composer</th></tr>';
+            var tableBody = '';
             for (var k = 0; k < performancesList.length; k++) {
                 tableBody += '<tr>';
                 tableBody += '<td>';
@@ -80,79 +99,98 @@ function onSearchButtonClicked() {
     .catch(function(error) {
         console.log(error);
         });
-*/
+
 
 }
-        
-function autocomplete(id, element_type, input) {
-    var firstMatches = new Array();
-    var secondMatches = new Array();
-    var thirdMatches = new Array();
-    var options = ''
-/*    firstMatches[0] = 'Shostakovich, Dmitri';
-    firstMatches[1] = 'Brahms, Johannes';
-    if(input.indexOf('C') == 0) {
-        thirdMatches[0] = 'Chopin, Frederic';
-    }*/
+
+function loadDictionary(element_type) {
     var url = getBaseURL() + '/' + element_type;
     fetch(url,{method: 'get'})
         .then((response) => response.json())
 
         .then(function(elementList) {
-            
-            for(var k = 0; k < elementList.length; k++) {
-                var element = elementList[k]['composer_name'];
-                var tier = setHierarchy(element, input);
-                if(tier == -1)
-                    continue;
-                else if(tier == 1) {
-                    firstMatches.push(element);
-                }
-                else if(tier == 2)
-                    secondMatches.push(element);
-                else if(tier == 3)
-                    thirdMatches.push(element);
-            }
-
-            var numberOfMatches = 0;
-            firstMatches.sort();
-
-            for (var i = 0; i < firstMatches.length; i++) {
-                console.log(options);
-                options += '<option value=\"' + firstMatches[i] + '\">';
-                numberOfMatches++;
-                if(numberOfMatches >= 5) {
-                    document.getElementById(id).innerHTML = options;
-            return;
-                }
-            }
-    
-        secondMatches.sort();
-        for (var i = 0; i < secondMatches.length; i++) {
-            options += '<option value=\"' + secondMatches[i] + '\">';
-            numberOfMatches++;
-            if(numberOfMatches >= 5){
-                document.getElementById(id).innerHTML = options;
-                return;
-            }
-        }
-
-        thirdMatches.sort();
-        for (var i = 0; i < thirdMatches.length; i++) {
-            options += '<option value=\"' + thirdMatches[i] + '\">';
-            numberOfMatches++;
-            if(numberOfMatches >= 5) {
-                document.getElementById(id).innerHTML = options;
-                return;
-            }
-        }
-        document.getElementById(id).innerHTML = options;
+           return elementList;
         })
+}
 
+function getDictionary(element_type) {
+    switch(element_type) {
+        case "composers":
+            return composerDictionary;
+        
+        case "conductors":
+            return conductorDictionary;
+        
+        case "pieces":
+            return pieceDictionary;
 
-    .catch(function(error) {
-        console.log(error);
-        });
+        case "soloists":
+            return soloistDictionary;
+
+        case "instruments":
+            return instrumentDictionary;
+
+        case "venues":
+            return venueDictionary;
+    
+    return false;
+}
+        
+function autocomplete(id, element_type, input) {
+    if(input == '')
+        return;
+
+    var firstMatches = new Array();
+    var secondMatches = new Array();
+    var thirdMatches = new Array();
+    var options = ''
+    var dictionary = getDictionary(element_type);
+    var name = element_type.substring(0, element_type.length) + '_name';
+            
+    for(var k = 0; k < dictionary.length; k++) {
+        var element = dictionary[k][name];
+        var tier = setHierarchy(element, input);
+        if(tier == -1)
+            continue;
+        else if(tier == 1) {
+            firstMatches.push(element);
+        }
+        else if(tier == 2)
+            secondMatches.push(element);
+        else if(tier == 3)
+            thirdMatches.push(element);
+    }
+
+    var numberOfMatches = 0;
+
+    for (var i = 0; i < firstMatches.length; i++) {
+        console.log(options);
+        options += '<option value=\"' + firstMatches[i] + '\">';
+        numberOfMatches++;
+        if(numberOfMatches >= 5) {
+            document.getElementById(id).innerHTML = options;
+    return;
+        }
+    }
+
+    for (var i = 0; i < secondMatches.length; i++) {
+        options += '<option value=\"' + secondMatches[i] + '\">';
+        numberOfMatches++;
+        if(numberOfMatches >= 5){
+            document.getElementById(id).innerHTML = options;
+            return;
+        }
+    }
+
+    for (var i = 0; i < thirdMatches.length; i++) {
+        options += '<option value=\"' + thirdMatches[i] + '\">';
+        numberOfMatches++;
+        if(numberOfMatches >= 5) {
+            document.getElementById(id).innerHTML = options;
+            return;
+        }
+    }
+    document.getElementById(id).innerHTML = options;
 }
 
 function setHierarchy(element, searchString) {
