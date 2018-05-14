@@ -72,7 +72,7 @@ function onSearchButtonClicked() {
     console.log(getParams);
     var url = getBaseURL() + '/performances/' + getParams;
     location.href = 'x.html'
-    fetch(url, {method: 'get'});
+    fetch(url, {method: 'get'})
         .then((response) => response.json())
         
         .then(function(performancesList) {
@@ -111,6 +111,10 @@ function loadDictionary(element_type) {
         .then(function(elementList) {
            return elementList;
         })
+
+        .catch(function(error) {
+            console.log(error);
+        });
 }
 
 function getDictionary(element_type) {
