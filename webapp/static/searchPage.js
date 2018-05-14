@@ -161,19 +161,5 @@ function setHierarchy(element, searchString) {
     } else {
         return 3;
     }
-}
 
 
-/*
-function getCompletions(searchString, field) {
-    var url = getBaseURL() + '/' + field + '/';
-    fetch(url, {method: 'get'});
-    var dataList = []
-    .then((response) => response.json())
-    .then(function(dataMap) {
-        dataList
-    var autocompleter = new GenericAutocompleter(dataList, true);
-    var completionsList = autocompleter.getCompletions(searchString);
-    return completionsList;
-}
-*/

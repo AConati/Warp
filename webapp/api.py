@@ -18,12 +18,8 @@ app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
 def _fetch_all_rows_for_query(query):
     '''
-    Returns a list of rows obtained from the books database by the specified SQL
+    Returns a list of rows obtained from the NYPhil database by the specified SQL
     query. If the query fails for any reason, an empty list is returned.
-
-    Note that this is not necessarily the right error-handling choice. Would users
-    of the API like to know the nature of the error? Do we as API implementors
-    want to share that information? There are many considerations to balance.
     '''
     try:
         connection = psycopg2.connect(database=config.database, user=config.user, password=config.password)
@@ -201,17 +197,17 @@ def get_locations():
 
 @app.route('/dates')
 def get_dates():
-    query = 'SELECT id, date FROM performances'
+    query = 'SELECT id, date FROM performances ORDER BY date'
     date_list = []
     previous_date = ''
-    for row in fetch_all_rows_for_query(query):
+    for row in _fetch_all_rows_for_query(query):
         if row[1] != previous_date:
             url = flask.url_for('get_dates', date_id=row[0], _external=True)
-            date = {'performance_id':row [0], 'date': row[1], 'url': url}
+            date = {'performance_id': row[0], 'date': row[1], 'url': url}
             date_list.append(date)
             previous_date = row[1]
 
-    json.dumps(date_list)
+    return json.dumps(date_list)
 
 @app.route('/composers')
 def get_composers():
@@ -264,8 +260,11 @@ def get_performance():
     The dates will be auto-formatted in the following order:
 
                 YYYY-MM-DD or YYYY/MM/DD
+
+    Example URL:
+                http://perlman.mathcs.carleton.edu:5122/performances?start_date=1929-12-12&end_date=1929-12-28
     '''		
-    query = 'SELECT id, date, venue_id, conductor_id, piece_id, soloist_id FROM performances'
+    query = 'SELECT t1.id, t1.date, t1.venue_id, t1.conductor_id, t1.piece_id, t1.soloist_id, t2.name, t3.name, t4.name, t5.name FROM performances t1 INNER JOIN venues t2 ON t1.venue_id = t2.id INNER JOIN conductors t3 ON t1.conductor_id = t3.id INNER JOIN pieces t4 ON t1.piece_id = t4.id INNER JOIN soloists t5 ON t1.soloist_id = t5.id'
     rows = _fetch_all_rows_for_query(query)
 
     previous_id = 0
@@ -289,10 +288,10 @@ def get_performance():
             current_performance_soloists = []
 
         if add_current_performance:
-            performance_list[len(performance_list) - 1]['soloist_id'].append(row[5])
+            performance_list[len(performance_list) - 1]['soloist_name'].append(row[9])
             continue
 
-        current_performance_soloists.append(row[5])
+        current_performance_soloists.append(row[9])
 
         if conductor is not None and conductor != row[3]:
             continue
@@ -308,15 +307,15 @@ def get_performance():
             continue
         if instrument is not None and instrument != row[5]:
             continue
-        if row[1] <= start_date:
+        if row[1] < start_date:
             continue
-        if row[1] >= end_date:
+        if row[1] > end_date:
             continue
 
         add_current_performance = True
         url = flask.url_for('get_performance', performance_id=row[0], _external=True)
 
-        performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_id': row[2], 'conductor_id': row[3], 'piece_id': row[4], 'soloist_id': current_performance_soloists, 'url': url}
+        performance = {'performance_id': row[0], 'performance_date': row[1], 'venue_name': row[6], 'conductor_name': row[7], 'piece_name': row[8], 'soloist_name': current_performance_soloists, 'url': url}
         performance_list.append(performance)
 
 
