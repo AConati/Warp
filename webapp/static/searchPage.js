@@ -156,7 +156,7 @@ function setHierarchy(element, searchString) {
         return -1;
     } else if (element.indexOf(searchString) == 0) {
         return 1;
-    } else if (element.indexOf(searchString) == element.indexOf(searchString) + 1) {
+    } else if (element.indexOf(searchString) == element.indexOf(',') + 1) {
         return 2;
     } else {
         return 3;
