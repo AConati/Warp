@@ -18,7 +18,7 @@ function initialize() {
     var instrumentInputField = document.getElementById("insturment_input_field");
     var venueInputField = document.getElementById("venue_input_field");
 
-    var composerDictionary = loadDictionary("composers");
+    loadDictionary("composers", composerDictionary);
     console.log(composerDictionary);
     conductorDictionary = loadDictionary("conductors");
     pieceDictionary = loadDictionary("pieces");
@@ -104,26 +104,21 @@ function onSearchButtonClicked() {
 
 }
 
-function loadDictionary(element_type, dictionary) {
-    var returnList;
+function loadDictionary(element_type) {
     var url = getBaseURL() + '/' + element_type;
     fetch(url,{method: 'get'})
         .then((response) => response.json())
 
-        .then(function(elementList) {
-            for (var k = 0; k < elementList.length; k++) {
-                resultList[k] = Object.assign({}, elementList[k]);
+        .then(async function(elementList) {
+            return await elementList;
             }
+        console.log(elementList);
         })
-
+    
     .catch(function(error) {
         console.log(error);
     });
 }
-
-loadDictionary(element_type).then((res) => {
-    console.log(res);
-    });
 
 function getDictionary(element_type) {
     switch(element_type) {
