@@ -111,6 +111,10 @@ function loadDictionary(element_type) {
         .then(function(elementList) {
            return elementList;
         })
+
+        .catch(function(error) {
+            console.log(error);
+        });
 }
 
 function getDictionary(element_type) {
