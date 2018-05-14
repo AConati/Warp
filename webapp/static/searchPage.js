@@ -89,13 +89,13 @@ function autocomplete(id, element_type, input) {
     var secondMatches = new Array();
     var thirdMatches = new Array();
     var options = ''
-    firstMatches[0] = 'Shostakovich, Dmitri';
+/*    firstMatches[0] = 'Shostakovich, Dmitri';
     firstMatches[1] = 'Brahms, Johannes';
     if(input.indexOf('C') == 0) {
         thirdMatches[0] = 'Chopin, Frederic';
-    }
+    }*/
     var url = getBaseURL() + '/' + element_type;
-/*    fetch(url,{method: 'get'});
+    fetch(url,{method: 'get'});
         .then((response) => response.json())
 
         .then(function(elementList) {
@@ -117,7 +117,7 @@ function autocomplete(id, element_type, input) {
     .catch(function(error) {
         console.log(error);
         });
-*/    
+    
     var numberOfMatches = 0;
     firstMatches.sort();
     for (var i = 0; i < firstMatches.length; i++){
@@ -161,5 +161,5 @@ function setHierarchy(element, searchString) {
     } else {
         return 3;
     }
-
+}
 
