@@ -1,24 +1,42 @@
 <!doctype html>
+<!--Code Belongs to CodyHouse -->
 <html lang="en" class="no-js">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
-  	
-	<title>Parallax Hero Image | CodyHouse</title>
-</head>
-<body>
-	<div class="cd-background-wrapper">
-		<figure class="cd-floating-background">
-			<img src="img/cd-img-1.jpg" alt="image-1">
-			<img src="img/cd-img-2.png" alt="image-2">
-			<img src="img/cd-img-3.png" alt="image-3">
-		</figure>
-	</div>
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/main.js"></script> <!-- Resource jQuery -->
-</body>
+        <link rel="stylesheet" href="{{ url_for('static', filename='performers_reset.css') }}" /> <!-- CSS reset -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='performers_style.css') }}" /> <!-- Resource style -->
+        <link rel="shortcut icon" href="https://res.cloudinary.com/nyphil/image/upload/v1463431638/images/shared/icons-logos/favicon.ico"/>
+        <script>var api_port = {{ api_port }};</script>  
+        <script src="{{ url_for('static', filename='modernizr.js') }}" defer></script> <!-- Modernizr -->
+
+        <title>NY Phil: Perfinder </title>
+    </head>
+
+    <body>
+
+    <div class="cd-background-wrapper">
+        <figure class="cd-floating-background">
+            <img src="{{ url_for('static', filename='images/concert_hall.png') }}" alt="concert_hall">
+            <img src="{{ url_for('static', filename='images/performers.png') }}" alt="performers" usemap="#perfmap">
+            <img src="{{ url_for('static', filename='images/composers.png') }}" alt="composers">
+        </figure>
+        <div class = "text-block">
+            <h1> NY Phil: Perfinder </h1>
+        </div>
+    </div>
+
+    <map name="perfmap">
+        <area shape ="rect" coords="34,44,270,350" alt="soloist" href="https://www.google.com/">
+    </map>
+
+    <img src ="{{ url_for('static', filename='images/exit.png') }}" alt ="exit" class = "exit_sign">
+
+    <script src="{{ url_for('static', filename='jquery-2.1.1.js') }}" defer></script> 
+    <script src="{{ url_for('static', filename='performers_main.js') }}" defer></script> <!-- Resource jQuery -->
+
+    </body>
+
 </html>

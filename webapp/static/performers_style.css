@@ -15,12 +15,39 @@ body {
   font-size: 1.6rem;
   font-family: sans-serif;
   color: #ffffff;
-  background: #001426 url("../img/bg-pattern.png");
+  background: #001426 url("./images/bg-pattern.png");
 }
 
 a {
   color: #196a74;
   text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
 }
 
 /* -------------------------------- 
@@ -80,4 +107,18 @@ Main Components
 .no-preserve-3d .cd-floating-background {
   /* we target browsers that don't support preserve-3d and show just a standard image - no effect visible */
   position: relative;
+}
+.exit_sign {
+    position: absolute;
+    height: 45px;
+    width: 45px;
+    top: 90%;
+    left: 2.5%;
+}
+.text-block {
+    position: relative;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+    top: 40%;
+    font-size: 10vw;
 }
