@@ -13,7 +13,6 @@
         <script src="{{ url_for('static', filename='jquery-2.1.1.js') }}" type="text/javascript" defer></script> 
         <script src="{{ url_for('static', filename='performers_main.js') }}" defer></script> <!-- Resource jQuery -->
         <script src="{{ url_for('static', filename='modernizr.js') }}" defer></script> <!-- Modernizr -->
-        <script src="{{ url_for('static', filename='exit_button.js') }}" defer></script>  
        
         <title>NY Phil: Perfinder </title>
     </head>
@@ -25,12 +24,8 @@
             <img src="{{ url_for('static', filename='images/concert_hall.png') }}" alt="concert_hall">
             <img src="{{ url_for('static', filename='images/performers.png') }}" alt="performers"> 
             <img src="{{ url_for('static', filename='images/composers.png') }}" alt="composers">
-            <a href="https://google.com">
-                <img src="{{ url_for('static', filename='images/soloist.png') }}" alt="soloist">
-            </a>
-            <a href="https://www.youtube.com/">
-                <img src="{{ url_for('static', filename='images/conductor.png') }}" alt="conductor">
-            </a>
+            <img src="{{ url_for('static', filename='images/soloist.png') }}" alt="soloist">
+            <img src="{{ url_for('static', filename='images/conductor.png') }}" alt="conductor">
        </figure>
 
        <div class = "text-block">
@@ -44,7 +39,29 @@
         </a>
     </div>
 
+    <a href="{{ url_for('static', filename='results.html') }}">
+        <div class="conductor"></div>
+    </a>
     
+    <a href="{{ url_for('static', filename='results.html') }}">
+        <div class="soloist"></div>
+    </a>
+
+    <a href="{{ url_for('static', filename='results.html') }}">
+        <div class="composer1" id="composer"></div>
+    </a>
+
+    <a href="{{ url_for('static', filename='results.html') }}">
+        <div class="composer2" id="composer"></div>
+    </a>
+
+    <a href="{{ url_for('static', filename='results.html') }}">
+        <div class="composer3" id="composer"></div>
+    </a>
+
+    <a href="{{ url_for('static', filename='results.html') }}">
+        <div class="composer4" id="composer"></div>
+    </a>
     </body>
 
 </html>

@@ -18,10 +18,6 @@ body {
   background: #001426 url("./images/bg-pattern.png");
 }
 
-a {
-  color: #196a74;
-  text-decoration: none;
-}
 
 /* -------------------------------- 
 
@@ -57,37 +53,38 @@ Main Components
   /* fixes a Firefox bug - images not correctly rendered*/
   background-color: rgba(255, 255, 255, 0.01);
 }
+
 .cd-floating-background img:not(:first-child) {
   position: absolute;
   top: 0;
   left: 0;
 }
-.cd-floating-background img:first-child {
+
+div.cd-floating-background img:first-child {
   -webkit-transform: translateZ(50px);
   -ms-transform: translateZ(50px);
   transform: translateZ(50px);
 }
 .cd-floating-background img:nth-child(2) {
-  -webkit-transform: translateZ(290px);
-  -ms-transform: translateZ(290px);
-  transform: translateZ(290px);
+  -webkit-transform: translateZ(100px);
+  -ms-transform: translateZ(100px);
+  transform: translateZ(100px);
 }
 .cd-floating-background img:nth-child(3) {
-  -webkit-transform: translateZ(300px);
-  -ms-transform: translateZ(300px);
-  transform: translateZ(300px);
+  -webkit-transform: translateZ(200px);
+  -ms-transform: translateZ(200px);
+  transform: translateZ(200px);
 }
-.cd-floating-background a img:nth-child(4) {
-  -webkit-transform: translateZ(400x);
-  -ms-transform: translateZ(400px);
-  transform: translateZ(400px);
+.cd-floating-background img:nth-child(4) {
+  -webkit-transform: translateZ(200px);
+  -ms-transform: translateZ(200px);
+  transform: translateZ(200px);
 }
-.cd-floating-background a img:nth-child(5) {
-  -webkit-transform: translateZ(400px);
-  -ms-transform: translateZ(400px);
-  transform: translateZ(400px);
+.cd-floating-background img:nth-child(5) {
+  -webkit-transform: translateZ(200px);
+  -ms-transform: translateZ(200px);
+  transform: translateZ(200px);
 }
-
 .no-preserve-3d .cd-floating-background {
   /* we target browsers that don't support preserve-3d and show just a standard image - no effect visible */
   position: relative;
@@ -99,10 +96,19 @@ Main Components
 
 .exit_sign {
     position: fixed;
-    height: 45px;
-    width: 45px;
+    height: 3vw;
+    width: 3vw;
     top: 90%;
     left: 2.5%;
+}
+
+.exit_sign:hover {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 255, 0, 0.67);
+    -moz-box-shadow:    0px 0px 30px 0px rgba(0, 255, 0, 0.67);
+    box-shadow:         0px 0px 30px 0px rgba(0, 255, 0, 0.67);
 }
 
 .text-block {
@@ -113,6 +119,90 @@ Main Components
     font-size: 10vw;
 }
 
+.soloist {
+    position: absolute;
+    height: 12vw;
+    width: 24vw;
+    top: 38vw;
+    left: 35.5vw;
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 6%;
+}
+
+.soloist:hover {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 30px 0px rgb(251, 255, 0);
+    -moz-box-shadow:    0px 0px 30px 0px rgb(251, 255, 0);
+    box-shadow:         0px 0px 30px 0px rgb(251, 255, 0);
+}
+
+.conductor {
+    position: absolute;
+    height: 9vw;
+    width: 4vw;
+    top: 34vw;
+    left: 49.5vw;
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 50%;
+}
+
+.conductor:hover {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(255, 0, 0, 0.67);
+    -moz-box-shadow:    0px 0px 30px 0px rgba(255, 0, 0, 0.67);
+    box-shadow:         0px 0px 30px 0px rgba(255, 0, 0, 0.67);
+}
+
+.composer1 {
+    position: absolute;
+    height: 16.2vw;
+    width: 12.8vw;
+    top: 0vw;
+    left: 4vw;
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 6%;
+}
+#composer:hover {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 30px 0px rgb(0, 137, 255);
+    -moz-box-shadow:    0px 0px 30px 0px rgb(0, 137, 255);
+    box-shadow:         0px 0px 30px 0px rgb(0, 137, 255);
+}
+
+.composer2 {
+    position: absolute;
+    height: 15.5vw;
+    width: 12.5vw;
+    top: 0vw;
+    left: 32.5vw;
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 6%;
+}
+
+.composer3 {
+    position: absolute;
+    height: 16.2vw;
+    width: 12.8vw;
+    top: 0vw;
+    left: 58.5vw;
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 6%;
+}
+
+.composer4 {
+    position: absolute;
+    height: 16.2vw;
+    width: 12.8vw;
+    top: 0vw;
+    left: 85.5vw;
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 6%;
 }
 
 
