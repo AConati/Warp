@@ -265,7 +265,7 @@ def get_performance():
                 http://perlman.mathcs.carleton.edu:5122/performances?start_date=1929-12-12&end_date=1929-12-28
     '''		
     #Query construction for each unique column of performance
-    query = 'SELECT t1.id, t1.date, t1.venue_id, t1.conductor_id, t1.piece_id, t1.soloist_id, t2.name, t3.name, t4.name, t5.name FROM performances t1 INNER JOIN venues t2 ON t1.venue_id = t2.id INNER JOIN conductors t3 ON t1.conductor_id = t3.id INNER JOIN pieces t4 ON t1.piece_id = t4.id INNER JOIN soloists t5 ON t1.soloist_id = t5.id'
+    query = 'SELECT t1.id, t1.date, t1.venue_id, t1.conductor_id, t1.piece_id, t1.soloist_id, t2.name, t3.name, t4.name, t5.name, t6.location_id, t7.instrument_id, t8.composer_id FROM performances t1 INNER JOIN venues t2 ON t1.venue_id = t2.id INNER JOIN conductors t3 ON t1.conductor_id = t3.id INNER JOIN pieces t4 ON t1.piece_id = t4.id INNER JOIN soloists t5 ON t1.soloist_id = t5.id INNER JOIN venue_location t6 ON t1.venue_id = t6.venue_id INNER JOIN soloist_instrument t7 ON t1.soloist_id = t7.soloist_id INNER JOIN piece_composer t8 ON t1.piece_id = t8.piece_id'
     rows = _fetch_all_rows_for_query(query)
 
     previous_id = 0
@@ -300,15 +300,15 @@ def get_performance():
             continue
         if venue is not None and venue != row[2]:
             continue
-        if location is not None and location != row[2]:
+        if location is not None and location != row[10]:
             continue
         if piece is not None and piece != row[4]:
             continue
-        if composer is not None and composer != row[4]:
+        if composer is not None and composer != row[12]:
             continue
         if soloist is not None and soloist != row[5]:
             continue
-        if instrument is not None and instrument != row[5]:
+        if instrument is not None and instrument != row[11]:
             continue
         if row[1] < start_date:
             continue
