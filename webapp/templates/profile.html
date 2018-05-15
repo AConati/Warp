@@ -2,20 +2,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='profile.css') }}" />
+<!--        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='profile.css') }}" />
         <script>var api_port = {{ api_port }};</script>
-        <script type="text/javascript" src="{{ url_for('static', filename='profile.js') }}" defer></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='profile.js') }}" defer></script>-->
+        <link rel="stylesheet" type="text/css" href="../static/profile.css"/>
         <link rel="shortcut icon" href="https://res.cloudinary.com/nyphil/image/upload/v1463431638/images/shared/icons-logos/favico    n.ico"/>
         <title>NY Phil: Perfinder</title>
     </head> 
-
     <body>
-        <img src="{{ url_for('images', filename='new_york.jpg') }}" class="bg"/>
+        <div>
+            <h1 id = 'date_performed'>NY Philharmonic Performance on</h1>
+            <p id = 'location'>Location:</p>
+            <p id = 'conductor'>Conductor:</p>
+            <p id = 'piece'>Piece performed:</p>
+            <p id = 'composer'>Composer:</p>
+            <p id = 'soloists'>Soloists featured:</p>
+        </div>
     </body>
-
 </html>
-
-    
-
-
-
