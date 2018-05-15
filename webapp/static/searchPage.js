@@ -1,3 +1,15 @@
+/**
+* @author Ari Conati, Grant Lee
+*
+* Implements functionality for the elements of searchPage.html. This includes 
+* updating the list of options given by the datalist elements as text is 
+* entered (predictive autocompleter) and redirecting the user to a new page 
+* (results.html) which displays the performances matching the user input 
+* in the datalist elements.
+* 
+*/
+
+
 
 var composerDictionary;
 var conductorDictionary;
@@ -8,6 +20,11 @@ var venueDictionary;
 
 initialize();
 
+/**
+* Initializes the elements in searchPage.html. Preloads the dicionaries
+* so that the autocomplete function can list options for the datalist
+* elements.
+*/ 
 function initialize() {
     var simpleSearch = document.getElementById('simple_search');
     var performanceSearchButton = document.getElementById("performance_search_button");
@@ -19,6 +36,10 @@ function initialize() {
     var venueInputField = document.getElementById("venue_input_field");
     var element_type = "composers";
     var getJSON;
+
+    // Query api and load dictionaries stored as Promise objects. This allows matching strings
+    // to quickly be found by the autocomplete function without sending a new query each time
+    // input changes.
 
     let loadDictionary = function(element_type) {
         var url = getBaseURL() + '/' + element_type;
@@ -33,7 +54,7 @@ function initialize() {
     soloistDictionary = loadDictionary("soloists");
     instrumentDictionary = loadDictionary("instruments");
     venueDictionary = loadDictionary("venues");
-    
+
     if(performanceSearchButton) {
         performanceSearchButton.onclick = onSearchButtonClicked;
     }
@@ -58,10 +79,20 @@ function initialize() {
     }
 }
 
+/**
+* @Return the base url for api queries
+*/
+
 function getBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + api_port;
         return baseURL;
 }
+
+/**
+* Sends a query to the api to find matching performances based on the search criteria entered in the input
+* fields. If search input does not match anything in the database the closest match is automatically selected.
+* Redirects the user to a results.html document which displays the matching performances.
+*/
 
 function onSearchButtonClicked() {
     var performanceSearchList = document.getElementsByClassName('search_input');
@@ -84,13 +115,15 @@ function onSearchButtonClicked() {
             getParams = getParams + performanceSearchList[i].name + '=';
             var matchingId = '';
             var optionSearchList = document.getElementsByClassName("option_" + performanceSearchList[i].name + "s");
-            for (var j = 0; j < optionSearchList.length; j++) {
-                if(optionSearchList[j].value == performanceSearchList[i].value){
+
+            //Look through datalist options to find the option with the matching id
+            for (var j = 0; j < optionSearchList.length; j++) { 
+            if(optionSearchList[j].value == performanceSearchList[i].value){
                     matchingId = optionSearchList[j].id;
                 }
             }
+            //If the search input does not match a field in the dictionary, automatically select the best match
             if(matchingId == '') {
-                console.log("best_match_" + performanceSearchList[i].name + "s");
                 var bestMatch = document.getElementsByName("best_match_" + performanceSearchList[i].name + "s");
                 if(bestMatch.length != 0) {
                     matchingId = bestMatch[0].id;
@@ -98,12 +131,11 @@ function onSearchButtonClicked() {
                     matchingId = -1;
                 }          
             }
-            getParams = getParams + matchingId + '&';
+            getParams = getParams + matchingId + '&'; 
         }
     }   
-    getParams = getParams.substring(0, getParams.length-1);
+    getParams = getParams.substring(0, getParams.length-1); //remove extraneous ampersand from query
     var url = getBaseURL() + '/performances?' + getParams;
-    console.log(url);
 //    location.href = 'results.html'
     fetch(url, {method: 'get'})
         .then((response) => response.json())
@@ -132,12 +164,14 @@ function onSearchButtonClicked() {
     .catch(function(error) {
         console.log(error);
         });
-
-
 }
 
 
-
+/**
+* Helper function for autocompleter which returns the dictionary
+* containing the correct data based on the search field element.
+* @Return the matching dictionary - stored as a Promise object returned from the api query
+*/
     
    
 function getDictionary(element_type) {
@@ -162,11 +196,25 @@ function getDictionary(element_type) {
     } 
     return false;
 }
+
+/**
+* Finds the best matching strings in the data based on the search input. Matches are considered
+* to be strongest when the match occurs at the beginning of the string, second strongest if they
+* occur just after the comma separator (eg. first name), and least strong if they match anywhere else
+* in the word. Matches that are equally strong are presented alphabetically. The best 5 matches are
+* added to the corresponding datalist element in the html.
+*
+* @Param id The id of the corresponding datalist in searchPage.html
+* @Param element_type The type of element which is being searched for (eg. composers)
+* @Param input The searchString which is compared to the data in the database.
+*/
         
 function autocomplete(id, element_type, input) {
     if(input == '')
         return;
     input = input.toLowerCase();
+
+    // 3 separate arrays store matches based on how closely they match the search string
     var firstMatches = new Array();
     var secondMatches = new Array();
     var thirdMatches = new Array();
@@ -179,6 +227,10 @@ function autocomplete(id, element_type, input) {
             var element = dictionary[k][name];
             var elementId = dictionary[k][idString];
             var tier;
+
+            // Set the variable tier based on how closely the dictionary element matches the search
+            // string and assign it to the corresponding array
+
             if(!(element.toLowerCase().includes(input))) {
                 tier = -1;
             } else if (element.toLowerCase().indexOf(input) == 0) {
@@ -192,7 +244,7 @@ function autocomplete(id, element_type, input) {
             if(tier == -1)
                 continue;
             else if(tier == 1) {
-                firstMatches.push(element);
+                firstMatches.push(element);  // Store the matching elements in pairs with the corresponding id
                 firstMatches.push(elementId);
             }
             else if(tier == 2){
@@ -214,7 +266,7 @@ function autocomplete(id, element_type, input) {
                 options += '<option value=\"' + firstMatches[i] + '\" id=\"' + firstMatches[i+1] + '\" class=\"option_' + element_type + '\">';
             }
             numberOfMatches++;
-            if(numberOfMatches >= 5) {
+            if(numberOfMatches >= 5) { // Stop adding additional options if the number of matches exceeds 5
                 console.log(options);
                 document.getElementById(id).innerHTML = options;
                 return;
