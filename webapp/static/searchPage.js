@@ -95,10 +95,14 @@ function getBaseURL() {
 */
 
 function onSearchButtonClicked() {
+
+
     var performanceSearchList = document.getElementsByClassName('search_input');
     var startDateInputField = document.getElementById('start_date_input_field');
     var endDateInputField = document.getElementById('end_date_input_field');
     var getParams = "";
+    var criteria = '';
+
     if(startDateInputField.value != ''){
         getParams += 'start_date=';
         getParams += startDateInputField.value;
@@ -120,6 +124,9 @@ function onSearchButtonClicked() {
             for (var j = 0; j < optionSearchList.length; j++) { 
             if(optionSearchList[j].value == performanceSearchList[i].value){
                     matchingId = optionSearchList[j].id;
+                    var criterion = optionsSearchList[j].class.substring(7, optionsSearchList[j].class.length - 1);
+                    criterion.substring(0,1).toUpperCase();
+                    criteria += "<p>" + criterion + ": " + optionsSearchList[j].value + "<\p>";
                 }
             }
             //If the search input does not match a field in the dictionary, automatically select the best match
@@ -127,6 +134,9 @@ function onSearchButtonClicked() {
                 var bestMatch = document.getElementsByName("best_match_" + performanceSearchList[i].name + "s");
                 if(bestMatch.length != 0) {
                     matchingId = bestMatch[0].id;
+                    var criterion = bestMatch.class.substring(7, bestMatch.class.length - 1);
+                    criterion.substring(0,1).toUpperCase();
+                    criteria += "<p>" + criterion + ": " + bestMatch.value + "<\p>";
                 } else {
                     matchingId = -1;
                 }          
@@ -134,9 +144,9 @@ function onSearchButtonClicked() {
             getParams = getParams + matchingId + '&'; 
         }
     }   
+    location.href = url_for('templates', filename='results.html'); 
     getParams = getParams.substring(0, getParams.length-1); //remove extraneous ampersand from query
     var url = getBaseURL() + '/performances?' + getParams;
-//    location.href = 'results.html'
     fetch(url, {method: 'get'})
         .then((response) => response.json())
         
@@ -155,8 +165,12 @@ function onSearchButtonClicked() {
                 }
 
                 var resultsTableElement = document.getElementById('results_table');
+                var searchCriteria = document.getElementById('search_criteria');
                 if (resultsTableElement) {
                     resultsTableElement.innerHTML = tableBody;
+                }
+                if(searchCriteria) {
+                    searchCriteria.innerHTML = criteria;
                 }
             })
 
@@ -164,6 +178,7 @@ function onSearchButtonClicked() {
     .catch(function(error) {
         console.log(error);
         });
+    
 }
 
 
