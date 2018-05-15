@@ -73,21 +73,38 @@ Main Components
   transform: translateZ(290px);
 }
 .cd-floating-background img:nth-child(3) {
+  -webkit-transform: translateZ(300px);
+  -ms-transform: translateZ(300px);
+  transform: translateZ(300px);
+}
+.cd-floating-background a img:nth-child(4) {
+  -webkit-transform: translateZ(400x);
+  -ms-transform: translateZ(400px);
+  transform: translateZ(400px);
+}
+.cd-floating-background a img:nth-child(5) {
   -webkit-transform: translateZ(400px);
   -ms-transform: translateZ(400px);
   transform: translateZ(400px);
 }
+
 .no-preserve-3d .cd-floating-background {
   /* we target browsers that don't support preserve-3d and show just a standard image - no effect visible */
   position: relative;
 }
+
+/************** 
+ * Other
+ *************/
+
 .exit_sign {
-    position: absolute;
+    position: fixed;
     height: 45px;
     width: 45px;
     top: 90%;
     left: 2.5%;
 }
+
 .text-block {
     position: relative;
     font-family: "Comic Sans MS", cursive, sans-serif;
@@ -95,4 +112,7 @@ Main Components
     top: 40%;
     font-size: 10vw;
 }
+
+}
+
 

@@ -1,6 +1,6 @@
 <!doctype html>
 <!--Code Belongs to CodyHouse -->
-<html lang="en" class="no-js">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,13 +10,11 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='performers_style.css') }}" /> <!-- Resource style -->
         <link rel="shortcut icon" href="https://res.cloudinary.com/nyphil/image/upload/v1463431638/images/shared/icons-logos/favicon.ico"/>
         <script>var api_port = {{ api_port }};</script>  
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="{{ url_for('static', filename='jquery-2.1.1.js') }}" type="text/javascript" defer></script> 
+        <script src="{{ url_for('static', filename='performers_main.js') }}" defer></script> <!-- Resource jQuery -->
         <script src="{{ url_for('static', filename='modernizr.js') }}" defer></script> <!-- Modernizr -->
-        <script src="{{ url_for('static', filename='./maphilight/jquery.maphilight.js') }}" type="text/javascript" defer></script> 
-        <script type="text/javascript">$(function() {
-        $('.map').maphilight();
-        });</script>
-
+        <script src="{{ url_for('static', filename='exit_button.js') }}" defer></script>  
+       
         <title>NY Phil: Perfinder </title>
     </head>
 
@@ -25,25 +23,28 @@
     <div class="cd-background-wrapper">
         <figure class="cd-floating-background">
             <img src="{{ url_for('static', filename='images/concert_hall.png') }}" alt="concert_hall">
-            <img src="{{ url_for('static', filename='images/performers.png') }}" alt="performers" class="map" usemap="#Map"> 
+            <img src="{{ url_for('static', filename='images/performers.png') }}" alt="performers"> 
             <img src="{{ url_for('static', filename='images/composers.png') }}" alt="composers">
+            <a href="https://google.com">
+                <img src="{{ url_for('static', filename='images/soloist.png') }}" alt="soloist">
+            </a>
+            <a href="https://www.youtube.com/">
+                <img src="{{ url_for('static', filename='images/conductor.png') }}" alt="conductor">
+            </a>
        </figure>
-
-       <map name="Map">
-       <area alt="soloist" shape="poly" href="https://www.google.com/" coords="1461,1497,1489,1488,1502,1507,1499,1539,1512,1571,1537,1580,1534,1510,1544,1491,1582,1488,1572,1466,1626,1453,1664,1434,1823,1434,1951,1434,2053,1437,2094,1440,2081,1513,2081,1548,2071,1641,2062,1539,2074,1596,2045,1609,1979,1609,1902,1609,1835,1609,1794,1612,1746,1647,1778,1641,1727,1657,1673,1676,1641,1708,1632,1755,1626,1781,1543,1679,1486,1679,1482,1701,1444,1679,1441,1714,1422,1654,1422,1596">
-       </map>
 
        <div class = "text-block">
            <h1> NY Phil: Perfinder </h1>
         </div>
     </div>
+    
+    <div class="exit_button" id="exit_buttonJS">
+        <a href="https://www.youtube.com/">
+            <img src ="{{ url_for('static', filename='images/exit.png') }}" alt ="exit" class = "exit_sign">
+        </a>
+    </div>
 
     
-    <img src ="{{ url_for('static', filename='images/exit.png') }}" alt ="exit" class = "exit_sign">
-
-    <script src="{{ url_for('static', filename='jquery-2.1.1.js') }}" defer></script> 
-    <script src="{{ url_for('static', filename='performers_main.js') }}" defer></script> <!-- Resource jQuery -->
-
     </body>
 
 </html>
