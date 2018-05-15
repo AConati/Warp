@@ -1,0 +1,50 @@
+<!doctype html>
+<!--Code Belongs to CodyHouse -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='performers_reset.css') }}" /> <!-- CSS reset -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='performers_style.css') }}" /> <!-- Resource style -->
+        <link rel="shortcut icon" href="https://res.cloudinary.com/nyphil/image/upload/v1463431638/images/shared/icons-logos/favicon.ico"/>
+        <script>var api_port = {{ api_port }};</script>  
+        <script src="{{ url_for('static', filename='jquery-2.1.1.js') }}" type="text/javascript" defer></script> 
+        <script src="{{ url_for('static', filename='performers_main.js') }}" defer></script> <!-- Resource jQuery -->
+        <script src="{{ url_for('static', filename='modernizr.js') }}" defer></script> <!-- Modernizr -->
+        <script src="{{ url_for('static', filename='exit_button.js') }}" defer></script>  
+       
+        <title>NY Phil: Perfinder </title>
+    </head>
+
+    <body>
+
+    <div class="cd-background-wrapper">
+        <figure class="cd-floating-background">
+            <img src="{{ url_for('static', filename='images/concert_hall.png') }}" alt="concert_hall">
+            <img src="{{ url_for('static', filename='images/performers.png') }}" alt="performers"> 
+            <img src="{{ url_for('static', filename='images/composers.png') }}" alt="composers">
+            <a href="https://google.com">
+                <img src="{{ url_for('static', filename='images/soloist.png') }}" alt="soloist">
+            </a>
+            <a href="https://www.youtube.com/">
+                <img src="{{ url_for('static', filename='images/conductor.png') }}" alt="conductor">
+            </a>
+       </figure>
+
+       <div class = "text-block">
+           <h1> NY Phil: Perfinder </h1>
+        </div>
+    </div>
+    
+    <div class="exit_button" id="exit_buttonJS">
+        <a href="https://www.youtube.com/">
+            <img src ="{{ url_for('static', filename='images/exit.png') }}" alt ="exit" class = "exit_sign">
+        </a>
+    </div>
+
+    
+    </body>
+
+</html>

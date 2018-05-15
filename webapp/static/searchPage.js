@@ -15,11 +15,19 @@ function initialize() {
     var conductorInputField = document.getElementById("conductor_input_field");
     var pieceInputField = document.getElementById("piece_input_field");
     var soloistInputField = document.getElementById("soloist_input_field");
-    var instrumentInputField = document.getElementById("insturment_input_field");
+    var instrumentInputField = document.getElementById("instrument_input_field");
     var venueInputField = document.getElementById("venue_input_field");
+    var element_type = "composers";
+    var getJSON;
 
-    var composerDictionary = loadDictionary("composers");
-    console.log(composerDictionary);
+    let loadDictionary = function(element_type) {
+        var url = getBaseURL() + '/' + element_type;
+        var elementList;
+        return fetch(url,{method: 'get'}).then(response => {return response.json()})
+    }
+
+    composerDictionary = loadDictionary("composers");
+
     conductorDictionary = loadDictionary("conductors");
     pieceDictionary = loadDictionary("pieces");
     soloistDictionary = loadDictionary("soloists");
@@ -48,9 +56,6 @@ function initialize() {
     if(venueInputField) {
         venueInputField.addEventListener('input', function() { autocomplete("venue_input", "venues", venueInputField.value); });
     }
-    
-
-
 }
 
 function getBaseURL() {
@@ -63,22 +68,49 @@ function onSearchButtonClicked() {
     var startDateInputField = document.getElementById('start_date_input_field');
     var endDateInputField = document.getElementById('end_date_input_field');
     var getParams = "";
-    getParams = getParams + startDateInputField.value + '&' + endDateInputField.value;
+    if(startDateInputField.value != ''){
+        getParams += 'start_date=';
+        getParams += startDateInputField.value;
+        getParams += '&';
+    }
+    if(endDateInputField.value != ''){
+        getParams += 'end_date=';
+        getParams += endDateInputField.value;
+        getParams += '&';
+    }
+
     for (var i = 0; i < performanceSearchList.length; i++) {
         if(performanceSearchList[i].value != "") {
-            getParams += '&';
-            getParams += performanceSearchList[i].value;
+            getParams = getParams + performanceSearchList[i].name + '=';
+            var matchingId = '';
+            var optionSearchList = document.getElementsByClassName("option_" + performanceSearchList[i].name + "s");
+            for (var j = 0; j < optionSearchList.length; j++) {
+                if(optionSearchList[j].value == performanceSearchList[i].value){
+                    matchingId = optionSearchList[j].id;
+                }
+            }
+            if(matchingId == '') {
+                console.log("best_match_" + performanceSearchList[i].name + "s");
+                var bestMatch = document.getElementsByName("best_match_" + performanceSearchList[i].name + "s");
+                if(bestMatch.length != 0) {
+                    matchingId = bestMatch[0].id;
+                } else {
+                    matchingId = -1;
+                }          
+            }
+            getParams = getParams + matchingId + '&';
         }
-    }
-    console.log(getParams);
-    var url = getBaseURL() + '/performances/' + getParams;
-    location.href = 'results.html'
+    }   
+    getParams = getParams.substring(0, getParams.length-1);
+    var url = getBaseURL() + '/performances?' + getParams;
+    console.log(url);
+//    location.href = 'results.html'
     fetch(url, {method: 'get'})
         .then((response) => response.json())
         
-        .then(function(performancesList) {
+        .then(function(performanceList) {
             var tableBody = '';
-            for (var k = 0; k < performancesList.length; k++) {
+            for (var k = 0; k < performanceList.length; k++) {
                 tableBody += '<tr>';
                 tableBody += '<td>';
                 tableBody += performanceList[k]['date'] + '</td><td>'
@@ -104,27 +136,10 @@ function onSearchButtonClicked() {
 
 }
 
-function loadDictionary(element_type, dictionary) {
-    var returnList;
-    var url = getBaseURL() + '/' + element_type;
-    fetch(url,{method: 'get'})
-        .then((response) => response.json())
 
-        .then(function(elementList) {
-            for (var k = 0; k < elementList.length; k++) {
-                resultList[k] = Object.assign({}, elementList[k]);
-            }
-        })
 
-    .catch(function(error) {
-        console.log(error);
-    });
-}
-
-loadDictionary(element_type).then((res) => {
-    console.log(res);
-    });
-
+    
+   
 function getDictionary(element_type) {
     switch(element_type) {
         case "composers":
@@ -151,69 +166,79 @@ function getDictionary(element_type) {
 function autocomplete(id, element_type, input) {
     if(input == '')
         return;
-
+    input = input.toLowerCase();
     var firstMatches = new Array();
     var secondMatches = new Array();
     var thirdMatches = new Array();
     var options = ''
-    var dictionary = getDictionary(element_type);
-    var name = element_type.substring(0, element_type.length) + '_name';
-            
-    for(var k = 0; k < dictionary.length; k++) {
-        var element = dictionary[k][name];
-        var tier = setHierarchy(element, input);
-        if(tier == -1)
-            continue;
-        else if(tier == 1) {
-            firstMatches.push(element);
+    var dictionaryPromise = getDictionary(element_type);
+    dictionaryPromise.then(function(dictionary) {
+        var name = element_type.substring(0, element_type.length - 1) + '_name';
+        var idString = element_type.substring(0, element_type.length - 1) + '_id';
+        for(var k = 0; k < dictionary.length; k++) {
+            var element = dictionary[k][name];
+            var elementId = dictionary[k][idString];
+            var tier;
+            if(!(element.toLowerCase().includes(input))) {
+                tier = -1;
+            } else if (element.toLowerCase().indexOf(input) == 0) {
+                tier = 1;
+            } else if (element.toLowerCase().indexOf(input) == element.indexOf(', ') + 1) {
+                tier = 2;
+            } else {
+                tier = 3;
+            }
+
+            if(tier == -1)
+                continue;
+            else if(tier == 1) {
+                firstMatches.push(element);
+                firstMatches.push(elementId);
+            }
+            else if(tier == 2){
+                secondMatches.push(element);
+                secondMatches.push(elementId);
+            }
+            else if(tier == 3){
+                thirdMatches.push(element);
+                thirdMatches.push(elementId);
+            }
         }
-        else if(tier == 2)
-            secondMatches.push(element);
-        else if(tier == 3)
-            thirdMatches.push(element);
-    }
 
-    var numberOfMatches = 0;
+        var numberOfMatches = 0;
 
-    for (var i = 0; i < firstMatches.length; i++) {
-        console.log(options);
-        options += '<option value=\"' + firstMatches[i] + '\">';
-        numberOfMatches++;
-        if(numberOfMatches >= 5) {
-            document.getElementById(id).innerHTML = options;
-    return;
+        for (var i = 0; i < firstMatches.length; i+=2) {
+            if(numberOfMatches == 0){
+                options += '<option value =\"' + firstMatches[i] + '\" id=\"' + firstMatches[i+1] + '\" name=\"best_match_' + element_type + '\" class=\"option_' + element_type + '\">';
+            } else {
+                options += '<option value=\"' + firstMatches[i] + '\" id=\"' + firstMatches[i+1] + '\" class=\"option_' + element_type + '\">';
+            }
+            numberOfMatches++;
+            if(numberOfMatches >= 5) {
+                console.log(options);
+                document.getElementById(id).innerHTML = options;
+                return;
+            }
         }
-    }
 
-    for (var i = 0; i < secondMatches.length; i++) {
-        options += '<option value=\"' + secondMatches[i] + '\">';
-        numberOfMatches++;
-        if(numberOfMatches >= 5){
-            document.getElementById(id).innerHTML = options;
-            return;
+        for (var i = 0; i < secondMatches.length; i+=2) {
+            options += '<option value=\"' + secondMatches[i] + '\" id=\"' + secondMatches[i+1] + '\" class=\"option_' + element_type + '\">';
+            numberOfMatches++;
+            if(numberOfMatches >= 5){
+                document.getElementById(id).innerHTML = options;
+                return;
+            }
         }
-    }
 
-    for (var i = 0; i < thirdMatches.length; i++) {
-        options += '<option value=\"' + thirdMatches[i] + '\">';
-        numberOfMatches++;
-        if(numberOfMatches >= 5) {
-            document.getElementById(id).innerHTML = options;
-            return;
+        for (var i = 0; i < thirdMatches.length; i+=2) {
+            options += '<option value=\"' + thirdMatches[i] + '\" id=\"' + thirdMatches[i+1] + '\" class=\"option_' + element_type + '\">';
+            numberOfMatches++;
+            if(numberOfMatches >= 5) {
+                document.getElementById(id).innerHTML = options;
+                return;
+            }
         }
-    }
-    document.getElementById(id).innerHTML = options;
-}
-
-function setHierarchy(element, searchString) {
-    if(!(element.includes(searchString))) {
-        return -1;
-    } else if (element.indexOf(searchString) == 0) {
-        return 1;
-    } else if (element.indexOf(searchString) == element.indexOf(',') + 1) {
-        return 2;
-    } else {
-        return 3;
-    }
+        document.getElementById(id).innerHTML = options;
+    });
 }
 
