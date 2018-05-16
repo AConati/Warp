@@ -12,6 +12,7 @@
         <script>var api_port = {{ api_port }};</script>  
         <script src="{{ url_for('static', filename='jquery-2.1.1.js') }}" type="text/javascript" defer></script> 
         <script src="{{ url_for('static', filename='performers_main.js') }}" defer></script> <!-- Resource jQuery -->
+        <script src="{{ url_for('static', filename='performances.js') }}" defer></script> <!-- Performances Retriever -->
         <script src="{{ url_for('static', filename='modernizr.js') }}" defer></script> <!-- Modernizr -->
        
         <title>NY Phil: Perfinder </title>
@@ -33,33 +34,56 @@
         </div>
     </div>
     
-    <div class="exit_button" id="exit_buttonJS">
-        <a href=" {{url_for('get_results_page')}} ">
-            <img src ="{{ url_for('static', filename='images/exit.png') }}" alt ="exit" class = "exit_sign">
+    <div class="location_button">
+        <a href=" {{url_for('get_locations')}} ">
+            <img src ="{{ url_for('static', filename='images/location.png') }}" alt ="location" class = "location_sign">
+        </a>
+
+    <div class="venue_button">
+        <a href=" {{url_for('get_venues')}} ">
+            <img src ="{{ url_for('static', filename='images/venue.png') }}" alt ="venue" class = "venue_sign">
+        </a>
+        
+    </div>
+    <div class="search_button">
+        <a href=" {{url_for('get_search_page')}} ">
+            <img src ="{{ url_for('static', filename='images/finder.png') }}" alt ="search" class = "search_sign">
         </a>
     </div>
 
-    <a href=" {{url_for('get_results_page')}} ">
+    <div class="instrument_button">
+        <a href=" {{url_for('get_instruments')}} ">
+            <img src ="{{ url_for('static', filename='images/instrument.png') }}" alt ="instrument" class = "instrument_sign">
+        </a>
+    </div>
+
+    <div class="piece_button">
+        <a href=" {{url_for('get_pieces')}} ">
+            <img src ="{{ url_for('static', filename='images/piece.png') }}" alt ="piece" class = "piece_sign">
+        </a>
+    </div>
+
+    <a href=" {{url_for('get_conductors')}} ">
         <div class="conductor"></div>
     </a>
     
-    <a href=" {{url_for('get_results_page')}} ">
+    <a href=" {{url_for('get_soloists')}} ">
         <div class="soloist"></div>
     </a>
 
-    <a href=" {{url_for('get_results_page')}} ">
+    <a href=" {{url_for('get_composers')}} ">
         <div class="composer1" id="composer"></div>
     </a>
 
-    <a href=" {{url_for('get_results_page')}} ">
+    <a href=" {{url_for('get_composers')}} ">
         <div class="composer2" id="composer"></div>
     </a>
 
-    <a href=" {{url_for('get_results_page')}} ">
+    <a href=" {{url_for('get_composers')}} ">
         <div class="composer3" id="composer"></div>
     </a>
 
-    <a href=" {{url_for('get_results_page')}} ">
+    <a href=" {{url_for('get_composers')}} ">
         <div class="composer4" id="composer"></div>
     </a>
     </body>

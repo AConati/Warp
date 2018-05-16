@@ -1,3 +1,10 @@
+/* This code is not ours. This was copied from an
+ * outside source and only serves to create the cool motion effects
+ * on the home page. It serves only aesthetic purposes.
+*/
+
+
+
 jQuery(document).ready(function($){
 	//define store some initial variables
 	var	halfWindowH = $(window).height()*0.5,

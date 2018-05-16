@@ -26,6 +26,7 @@ initialize();
 * elements.
 */ 
 function initialize() {
+    localStorage.setItem("banana", "apple");
     var simpleSearch = document.getElementById('simple_search');
     var performanceSearchButton = document.getElementById("performance_search_button");
     var composerInputField = document.getElementById("composer_input_field");
@@ -36,7 +37,6 @@ function initialize() {
     var venueInputField = document.getElementById("venue_input_field");
     var element_type = "composers";
     var getJSON;
-
     // Query api and load dictionaries stored as Promise objects. This allows matching strings
     // to quickly be found by the autocomplete function without sending a new query each time
     // input changes.
@@ -101,7 +101,7 @@ function onSearchButtonClicked() {
     var startDateInputField = document.getElementById('start_date_input_field');
     var endDateInputField = document.getElementById('end_date_input_field');
     var getParams = "";
-    var criteria = '';
+    var criteria = '<h3>Performances matching search criteria:</h>';
 
     if(startDateInputField.value != ''){
         getParams += 'start_date=';
@@ -124,9 +124,9 @@ function onSearchButtonClicked() {
             for (var j = 0; j < optionSearchList.length; j++) { 
             if(optionSearchList[j].value == performanceSearchList[i].value){
                     matchingId = optionSearchList[j].id;
-                    var criterion = optionsSearchList[j].class.substring(7, optionsSearchList[j].class.length - 1);
-                    criterion.substring(0,1).toUpperCase();
-                    criteria += "<p>" + criterion + ": " + optionsSearchList[j].value + "<\p>";
+                    var criterion = optionSearchList[j].className.substring(7, optionSearchList[j].className.length - 1);
+                    criterion = criterion.substring(0,1).toUpperCase() + criterion.substring(1,criterion.length);
+                    criteria += "<p>" + criterion + ": " + optionSearchList[j].value + "</p>";
                 }
             }
             //If the search input does not match a field in the dictionary, automatically select the best match
@@ -134,51 +134,23 @@ function onSearchButtonClicked() {
                 var bestMatch = document.getElementsByName("best_match_" + performanceSearchList[i].name + "s");
                 if(bestMatch.length != 0) {
                     matchingId = bestMatch[0].id;
-                    var criterion = bestMatch.class.substring(7, bestMatch.class.length - 1);
-                    criterion.substring(0,1).toUpperCase();
-                    criteria += "<p>" + criterion + ": " + bestMatch.value + "<\p>";
+                    var criterion = bestMatch[0].className.substring(7, bestMatch[0].className.length - 1);
+                    criterion = criterion.substring(0,1).toUpperCase() + criterion.substring(1,criterion.length);
+                    criteria += "<p>" + criterion + ": " + bestMatch[0].value + "</p>";
                 } else {
                     matchingId = -1;
                 }          
             }
             getParams = getParams + matchingId + '&'; 
         }
-    }   
-    location.href = url_for('templates', filename='results.html'); 
+    } 
     getParams = getParams.substring(0, getParams.length-1); //remove extraneous ampersand from query
     var url = getBaseURL() + '/performances?' + getParams;
-    fetch(url, {method: 'get'})
-        .then((response) => response.json())
-        
-        .then(function(performanceList) {
-            var tableBody = '';
-            for (var k = 0; k < performanceList.length; k++) {
-                tableBody += '<tr>';
-                tableBody += '<td>';
-                tableBody += performanceList[k]['date'] + '</td><td>'
-                + performanceList[k]['venue'] + '</td><td>'
-                + performanceList[k]['composer'] + '</td><td>'
-                + performanceList[k]['conductor'] + '</td><td>'
-                + performanceList[k]['piece'] +'</td><td>'
-                + performanceList[k]['soloists'] + '</td>';
-                tableBody += '</tr>';
-                }
+    //Save information in local storage so it can be presented on another page
+    localStorage.setItem("results_search_criteria", criteria);
+    localStorage.setItem("url", url);
 
-                var resultsTableElement = document.getElementById('results_table');
-                var searchCriteria = document.getElementById('search_criteria');
-                if (resultsTableElement) {
-                    resultsTableElement.innerHTML = tableBody;
-                }
-                if(searchCriteria) {
-                    searchCriteria.innerHTML = criteria;
-                }
-            })
-
-
-    .catch(function(error) {
-        console.log(error);
-        });
-    
+    location.href = "/results?";
 }
 
 
@@ -188,7 +160,7 @@ function onSearchButtonClicked() {
 * @Return the matching dictionary - stored as a Promise object returned from the api query
 */
     
-   
+  
 function getDictionary(element_type) {
     switch(element_type) {
         case "composers":
@@ -282,7 +254,6 @@ function autocomplete(id, element_type, input) {
             }
             numberOfMatches++;
             if(numberOfMatches >= 5) { // Stop adding additional options if the number of matches exceeds 5
-                console.log(options);
                 document.getElementById(id).innerHTML = options;
                 return;
             }

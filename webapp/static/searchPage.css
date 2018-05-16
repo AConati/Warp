@@ -41,6 +41,23 @@ form.search_element {
     font-size: 12px;
 }
 
+.exit_sign {
+    position: fixed;
+    height: 6vw;
+    width: 6vw;
+    top: 2%;
+    left: 91.5%;
+}
+
+.exit_sign:hover {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 255, 0, 0.67);
+    -moz-box-shadow:    0px 0px 30px 0px rgba(0, 255, 0, 0.67);
+    box-shadow:         0px 0px 30px 0px rgba(0, 255, 0, 0.67);
+}
+
 button {
     cursor: pointer;
 }

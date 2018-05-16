@@ -4,11 +4,26 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='results.css') }}" />
         <script>var api_port = {{ api_port }};</script>
         <link rel="shortcut icon" href="https://res.cloudinary.com/nyphil/image/upload/v1463431638/images/shared/icons-logos/favicon.ico"/>
+        <script type="text/javascript" src="{{ url_for('static', filename='performances.js') }}" defer></script>
+        <title>NY Phil: Perfinder</title>
 </head>
+
 <body>
-    <h1>Matching Performances for Search Criteria:</h1>
-    <div id = 'search_criteria'>
+    <h1>Results</h1>
+    <div id = "search_criteria"></div>
+
+     <div class="exit_button">
+        <a href=" {{url_for('get_main_page')}} ">
+            <img src ="{{ url_for('static', filename='images/exit.png') }}" alt ="exit" class = "exit_sign">
+        </a>
     </div>
-    <table id = results_table>
-    </table>
+
+    <div class="search_button">
+        <a href=" {{url_for('get_search_page')}} ">
+            <img src ="{{ url_for('static', filename='images/finder.png') }}" alt ="search" class = "search_sign">
+        </a>
+    </div>
+
+    <p><table id="results_table"></table></p>
+
 </body>
