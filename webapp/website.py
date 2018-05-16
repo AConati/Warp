@@ -12,6 +12,7 @@
 '''
 import sys
 import flask
+import url_for
 
 app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
@@ -20,6 +21,11 @@ def get_main_page():
     ''' This is the only route intended for human users '''
     global api_port
     return flask.render_template('performers.html', api_port=api_port)
+
+@app.route('/results')
+def get_results_page():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:

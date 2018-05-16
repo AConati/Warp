@@ -159,20 +159,12 @@ div.cd-floating-background img:first-child {
 
 .composer1 {
     position: absolute;
-    height: 16.2vw;
-    width: 12.8vw;
+    height: 16.1vw;
+    width: 12.5vw;
     top: 0vw;
-    left: 4vw;
+    left: 3.5vw;
     background-color: rgba(255, 255, 255, 0.01);
     border-radius: 6%;
-}
-#composer:hover {
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 30px 0px rgb(0, 137, 255);
-    -moz-box-shadow:    0px 0px 30px 0px rgb(0, 137, 255);
-    box-shadow:         0px 0px 30px 0px rgb(0, 137, 255);
 }
 
 .composer2 {
@@ -205,4 +197,11 @@ div.cd-floating-background img:first-child {
     border-radius: 6%;
 }
 
-
+#composer:hover {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 30px 0px rgb(0, 137, 255);
+    -moz-box-shadow:    0px 0px 30px 0px rgb(0, 137, 255);
+    box-shadow:         0px 0px 30px 0px rgb(0, 137, 255);
+}
