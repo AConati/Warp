@@ -1,0 +1,91 @@
+<!doctype html>
+<!--Code Belongs to CodyHouse -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='performers_reset.css') }}" /> <!-- CSS reset -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='performers_style.css') }}" /> <!-- Resource style -->
+        <link rel="shortcut icon" href="https://res.cloudinary.com/nyphil/image/upload/v1463431638/images/shared/icons-logos/favicon.ico"/>
+        <script>var api_port = {{ api_port }};</script>  
+        <script src="{{ url_for('static', filename='jquery-2.1.1.js') }}" type="text/javascript" defer></script> 
+        <script src="{{ url_for('static', filename='performers_main.js') }}" defer></script> <!-- Resource jQuery -->
+        <script src="{{ url_for('static', filename='performances.js') }}" defer></script> <!-- Performances Retriever -->
+        <script src="{{ url_for('static', filename='modernizr.js') }}" defer></script> <!-- Modernizr -->
+       
+        <title>NY Phil: Perfinder </title>
+    </head>
+
+    <body>
+
+    <div class="cd-background-wrapper">
+        <figure class="cd-floating-background">
+            <img src="{{ url_for('static', filename='images/concert_hall.png') }}" alt="concert_hall">
+            <img src="{{ url_for('static', filename='images/performers.png') }}" alt="performers"> 
+            <img src="{{ url_for('static', filename='images/composers.png') }}" alt="composers">
+            <img src="{{ url_for('static', filename='images/soloist.png') }}" alt="soloist">
+            <img src="{{ url_for('static', filename='images/conductor.png') }}" alt="conductor">
+       </figure>
+
+       <div class = "text-block">
+           <h1> NY Phil: Perfinder </h1>
+        </div>
+    </div>
+    
+    <div class="location_button">
+        <a href=" {{url_for('get_locations')}} ">
+            <img src ="{{ url_for('static', filename='images/location.png') }}" alt ="location" class = "location_sign">
+        </a>
+
+    <div class="venue_button">
+        <a href=" {{url_for('get_venues')}} ">
+            <img src ="{{ url_for('static', filename='images/venue.png') }}" alt ="venue" class = "venue_sign">
+        </a>
+        
+    </div>
+    <div class="search_button">
+        <a href=" {{url_for('get_search_page')}} ">
+            <img src ="{{ url_for('static', filename='images/finder.png') }}" alt ="search" class = "search_sign">
+        </a>
+    </div>
+
+    <div class="instrument_button">
+        <a href=" {{url_for('get_instruments')}} ">
+            <img src ="{{ url_for('static', filename='images/instrument.png') }}" alt ="instrument" class = "instrument_sign">
+        </a>
+    </div>
+
+    <div class="piece_button">
+        <a href=" {{url_for('get_pieces')}} ">
+            <img src ="{{ url_for('static', filename='images/piece.png') }}" alt ="piece" class = "piece_sign">
+        </a>
+    </div>
+
+    <a href=" {{url_for('get_conductors')}} ">
+        <div class="conductor"></div>
+    </a>
+    
+    <a href=" {{url_for('get_soloists')}} ">
+        <div class="soloist"></div>
+    </a>
+
+    <a href=" {{url_for('get_composers')}} ">
+        <div class="composer1" id="composer"></div>
+    </a>
+
+    <a href=" {{url_for('get_composers')}} ">
+        <div class="composer2" id="composer"></div>
+    </a>
+
+    <a href=" {{url_for('get_composers')}} ">
+        <div class="composer3" id="composer"></div>
+    </a>
+
+    <a href=" {{url_for('get_composers')}} ">
+        <div class="composer4" id="composer"></div>
+    </a>
+    </body>
+
+</html>

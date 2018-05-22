@@ -19,7 +19,52 @@ app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 def get_main_page():
     ''' This is the only route intended for human users '''
     global api_port
-    return flask.render_template('index.html', api_port=api_port)
+    return flask.render_template('performers.html', api_port=api_port)
+
+@app.route('/results')
+def get_results_page():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
+
+@app.route('/search')
+def get_search_page():
+    global api_port
+    return flask.render_template('searchPage.html', api_port=api_port)
+
+@app.route('/composers')
+def get_composers():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
+
+@app.route('/soloists')
+def get_soloists():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
+
+@app.route('/conductors')
+def get_conductors():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
+
+@app.route('/locations')
+def get_locations():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
+
+@app.route('/venues')
+def get_venues():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
+
+@app.route('/instruments')
+def get_instruments():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
+
+@app.route('/pieces')
+def get_pieces():
+    global api_port
+    return flask.render_template('results.html', api_port=api_port)
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:

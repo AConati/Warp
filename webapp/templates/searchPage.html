@@ -1,66 +1,70 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='searchPage.css') }}" />
-        <script>var api_port = {{ api_port }};</script>
-        <script type="text/javascript" src="{{ url_for('static', filename='searchPage.js') }}" defer></script>
-        <title>CS 257: Software Design, Spring 2018</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='searchPage.css') }}" /> 
+    <script type="text/javascript" src="../static/searchPage.js" defer></script>
+    <script>var api_port = {{ api_port }};</script>
+    <script type="text/javascript" src="{{ url_for('static', filename='searchPage.js') }}" defer></script>
+    <link rel="shortcut icon" href="https://res.cloudinary.com/nyphil/image/upload/v1463431638/images/shared/icons-logos/favico    n.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <title>NY Phil: Perfinder</title>
     </head>
 
-        <body>
-            <div class = "quick_search">
-                <h1>Quick Search</h>
-                    <p>Enter a composer, soloist, venue, etc... associated with the NY Philharmonic:</p>
-                    <form class = search_options>
-                        <label for = "select">Search:</label>
-                        <select name = "select" id = "search_options_select">
-                            <option value = "all">All</option>
-                            <option value = "composers">Composers</option>
-                            <option value = "pieces">Pieces</option>
-                            <option value = "soloists">Soloists</option>
-                            <option value = "soloist_instruments">Soloist Instruments</option>
-                            <option value = "venues">Venues</option>
-                            <option value = "locations"> Locations</option>
-                        </select>
-                        <input type = "text" id = "simple_search">
-                        <button type="submit"><i class = "fa fa-search"></i></button>
-                    </form>
-                    <div class = "performance_search">
-                        <h1>Search Performances</h>
-                            <p>Enter up to seven search criteria to find matching NY Philharmonic performances:</p>
-                            <div class = "search_criteria">
-                                <form class = "search_element">
-                                    <label for="composer" class = "search_label" id = "composer_label">Composer</label>
-                                    <input type="text" class = "search_input" id = "composer_input" name = "composer">
-                                </form>
-                                <form class = "search_element">
-                                    <label for="conductor" class = "search_label" id = "conductor_label">Conductor</label>
-                                    <input type="text" class = "search_input" id = "conductor_input" name = "conductor">
-                                </form>
-                                <form class = "search_element">
-                                    <label for="date" class = "search_label" id = "date_label">Date</label>
-                                    <input type="text" class = "search_input" id = "date_input" name = "date">
-                                </form>
-                                <form class = "search_element">
-                                    <label for="instrument" class = "search_label" id = "instrument_label">Instrument</label>
-                                    <input type="text" class = "search_input" id = "instrument_input" name = "instrument">
-                                </form>
-                                <form class = "search_element">
-                                    <label for="piece" class = "search_label" id = "piece_label">Piece</label>
-                                    <input type="text" class = "search_input" id = "piece_input" name = "piece">
-                                </form>
-                                <form class = "search_element">
-                                    <label for="soloist" class = "search_label" id = "soloist_label">Soloist</label>
-                                    <input type="text" class = "search_input" id = "soloist_input" name = "soloist">
-                                </form>
-                                <form class = "search_element">
-                                    <label for="venue" class = "search_label" id = "venue_label">Venue</label>
-                                    <input type="text" class = "search_input" id = "venue_input" name = "venue">
-                                </form>
-                                <button type="submit" id = "performance_search_button" onclick = "myFunction()"><i class = "fa fa-search"></i></button>
-                                </div>
-                        </div>
-            </body>
-        </html>
+    <body>
+    <div class = "performance_search">
+        <h1>Search Performances</h>
+            <p>Enter up to six search criteria to find matching NY Philharmonic performances:</p>
+            <div class = "search_criteria">
+                <form class = "search_element">
+                    <input list = "composer_input" id = "composer_input_field" class = "search_input" name = "composer" placeholder = "Composer">
+                    <datalist id = "composer_input">
+                    </datalist>
+                </form>
+                <form class = "search_element">
+                    <input list = "conductor_input" id = "conductor_input_field" class = "search_input" name = "conductor" placeholder = "Conductor">
+                    <datalist id = "conductor_input">
+                    </datalist>
+                </form>
+                <form class = "search_element">
+                    <input list = "piece_input" id = "piece_input_field" class = "search_input" name = "piece" placeholder = "Piece">
+                    <datalist id = "piece_input">
+                    </datalist>
+                </form>
+                <form class = "search_element">
+                    <input list = "soloist_input" id = "soloist_input_field" class = "search_input" name = "soloist" placeholder = "Soloist">
+                    <datalist id = "soloist_input">
+                    </datalist>
+                </form>
+                <form class = "search_element">
+                    <input list = "instrument_input" id = "instrument_input_field" class = "search_input" name = "instrument" placeholder = "Soloist instrument">
+                    <datalist id = "instrument_input">
+                    </datalist>
+                </form>
+                <form class = "search_element">
+                    <input list = "venue_input" id = "venue_input_field" class = "search_input" name = "venue" placeholder = "Venue">
+                    <datalist id = "venue_input">
+                    </datalist>
+                </form>
+                <!-- <form action ="{{ url_for('get_results_page') }}"> -->
+                <button type="submit" id = "performance_search_button"><i class = "fa fa-search"></i></button>
+                <!-- </form>-->
+                <p>Limit searches to performances from:</p> 
+                <form class = "search_element">
+                    <input type = "date" id = "start_date_input_field" class = "search_input" name = "start_date" >
+                </form>
+                <p>Up until:</p>
+                <form class = "search_element">
+                    <input type = "date" id = "end_date_input_field" class = "search_input" name = "end_date">
+                </form>
+            </div>
+        </div>
+
+        <div class="exit_button">
+            <a href=" {{url_for('get_main_page')}} ">
+                <img src ="{{ url_for('static', filename='images/exit.png') }}" alt ="exit" class = "exit_sign">
+            </a>
+        </div>
+
+    </body>
+</html>

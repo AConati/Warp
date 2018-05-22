@@ -1,0 +1,36 @@
+*/
+    profile.css
+    Ari Conati & Grant Lee
+    13 May 2018
+    Styles for the "NYPhil Perfinder: profile" webapp
+    for CS 257, Spring 2018
+*/
+
+body:after {
+    content: "";
+    position: fixed;
+    background: linear-gradient(#99b3ff, #e6ecff);
+    left: 0;
+    right: 0;
+    height: 100px;
+}
+
+body:after {
+    bottom: 0;
+}
+
+body, html { 
+    height: 100%;
+    margin: 0;
+    background-image: url('images/fresh_snow.png');
+    text-align: center;
+}
+/*
+.bg {
+    background-image: url("images/new_york.jpg");
+    height: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+*/
