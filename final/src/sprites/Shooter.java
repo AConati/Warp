@@ -5,3 +5,8 @@
  * 
  * The class that emits the projectile object.
  */
+
+
+public class Shooter extends Sprite {
+    
+}
