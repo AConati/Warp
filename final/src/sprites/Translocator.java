@@ -15,6 +15,17 @@ public class Translocator extends Sprite {
        this.setVisible(false);
     }
 
+
+    /*
+     * Sets the height and width of the sprite representing the translocator.
+     *
+     * @param width The width of the sprite.
+     * @param height The height of the sprite
+     */
+    public void setSize(double width, double height) {
+
+    }
+
     /*
     * Sets the translocator to hidden or visible. If it has not been thrown,
     * it's sprite is not visible to the user.
