@@ -48,13 +48,20 @@ public class Player extends Sprite {
 
     public void teleport() {
     }
-
     /*
+<<<<<<< HEAD
      * Lowers the player's lifeTotal by the amount specified by the parameter. If this lowers the
      * lifeTotal of the player to 0 or less, it destroys the player (invokes this.destroy()).
      *
      * @param damage The amount of hit points to be subtracted from the player's current life total.
      */
+=======
+    * Lowers the player's lifeTotal by the amount specified by the parameter. If this lowers the
+    * lifeTotal of the player to 0 or less, it destroys the player (invokes this.destroy()).
+    *
+    * @param damage The amount of hit points to be subtracted from the player's current life total.
+    */
+>>>>>>> c8d06aab67aaee39817e46b5cb0700cd0eceb67c
     public void takeDamage(int damage) {
 
     }

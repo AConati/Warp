@@ -8,12 +8,12 @@ We are making a survival video game where you need to collect stones that repres
 **Design Pattern:**                         
 We will implement a Model View Controller, where the each component corresponds as follows:                 
 
-    - Controller: Keyboard input corresponds to moving the player's character as well as throwing the object
+   - Controller: Keyboard input corresponds to moving the player's character as well as throwing the object
         and teleporting to it.
 
     - View: The view window shows the player's character, the background, and the projectiles that need to be dodged. The view will be presented as an aerial (top-down) view of the character.
 
-    - Model: The xy-coordinates of the player and the projectiles; stats regarding stones collected, time; timer that updates positions of projectiles and player character based on controller input.                 
+   - Model: The xy-coordinates of the player and the projectiles; stats regarding stones collected, time; timer that updates positions of projectiles and player character based on controller input.                 
 
 **Core Classes:**
 
