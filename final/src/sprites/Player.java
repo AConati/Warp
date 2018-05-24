@@ -8,10 +8,14 @@
 
 package sprites;
 
+
+import javafx.geometry.Point2D;
+
 public class Player extends Sprite {
 
     private Translocator translocator;
     private int lifeTotal;
+    private String name;
 
     public Player(String name, Point2D position) {
         this.name = name;

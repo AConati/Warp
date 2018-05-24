@@ -1,7 +1,9 @@
 /**
+ * Sprite.java
+ * Ari Conati & Grant Lee
+ * 22 May 2018
  *
- * The sprite superclass for JavaFX sprites.
- *
+ * The class that represents the sprites.
  */
 
  package sprites;
@@ -26,10 +28,10 @@
 
     public final Point2D getPosition() {
         Point2D position = new Point2D(this.getLayoutX(), this.getLayoutY());
-        return postiion;
+        return position;
     }
 
-    public final void setPostiion(double x, double y) {
+    public final void setPosition(double x, double y) {
         this.setLayoutX(x);
         this.setLayoutY(y);
     }

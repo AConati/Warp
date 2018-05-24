@@ -1,5 +1,5 @@
 /** 
- * PlayerO.java
+ * Translocator.java
  * Ari Conati & Grant Lee
  * 22 May 2018
  *
@@ -7,6 +7,9 @@
  */
  
  package sprites;
+
+
+import javafx.geometry.Point2D;
 
 public class Translocator extends Sprite {
 
@@ -33,8 +36,8 @@ public class Translocator extends Sprite {
      * @param visible If true, sets the translocator object to visible; else, hidden.
      */
 
-    public void setVisible(boolean visible) {
-    }
+    public void makeVisible(boolean visible) {
 
+    }
 }
 

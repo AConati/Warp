@@ -6,6 +6,9 @@
  * The class that emits the projectile object.
  */
 
+package sprites;
+
+import javafx.geometry.Point2D;
 
 public class Shooter extends Sprite {
 

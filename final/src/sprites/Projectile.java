@@ -2,10 +2,13 @@
  * Projectile.java
  * Ari Conati & Grant Lee
  * 22 May 2018
- * 
+ *
  * The class that represents the objects that the player must evade.
  */
 
+package sprites;
+
+import java.awt.geom.Point2D;
 
 public class Projectile {
 
@@ -16,7 +19,7 @@ public class Projectile {
     }
 
 
-    /*
+    /**
      * Sets the height and width of the sprite representing the projectile.
      *
      * @param width The width of the sprite.
@@ -28,7 +31,7 @@ public class Projectile {
     }
 
     public int getPower() {
-
+        return 0;
     }
 
 }
