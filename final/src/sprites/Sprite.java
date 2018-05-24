@@ -6,6 +6,9 @@
 
  package sprites;
 
+ import javafx.geometry.Point2D;
+ import javafx.scene.Group;
+
  public abstract class Sprite extends Group {
     private Point2D size;
     private String name;
