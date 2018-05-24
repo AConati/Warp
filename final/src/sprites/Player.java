@@ -28,7 +28,7 @@ public class Player extends Application {
 
 
 
-    File pic = new File("src/res/test.png");
+    File pic = new File("src/res/topdown.png");
     BufferedImage buffImage;
 
     {
@@ -46,9 +46,9 @@ public class Player extends Application {
     private static final int COLUMNS  =  4;
     private static final int COUNT    =  4;
     private static final int OFFSET_X =  0;
-    private static final int OFFSET_Y =  260;
-    private static final int WIDTH    = 200;
-    private static final int HEIGHT   = 200;
+    private static final int OFFSET_Y =  0;
+    private static final int WIDTH    = 400;
+    private static final int HEIGHT   = 600;
 
     public static void main(String[] args) {
         launch(args);
@@ -62,7 +62,7 @@ public class Player extends Application {
 
         final Animation animation = new SpriteAnimation(
                 imageView,
-                Duration.millis(400),
+                Duration.millis(200),
                 COUNT, COLUMNS,
                 OFFSET_X, OFFSET_Y,
                 WIDTH, HEIGHT
