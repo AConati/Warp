@@ -27,10 +27,10 @@ public class Translocator extends Sprite {
     }
 
     /*
-    * Sets the translocator to hidden or visible. If it has not been thrown,
-    * it's sprite is not visible to the user.
-    *
-    * @param visible If true, sets the translocator object to visible; else, hidden.
+     * Sets the translocator to hidden or visible. If it has not been thrown,
+     * it's sprite is not visible to the user.
+     *
+     * @param visible If true, sets the translocator object to visible; else, hidden.
      */
 
     public void setVisible(boolean visible) {
