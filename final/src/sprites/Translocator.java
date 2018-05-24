@@ -15,7 +15,7 @@ public class Translocator extends Sprite {
 
     public Translocator(Point2D position) {
        this.setPosition(position.getX(), position.getY());
-       this.setVisible(false);
+       this.makeVisible(false);
     }
 
 
