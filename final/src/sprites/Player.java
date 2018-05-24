@@ -43,18 +43,17 @@ public class Player extends Sprite {
     }
 
     /*
-    * Teleports the user to the location of the translocator. Has no effect if the translocator has not been thrown.
+     * Teleports the user to the location of the translocator. Has no effect if the translocator has not been thrown.
      */
 
     public void teleport(){
     }
-
     /*
     * Lowers the player's lifeTotal by the amount specified by the parameter. If this lowers the
     * lifeTotal of the player to 0 or less, it destroys the player (invokes this.destroy()).
     *
     * @param damage The amount of hit points to be subtracted from the player's current life total.
-     */
+    */
     public void takeDamage(int damage) {
 
     }
