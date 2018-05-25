@@ -75,6 +75,8 @@ public class Controller implements EventHandler<KeyEvent> {
     @Override
     /**
      * Code required for controlling movement with keys
+     *
+     * @param keyEvent user input
      */
     public void handle(KeyEvent keyEvent) {
 
