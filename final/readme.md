@@ -3,7 +3,7 @@
 **Authors of this project**: Ari Conati & Grant Lee                 
 
 **Brief Description:**                  
-We are making a survival video game where you need to collect stones that represent a note in a chord. The player's score will be higher depending on how many stones they collect. The game will get progressively difficult as time progresses and the player survives. A key feature of the game will include the ability to throw an object and teleport to that object in order to dodge other projectiles.                 
+We are making a survival video game where you need to collect stones. The player's score will be higher depending on how many stones they collect. The stones will each represent a chord tone, and the sound played will change as the player collects stones, as an additional incentive. The game will get progressively difficult as time progresses and the player survives. A key feature of the game will include the ability to throw an object and teleport to that object in order to dodge other projectiles.                 
 
 **Design Pattern:**                         
 We will implement a Model View Controller, where the each component corresponds as follows:                 

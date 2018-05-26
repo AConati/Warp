@@ -1,5 +1,5 @@
 /**
- * CStone.java
+ * ChordStone.java
  * Ari Conati & Grant Lee
  * 22 May 201
  *
