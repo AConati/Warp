@@ -1,4 +1,11 @@
 
+/**
+ * Model.java
+ * Ari Conati & Grant Lee
+ * 22 May 2018
+ *
+ * The class that represents the model/the underlying game logic.
+ */
 
 public class Model {
     private Player player;
