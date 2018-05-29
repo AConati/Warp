@@ -23,6 +23,12 @@ public class Player extends Sprite {
         this.translocator = new Translocator(this.getPosition());
     }
 
+    public Player(String name, int lifeTotal) {
+        this.name = name;
+        this.lifeTotal = lifeTotal;
+        this.translocator = new Translocator(this.getPosition());
+    }
+
     /*
      * Sets the height and width of the sprite representing the player.
      *

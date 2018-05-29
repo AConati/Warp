@@ -29,10 +29,11 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Label scoreLabel;
     @FXML private AnchorPane gameBoard;
     @FXML private ChordStone stone;
-    @FXML private Player readyPlayerOne;
+    @FXML private Player player;
     @FXML private Shooter shooter;
     @FXML private Translocator glissando;
 
+    private Model model;
     private int score;
     private boolean paused;
     private Timer timer;
@@ -43,7 +44,12 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     public void initialize() {
+        this.model = new Model();
         this.startTimer();
+    }
+
+    public Scene getScene() {
+        Sprite player = new Player()
     }
 
     /**
@@ -69,7 +75,6 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
-
     }
 
     @Override
@@ -79,7 +84,24 @@ public class Controller implements EventHandler<KeyEvent> {
      * @param keyEvent user input
      */
     public void handle(KeyEvent keyEvent) {
-
+        KeyCode code = keyEvent.getCode();
+        double stepSize = 10;
+        if(code == KeyCode.LEFT || code == KeyCode.A){
+            double yVel = model.getPlayer().getVelocity().getY();
+            model.getPlayer().setVelocity(-stepSize, yVel);
+        }
+        else if(code == KeyCode.RIGHT || code == KeyCode.D) {
+            double yVel = model.getPlayer().getVelocity().getY();
+            model.getPlayer().setVelocity(stepSize, yVel);
+        }
+        else if(code == KeyCode.UP || code == KeyCode.W) {
+            double xVel = model.getPlayer().getVelocity().getX();
+            model.getPlayer().setVelocity(xVel, stepSize);
+        }
+        else if(code == KeyCode.DOWN || code == KeyCode.S) {
+            double xVel = model.getPlayer().getVelocity.getX();
+            model.getPlayer().setVelocity(xVel, stepSize);
+        }
     }
 
     /**
