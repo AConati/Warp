@@ -1,4 +1,3 @@
-
 /**
  * Model.java
  * Ari Conati & Grant Lee
