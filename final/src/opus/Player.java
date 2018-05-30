@@ -21,7 +21,7 @@ public class Player extends Sprite {
         this.name = name;
         this.lifeTotal = lifeTotal;
 //      this.translocator = new Translocator(this.getPosition());
-        this.setImageView(makeImage("src/res/topdownsmall.png", 0,0, 50,80,4,400));
+        this.setImageView(makeImage("src/res/topdownsmall.png", 0,0, 50,80,1,400));
         this.getChildren().add(this.getImageView());
     }
 
