@@ -17,18 +17,15 @@ import javafx.scene.media.AudioClip;
 
 
 public class ChordStone extends Sprite {
-    @FXML private double velocityX;
-    @FXML private double velocityY;
-    private ImageView imageView;
     private AudioClip audioClip;
     private boolean isActive;
 
 
     public ChordStone() {
         this.isActive = false;
-        this.imageView = setImage("src/res/chordStone.png", 0,0, 30,30,4,400);
+        this.setImageView(setImage("src/res/chordStone.png", 0,50, 26,33,8,400));
         this.audioClip = new AudioClip(getClass().getResource("/res/ding.wav").toString());
-        this.getChildren().add(imageView);
+        this.getChildren().add(this.getImageView());
     }
 
     public boolean getStatus() { return this.isActive; }
@@ -36,9 +33,4 @@ public class ChordStone extends Sprite {
     void makeSound() {
         this.audioClip.play();
     }
-
-    public ImageView getImageView() {
-        return this.imageView;
-    }
-
 }

@@ -11,11 +11,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Opus.fxml"));
+
         Parent root = loader.load();
         primaryStage.setTitle("Opus");
 
         Controller controller = loader.getController();
         root.setOnKeyPressed(controller);
+
+
+
         double sceneWidth = 1000;
         double sceneHeight = 1000;
         primaryStage.setScene(new Scene(root, sceneWidth, sceneHeight));

@@ -26,6 +26,8 @@ public abstract class Sprite extends Group {
     private Point2D size;
     private String name;
     private Point2D velocity;
+    private ImageView imageView;
+
 
     public Sprite() {}
 
@@ -37,6 +39,14 @@ public abstract class Sprite extends Group {
         this.name = newName;
     }
 
+    public ImageView getImageView() {
+        return this.imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
     public final Point2D getPosition() {
         Point2D position = new Point2D(this.getLayoutX(), this.getLayoutY());
         return position;
@@ -45,6 +55,8 @@ public abstract class Sprite extends Group {
     public final void setPosition(double x, double y) {
         this.setLayoutX(x);
         this.setLayoutY(y);
+        this.imageView.setY(y);
+        this.imageView.setX(x);
     }
 
     public final Point2D getVelocity() {
@@ -59,7 +71,7 @@ public abstract class Sprite extends Group {
         this.size = new Point2D(width, height);
     }
 
-    public ImageView setImage(String file, int offsetX, int offsetY, int width, int height, int columns, int speed) {
+    public ImageView setImage(String file, double offsetX, double offsetY, double width, double height, int columns, int speed) {
         File pic = new File(file);
         BufferedImage buffImage = null;
 
@@ -75,7 +87,7 @@ public abstract class Sprite extends Group {
         ImageView imageView = new ImageView(IMAGE);
         imageView.setViewport(new Rectangle2D(offsetX,offsetY,width,height));
 
-        Animation animation = new SpriteAnimation(imageView, Duration.millis(speed ), columns, columns, offsetX, offsetY, width, height);
+        Animation animation = new SpriteAnimation(imageView, Duration.millis(speed), columns, columns, offsetX, offsetY, width, height);
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
 
