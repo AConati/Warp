@@ -76,6 +76,9 @@ public class Player extends Sprite {
         return this.lifeTotal;
     }
 
+    public Translocator getTranslocator() {
+        return this.translocator;
+    }
 
 }
 

@@ -72,9 +72,12 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
+<<<<<<< HEAD
         model.getChordStone().step();
         model.getPlayer().step();
         System.out.println(model.getChordStone().getPosition());
+=======
+>>>>>>> 2b6d653166c199cab524254eabe4ae3f2534a585
 
     }
 
@@ -86,6 +89,14 @@ public class Controller implements EventHandler<KeyEvent> {
      */
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
+        if(keyEvent.getEventType().equals("KEY_PRESSED")){
+            handleKeyPressed(code);
+        } else {
+            handleKeyReleased(code);
+        }
+    }
+
+    private void handleKeyPressed(KeyCode code) {
         double stepSize = 10;
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
@@ -103,6 +114,33 @@ public class Controller implements EventHandler<KeyEvent> {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
         }
+        else if(code == KeyCode.E) {
+            if(model.getPlayer().getPosition() == model.getPlayer().getTranslocator().getPosition()) {
+                model.getPlayer().throwTranslocator(0);
+            } else {
+                model.getPlayer().teleport();
+            }
+        }
+    }
+
+    private void handleKeyReleased(KeyCode code) {
+        if(code == KeyCode.LEFT || code == KeyCode.A){
+            double yVel = model.getPlayer().getVelocity().getY();
+            model.getPlayer().setVelocity(0, yVel);
+        }
+        else if(code == KeyCode.RIGHT || code == KeyCode.D) {
+            double yVel = model.getPlayer().getVelocity().getY();
+            model.getPlayer().setVelocity(0, yVel);
+        }
+        else if(code == KeyCode.UP || code == KeyCode.W) {
+            double xVel = model.getPlayer().getVelocity().getX();
+            model.getPlayer().setVelocity(xVel, 0);
+        }
+        else if(code == KeyCode.DOWN || code == KeyCode.S) {
+            double xVel = model.getPlayer().getVelocity().getX();
+            model.getPlayer().setVelocity(xVel, 0);
+        }
+
     }
 
     /**
