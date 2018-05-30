@@ -110,7 +110,7 @@ public class Controller implements EventHandler<KeyEvent> {
         }
         else if(code == KeyCode.E) {
             if(model.getPlayer().getPosition() == model.getPlayer().getTranslocator().getPosition()) {
-                model.getPlayer().throwTranslocator(0);
+                model.getPlayer().throwTranslocator(0, 10);
             } else {
                 model.getPlayer().teleport();
             }
