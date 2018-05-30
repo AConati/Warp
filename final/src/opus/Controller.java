@@ -74,8 +74,6 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
-<<<<<<< HEAD
-
         //ChordStone Movement
 
         if (model.getChordStone().getPosition().getX()  >= 900 && model.getChordStone().getVelocity().getX() > 0) {
@@ -99,12 +97,6 @@ public class Controller implements EventHandler<KeyEvent> {
         }
 
         model.getChordStone().step();
-=======
-        model.getChordStone().step();
-        model.getPlayer().step();
-        System.out.println(model.getChordStone().getPosition());
->>>>>>> 4394f637b64c4790c039950b6b6f35f2fa01cbb8
-
         model.getPlayer().step();
         System.out.println(model.getChordStone().getVelocity());
     }
