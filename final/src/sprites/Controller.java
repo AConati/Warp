@@ -71,6 +71,7 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
+
     }
 
     @Override
@@ -98,6 +99,14 @@ public class Controller implements EventHandler<KeyEvent> {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
         }
+        else if(code == KeyCode.E) {
+            if(model.getPlayer().getPosition() == model.getPlayer().getTranslocator().getPosition()) {
+                model.getPlayer().throwTranslocator(0);
+            } else {
+                model.getPlayer().teleport();
+            }
+        }
+
     }
 
     /**

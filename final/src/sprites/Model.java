@@ -9,6 +9,7 @@
 package sprites;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Model {
     private Player player;
@@ -71,6 +72,9 @@ public class Model {
      */
 
     public void spawnChordStone() {
+        this.score++;
+        Random random = new Random();
+        int newXPosition = random.nextInt()
     }
 
     /*
