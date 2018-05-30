@@ -37,7 +37,8 @@ public class Model {
 //        shooters.add(shooter);
 
         chordStone = new ChordStone();
-        chordStone.setPosition(200, 400);
+        chordStone.setPosition(100, 800);
+        System.out.println(chordStone.getImageView().getX());
         chordStone.setVelocity(1,1);
     }
 
