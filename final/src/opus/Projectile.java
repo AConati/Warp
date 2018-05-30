@@ -6,7 +6,7 @@
  * The class that represents the objects that the player must evade.
  */
 
-package sprites;
+package opus;
 
 import java.awt.geom.Point2D;
 
