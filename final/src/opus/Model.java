@@ -24,10 +24,10 @@ public class Model {
     }
 
     private void initialize() {
-//        player = new Player("name_tbd", 100);
-//        player.setPosition(200, 200);
-//        player.setSize(50,50);
-//        player.setVelocity(0,0);
+
+        player = new Player("hero", 100);
+        player.setPosition(200, 200);
+        player.setVelocity(0,0);
 
 //        Shooter shooter = new Shooter();
 //        shooter.setPosition(5,5);
@@ -36,7 +36,7 @@ public class Model {
 //        shooters.add(shooter);
 
         chordStone = new ChordStone();
-        chordStone.setPosition(1000,1000);
+        chordStone.setPosition(500, 500);
         chordStone.setVelocity(1,1);
     }
 

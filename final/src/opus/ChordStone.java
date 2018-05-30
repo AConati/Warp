@@ -23,9 +23,9 @@ public class ChordStone extends Sprite {
 
     public ChordStone() {
         this.isActive = false;
-        this.setImageView(setImage("src/res/chordStone.png", 0,50, 26,33,8,400));
-        this.audioClip = new AudioClip(getClass().getResource("/res/ding.wav").toString());
+        this.setImageView(makeImage("src/res/chordStone.png", 0,50, 26,33,8,400));
         this.getChildren().add(this.getImageView());
+        this.audioClip = new AudioClip(getClass().getResource("/res/ding.wav").toString());
     }
 
     public boolean getStatus() { return this.isActive; }

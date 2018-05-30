@@ -72,6 +72,10 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
+        model.getChordStone().step();
+        model.getPlayer().step();
+        System.out.println(model.getChordStone().getPosition());
+
     }
 
     @Override

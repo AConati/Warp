@@ -71,7 +71,7 @@ public abstract class Sprite extends Group {
         this.size = new Point2D(width, height);
     }
 
-    public ImageView setImage(String file, double offsetX, double offsetY, double width, double height, int columns, int speed) {
+    public ImageView makeImage(String file, double offsetX, double offsetY, double width, double height, int columns, int speed) {
         File pic = new File(file);
         BufferedImage buffImage = null;
 
