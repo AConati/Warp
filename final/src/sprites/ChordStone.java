@@ -17,8 +17,10 @@ import javafx.scene.shape.Circle;
 public class ChordStone extends Circle {
     @FXML private double velocityX;
     @FXML private double velocityY;
+    private boolean isActive;
 
     public ChordStone() {
+        isActive = false;
     }
 
     /*
@@ -44,4 +46,6 @@ public class ChordStone extends Circle {
     public void setVelocityY(double velocityY) {
         this.velocityY = velocityY;
     }
+
+    public boolean getStatus() { return this.isActive; }
 }

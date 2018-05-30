@@ -45,7 +45,7 @@ public class Player extends Sprite {
      * based on time constraints.
      *
      * @param angle An integer between 0 and 360 which represents the angle in degrees which represent the angle at which
-     * the translocator is thrown.
+     * the translocator is thrown.  
      *
      */
 

@@ -5,6 +5,8 @@
  *
  * The class that represents the model/the underlying game logic.
  */
+package sprites;
+
 
 public class Model {
     private Player player;
@@ -34,7 +36,7 @@ public class Model {
 
         chordStone = new ChordStone();
         chordStone.setPosition(200, 400);
-        chordStone.setVelocity(1,1)
+        chordStone.setVelocity(1,1);
     }
 
 
