@@ -5,12 +5,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class PlayerView extends Group {
 
-    final private double SCENE_WIDTH = 500;
-    final private double SCENE_HEIGHT = 400;
     final private double FRAMES_PER_SECOND = 20.0;
     private Image missleImage;
     private ArrayList<Sprite> spriteList;
@@ -20,8 +19,9 @@ public class PlayerView extends Group {
     }
 
     public void update(Model model) {
-        System.out.println("HI");
+        System.out.println(model.getChordStone().getPosition());
         this.getChildren().add(model.getChordStone().getImageView());
+
 
 
     }

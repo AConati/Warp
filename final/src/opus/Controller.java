@@ -12,7 +12,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -33,8 +32,8 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Shooter shooter;
     @FXML private Translocator glissando;
     @FXML private PlayerView playerView;
-
     private Model model;
+
     private int score;
     private boolean paused;
     private Timer timer;
