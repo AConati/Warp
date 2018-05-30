@@ -21,6 +21,8 @@ import javafx.scene.layout.AnchorPane;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static javafx.scene.input.KeyEvent.KEY_PRESSED;
+
 public class Controller implements EventHandler<KeyEvent> {
     final private double FRAMES_PER_SECOND = 20.0;
 
@@ -72,13 +74,33 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
-<<<<<<< HEAD
-        model.getChordStone().step();
-        model.getPlayer().step();
-        System.out.println(model.getChordStone().getPosition());
-=======
->>>>>>> 2b6d653166c199cab524254eabe4ae3f2534a585
 
+        //ChordStone Movement
+
+        if (model.getChordStone().getPosition().getX()  >= 900 && model.getChordStone().getVelocity().getX() > 0) {
+            model.getChordStone().makeSound();
+            model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
+        }
+
+        else if(model.getChordStone().getPosition().getX() < 0 && model.getChordStone().getVelocity().getX() < 0) {
+            model.getChordStone().makeSound();
+            model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
+        }
+
+        else if(model.getChordStone().getPosition().getY() >= 900 && model.getChordStone().getVelocity().getY() > 0) {
+            model.getChordStone().makeSound();
+            model.getChordStone().setVelocity(model.getChordStone().getVelocity().getX(), -model.getChordStone().getVelocity().getY());
+        }
+
+        else if(model.getChordStone().getPosition().getY() < 0 && model.getChordStone().getVelocity().getX() < 0) {
+            model.getChordStone().makeSound();
+            model.getChordStone().setVelocity(model.getChordStone().getVelocity().getX(), -model.getChordStone().getVelocity().getY());
+        }
+
+        model.getChordStone().step();
+
+        model.getPlayer().step();
+        System.out.println(model.getChordStone().getVelocity());
     }
 
     @Override
@@ -89,7 +111,7 @@ public class Controller implements EventHandler<KeyEvent> {
      */
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
-        if(keyEvent.getEventType().equals("KEY_PRESSED")){
+        if(keyEvent.getEventType().equals(KEY_PRESSED)){
             handleKeyPressed(code);
         } else {
             handleKeyReleased(code);
@@ -101,18 +123,22 @@ public class Controller implements EventHandler<KeyEvent> {
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(-stepSize, yVel);
+            model.getPlayer().getChildren().set(0,model.getPlayer().makeImage("src/res/topdownsmall.png", 0,150, 50,80,4,400));
         }
         else if(code == KeyCode.RIGHT || code == KeyCode.D) {
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(stepSize, yVel);
+            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("src/res/topdownsmall.png", 0,230, 50,80,4,400));
         }
         else if(code == KeyCode.UP || code == KeyCode.W) {
             double xVel = model.getPlayer().getVelocity().getX();
-            model.getPlayer().setVelocity(xVel, stepSize);
+            model.getPlayer().setVelocity(xVel, -stepSize);
+            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("src/res/topdownsmall.png", 0,80, 50,80,4,400));
         }
         else if(code == KeyCode.DOWN || code == KeyCode.S) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
+            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("src/res/topdownsmall.png", 0,0, 50,80,4,400));
         }
         else if(code == KeyCode.E) {
             if(model.getPlayer().getPosition() == model.getPlayer().getTranslocator().getPosition()) {
