@@ -73,7 +73,7 @@ public class Model {
     public void spawnChordStone() {
         this.score++;
         Random random = new Random();
-        int newXPosition = random.nextInt()
+        int newXPosition = random.nextInt();
     }
 
     /*
