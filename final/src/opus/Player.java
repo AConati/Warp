@@ -6,7 +6,7 @@
  * The class that represents the main player
  */
 
-package sprites;
+package opus;
 
 
 import javafx.geometry.Point2D;

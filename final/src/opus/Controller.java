@@ -6,18 +6,18 @@
  * The class that manipulates the view to reflect the model.
  */
 
-package sprites;
+package opus;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,6 +32,7 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Player player;
     @FXML private Shooter shooter;
     @FXML private Translocator glissando;
+    @FXML private PlayerView playerView;
 
     private Model model;
     private int score;
@@ -46,6 +47,7 @@ public class Controller implements EventHandler<KeyEvent> {
     public void initialize() {
         this.model = new Model();
         this.startTimer();
+        this.update();
     }
 
     /**
@@ -122,5 +124,9 @@ public class Controller implements EventHandler<KeyEvent> {
             this.timer.cancel();
         }
         this.paused = !this.paused;
+    }
+
+    private void update() {
+        this.playerView.update(this.model);
     }
 }
