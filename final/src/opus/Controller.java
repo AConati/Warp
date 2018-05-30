@@ -74,6 +74,7 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
+<<<<<<< HEAD
 
         //ChordStone Movement
 
@@ -98,6 +99,11 @@ public class Controller implements EventHandler<KeyEvent> {
         }
 
         model.getChordStone().step();
+=======
+        model.getChordStone().step();
+        model.getPlayer().step();
+        System.out.println(model.getChordStone().getPosition());
+>>>>>>> 4394f637b64c4790c039950b6b6f35f2fa01cbb8
 
         model.getPlayer().step();
         System.out.println(model.getChordStone().getVelocity());
@@ -142,7 +148,7 @@ public class Controller implements EventHandler<KeyEvent> {
         }
         else if(code == KeyCode.E) {
             if(model.getPlayer().getPosition() == model.getPlayer().getTranslocator().getPosition()) {
-                model.getPlayer().throwTranslocator(0);
+                model.getPlayer().throwTranslocator(0, 10);
             } else {
                 model.getPlayer().teleport();
             }
