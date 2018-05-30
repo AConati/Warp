@@ -6,9 +6,13 @@
  * The class that represents the model/the underlying game logic.
  */
 
+package sprites;
+
+import java.util.ArrayList;
+
 public class Model {
     private Player player;
-    private Shooter[] shooters;
+    private ArrayList<Shooter> shooters;
     private ChordStone chordStone;
 
     private boolean gameOver;
@@ -34,7 +38,7 @@ public class Model {
 
         chordStone = new ChordStone();
         chordStone.setPosition(200, 400);
-        chordStone.setVelocity(1,1)
+        chordStone.setVelocity(1,1);
     }
 
 
@@ -42,7 +46,7 @@ public class Model {
         return this.player;
     }
 
-    public Shooter[] getShooters() {
+    public ArrayList<Shooter> getShooters() {
         return this.shooters;
     }
 
@@ -51,7 +55,7 @@ public class Model {
     }
 
     public boolean isGameOver() {
-        return this.gameOver();
+        return this.gameOver;
     }
 
     public int getScore() {
