@@ -100,7 +100,7 @@ public class Controller implements EventHandler<KeyEvent> {
             model.getPlayer().setVelocity(xVel, stepSize);
         }
         else if(code == KeyCode.DOWN || code == KeyCode.S) {
-            double xVel = model.getPlayer().getVelocity.getX();
+            double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
         }
     }
