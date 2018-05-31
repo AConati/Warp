@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import opus.PlayerView?>
 
-<BorderPane fx:controller="opus.Controller" xmlns:fx="http://javafx.com/fxml"  prefHeight="400.0" prefWidth="600.0">
+<BorderPane fx:controller="opus.Controller" xmlns:fx="http://javafx.com/fxml">
 
     <top></top>
 

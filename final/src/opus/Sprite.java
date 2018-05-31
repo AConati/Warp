@@ -94,7 +94,7 @@ public abstract class Sprite extends Group {
 
         Image IMAGE = SwingFXUtils.toFXImage(buffImage, null);
         ImageView imageView = new ImageView(IMAGE);
-        imageView.setViewport(new Rectangle2D(offsetX,offsetY,width,height));
+        imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 
         Animation animation = new SpriteAnimation(imageView, Duration.millis(speed), columns, columns, offsetX, offsetY, width, height);
         animation.setCycleCount(Animation.INDEFINITE);
