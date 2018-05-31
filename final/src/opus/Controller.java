@@ -74,12 +74,35 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
+        //ChordStone Movement
+
+        if (model.getChordStone().getPosition().getX()  >= 900 && model.getChordStone().getVelocity().getX() > 0) {
+            model.getChordStone().makeSound();
+            model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
+        }
+
+        else if(model.getChordStone().getPosition().getX() < 0 && model.getChordStone().getVelocity().getX() < 0) {
+            model.getChordStone().makeSound();
+            model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
+        }
+
+        else if(model.getChordStone().getPosition().getY() >= 900 && model.getChordStone().getVelocity().getY() > 0) {
+            model.getChordStone().makeSound();
+            model.getChordStone().setVelocity(model.getChordStone().getVelocity().getX(), -model.getChordStone().getVelocity().getY());
+        }
+
+        else if(model.getChordStone().getPosition().getY() < 0 && model.getChordStone().getVelocity().getX() < 0) {
+            model.getChordStone().makeSound();
+            model.getChordStone().setVelocity(model.getChordStone().getVelocity().getX(), -model.getChordStone().getVelocity().getY());
+        }
+
         model.getChordStone().step();
         model.getPlayer().step();
         model.getPlayer().getTranslocator().step();
         model.getPlayer().getTranslocator().decelerate(1);
-        System.out.println(model.getPlayer().getPosition());
-
+        System.out.println(model.getPlayer().getTranslocator().getImageView().getX());
+        System.out.println(model.getPlayer().getTranslocator().getImageView().getY());
+        System.out.println(model.getPlayer().getTranslocator().getPosition());
     }
 
     @Override
@@ -102,18 +125,22 @@ public class Controller implements EventHandler<KeyEvent> {
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(-stepSize, yVel);
+            model.getPlayer().getChildren().set(0,model.getPlayer().makeImage("res/topdownsmall.png", 0,150, 50,80,4,400));
         }
         else if(code == KeyCode.RIGHT || code == KeyCode.D) {
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(stepSize, yVel);
+            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("res/topdownsmall.png", 0,230, 50,80,4,400));
         }
         else if(code == KeyCode.UP || code == KeyCode.W) {
             double xVel = model.getPlayer().getVelocity().getX();
-            model.getPlayer().setVelocity(xVel, stepSize);
+            model.getPlayer().setVelocity(xVel, -stepSize);
+            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("res/topdownsmall.png", 0,80, 50,80,4,400));
         }
         else if(code == KeyCode.DOWN || code == KeyCode.S) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
+            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("res/topdownsmall.png", 0,0, 50,80,4,400));
         }
         else if(code == KeyCode.E) {
             if(model.getPlayer().getTranslocator().getVisible()) {

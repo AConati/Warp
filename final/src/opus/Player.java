@@ -48,13 +48,11 @@ public class Player extends Sprite {
      */
 
     public void throwTranslocator(double angle, int power) {
-        if(this.translocator.getPosition().equals(this.getPosition()))
-            return;
-        this.translocator.setVisible(true);
+        this.translocator.setPosition(this.getPosition().getX(), this.getPosition().getY());
+        this.translocator.makeVisible(true);
         double xVel = Math.cos(Math.toRadians(angle)) * power;
         double yVel = Math.sin(Math.toRadians(angle)) * power;
         this.translocator.setVelocity(xVel, yVel);
-
     }
 
     /*
@@ -63,7 +61,7 @@ public class Player extends Sprite {
 
     public void teleport() {
         this.translocator.setVelocity(0,0);
-        this.translocator.setVisible(false);
+        this.translocator.makeVisible(false);
         this.setPosition(this.translocator.getPosition().getX(), this.translocator.getPosition().getY());
     }
     /*

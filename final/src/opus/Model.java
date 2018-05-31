@@ -38,8 +38,8 @@ public class Model {
 //        shooters.add(shooter);
 
         chordStone = new ChordStone();
-        chordStone.setPosition(100, 800);
-        chordStone.setVelocity(1,1);
+        chordStone.setPosition(0, 0);
+        chordStone.setVelocity(21,10);
     }
 
 
