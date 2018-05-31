@@ -7,6 +7,8 @@
  */
 package opus;
 
+import javafx.geometry.Point2D;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -25,9 +27,8 @@ public class Model {
     }
 
     private void initialize() {
-
-        player = new Player("hero", 100);
-        player.setPosition(200, 200);
+        Point2D playerPosition = new Point2D(200,200);
+        player = new Player("hero", 100, playerPosition);
         player.setVelocity(0,0);
 
 //        Shooter shooter = new Shooter();

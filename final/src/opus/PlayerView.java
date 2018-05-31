@@ -19,8 +19,10 @@ public class PlayerView extends Group {
     }
 
     public void update(Model model) {
-        this.getChildren().add(model.getChordStone().getImageView());
+        this.getChildren().add(model.getChordStone());
         this.getChildren().add(model.getPlayer());
+        if(model.getPlayer().getTranslocator().getVisible())
+            this.getChildren().add(model.getPlayer().getTranslocator());
 
 
 

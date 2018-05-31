@@ -13,9 +13,14 @@ import javafx.geometry.Point2D;
 
 public class Translocator extends Sprite {
 
+    private boolean visible;
+
     public Translocator(Point2D position) {
-       this.setPosition(position.getX(), position.getY());
        this.makeVisible(false);
+       this.setImageView(makeImage("res/chordStone.png", 0,50, 26,33,8,400));
+       this.getChildren().add(this.getImageView());
+       this.setPosition(position.getX(), position.getY());
+       this.setVelocity(0,0);
     }
 
 
@@ -37,6 +42,14 @@ public class Translocator extends Sprite {
      */
 
     public void makeVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean getVisible() {
+        return this.visible;
+    }
+
+    public void decelerate(double deceleration) {
 
     }
 }

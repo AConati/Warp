@@ -21,6 +21,8 @@ import javafx.scene.layout.AnchorPane;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static javafx.scene.input.KeyEvent.KEY_PRESSED;
+
 public class Controller implements EventHandler<KeyEvent> {
     final private double FRAMES_PER_SECOND = 20.0;
 
@@ -74,7 +76,9 @@ public class Controller implements EventHandler<KeyEvent> {
     private void updateAnimation() {
         model.getChordStone().step();
         model.getPlayer().step();
-        System.out.println(model.getChordStone().getPosition());
+        model.getPlayer().getTranslocator().step();
+        model.getPlayer().getTranslocator().decelerate(1);
+        System.out.println(model.getPlayer().getPosition());
 
     }
 
@@ -86,7 +90,7 @@ public class Controller implements EventHandler<KeyEvent> {
      */
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
-        if(keyEvent.getEventType().equals("KEY_PRESSED")){
+        if(keyEvent.getEventType().equals(KEY_PRESSED)){
             handleKeyPressed(code);
         } else {
             handleKeyReleased(code);
@@ -112,10 +116,10 @@ public class Controller implements EventHandler<KeyEvent> {
             model.getPlayer().setVelocity(xVel, stepSize);
         }
         else if(code == KeyCode.E) {
-            if(model.getPlayer().getPosition() == model.getPlayer().getTranslocator().getPosition()) {
-                model.getPlayer().throwTranslocator(0, 10);
-            } else {
+            if(model.getPlayer().getTranslocator().getVisible()) {
                 model.getPlayer().teleport();
+            } else {
+                model.getPlayer().throwTranslocator(0, 10);
             }
         }
     }

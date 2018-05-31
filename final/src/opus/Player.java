@@ -17,12 +17,14 @@ public class Player extends Sprite {
     private int lifeTotal;
     private String name;
 
-    public Player(String name, int lifeTotal) {
+    public Player(String name, int lifeTotal, Point2D position) {
         this.name = name;
         this.lifeTotal = lifeTotal;
-//      this.translocator = new Translocator(this.getPosition());
-        this.setImageView(makeImage("src/res/topdownsmall.png", 0,0, 50,80,1,400));
+        this.setImageView(makeImage("res/topdownsmall.png", 0,0, 50,80,1,400));
         this.getChildren().add(this.getImageView());
+        this.setPosition(position.getX(), position.getY());
+        this.translocator = new Translocator(this.getPosition());
+        this.translocator.makeVisible(false);
     }
 
     /*
@@ -91,7 +93,6 @@ public class Player extends Sprite {
     public Translocator getTranslocator() {
         return this.translocator;
     }
-
 }
 
 
