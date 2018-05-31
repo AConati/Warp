@@ -106,18 +106,27 @@ public class Controller implements EventHandler<KeyEvent> {
 
         //Player Movement
 
-        if(model.getPlayer().getPosition().getX()  >= playerView.FRAME_WIDTH) {
+        if(model.getPlayer().getPosition().getX() >= playerView.FRAME_WIDTH && model.getPlayer().getVelocity().getX() > 0) {
             model.getPlayer().setPosition(-model.getPlayer().getWidth(),model.getPlayer().getPosition().getY());
         }
+        else if(model.getPlayer().getPosition().getX() < 0 && model.getPlayer().getVelocity().getX() < 0) {
+            model.getPlayer().setPosition(playerView.FRAME_WIDTH + model.getPlayer().getWidth(), model.getPlayer().getPosition().getY());
+        }
+        else if(model.getPlayer().getPosition().getY() >= playerView.FRAME_HEIGHT && model.getPlayer().getVelocity().getY() > 0) {
+            model.getPlayer().setPosition(model.getPlayer().getPosition().getX(), -model.getPlayer().getHeight());
+        }
+        else if(model.getPlayer().getPosition().getY() < 0 && model.getPlayer().getVelocity().getY() < 0) {
+            model.getPlayer().setPosition(model.getPlayer().getPosition().getX(), playerView.FRAME_HEIGHT + model.getPlayer().getHeight());
+        }
 
-        System.out.println(model.getPlayer().getWidth());
+        System.out.println(model.getChordStone().getWidth());
 
-        System.out.println(model.getPlayer().getPosition().getX() + model.getPlayer().getWidth());
+        System.out.println(model.getChordStone().getPosition().getX() + model.getChordStone().getWidth());
 
         model.getChordStone().step();
         model.getPlayer().step();
 
-        System.out.println(model.getPlayer().getPosition());
+        System.out.println(model.getChordStone().getPosition());
     }
 
     @Override

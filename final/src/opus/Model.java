@@ -27,9 +27,8 @@ public class Model {
     private void initialize() {
 
         player = new Player("hero", 100);
-        player.setPosition(0, 0);
+        player.setPosition(20, 20);
         player.setVelocity(0,0);
-        player.setSize(10.0,10.0);
 
 //        Shooter shooter = new Shooter();
 //        shooter.setPosition(5,5);
@@ -38,7 +37,7 @@ public class Model {
 //        shooters.add(shooter);
 
         chordStone = new ChordStone();
-        chordStone.setPosition(50,50);
+        chordStone.setPosition(200,200);
         chordStone.setVelocity(0,0);
     }
 
