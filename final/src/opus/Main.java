@@ -20,10 +20,7 @@ public class Main extends Application {
         root.setOnKeyReleased(controller);
 
 
-
-        double sceneWidth = 1000;
-        double sceneHeight = 1000;
-        primaryStage.setScene(new Scene(root, sceneWidth, sceneHeight));
+        primaryStage.setScene(new Scene(root, controller.getFrameWidth(), controller.getFrameHeight()));
         primaryStage.show();
         root.requestFocus();
     }

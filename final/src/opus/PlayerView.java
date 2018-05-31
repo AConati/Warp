@@ -10,9 +10,12 @@ import java.util.ArrayList;
 
 public class PlayerView extends Group {
 
+    public final double FRAME_HEIGHT = 400;
+    public final double FRAME_WIDTH = 500;
     final private double FRAMES_PER_SECOND = 20.0;
     private Image missleImage;
     private ArrayList<Sprite> spriteList;
+
 
     public PlayerView() {
         this.missleImage = new Image(getClass().getResourceAsStream("/res/error.jpg"));

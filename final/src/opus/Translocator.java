@@ -13,10 +13,10 @@ import javafx.geometry.Point2D;
 
 public class Translocator extends Sprite {
 
-    private boolean visible;
+    private boolean thrown;
 
     public Translocator(Point2D position) {
-       this.makeVisible(false);
+       this.setThrown(false);
        this.setImageView(makeImage("res/chordStone.png", 0,50, 26,33,8,400));
        this.getChildren().add(this.getImageView());
        this.setPosition(position.getX(), position.getY());
@@ -41,12 +41,12 @@ public class Translocator extends Sprite {
      * @param visible If true, sets the translocator object to visible; else, hidden.
      */
 
-    public void makeVisible(boolean visible) {
-        this.visible = visible;
+    public void setThrown(boolean thrown) {
+        this.thrown = thrown;
     }
 
-    public boolean getVisible() {
-        return this.visible;
+    public boolean isThrown() {
+        return this.thrown;
     }
 
     public void decelerate(double deceleration) {
