@@ -148,22 +148,26 @@ public class Controller implements EventHandler<KeyEvent> {
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(-stepSize, yVel);
-            model.getPlayer().getChildren().set(0,model.getPlayer().makeImage("res/topdownsmall.png", 0,150, 50,80,4,400));
+            model.getPlayer().refreshAnimation(0,150);
+            model.getPlayer().getAnimation().play();
         }
         else if(code == KeyCode.RIGHT || code == KeyCode.D) {
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(stepSize, yVel);
-            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("res/topdownsmall.png", 0,230, 50,80,4,400));
+            model.getPlayer().refreshAnimation(0,230);
+            model.getPlayer().getAnimation().play();
         }
         else if(code == KeyCode.UP || code == KeyCode.W) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, -stepSize);
-            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("res/topdownsmall.png", 0,80, 50,80,4,400));
+            model.getPlayer().refreshAnimation(0,80);
+            model.getPlayer().getAnimation().play();
         }
         else if(code == KeyCode.DOWN || code == KeyCode.S) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
-            model.getPlayer().getChildren().set(0, model.getPlayer().makeImage("res/topdownsmall.png", 0,0, 50,80,4,400));
+            model.getPlayer().refreshAnimation(0,0);
+            model.getPlayer().getAnimation().play();
         }
         else if(code == KeyCode.E) {
             if(model.getPlayer().getTranslocator().isThrown()) {
@@ -179,18 +183,22 @@ public class Controller implements EventHandler<KeyEvent> {
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(0, yVel);
+            model.getPlayer().getAnimation().pause();
         }
         else if(code == KeyCode.RIGHT || code == KeyCode.D) {
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(0, yVel);
+            model.getPlayer().getAnimation().pause();
         }
         else if(code == KeyCode.UP || code == KeyCode.W) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, 0);
+            model.getPlayer().getAnimation().pause();
         }
         else if(code == KeyCode.DOWN || code == KeyCode.S) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, 0);
+            model.getPlayer().getAnimation().pause();
         }
 
     }

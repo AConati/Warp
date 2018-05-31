@@ -20,7 +20,10 @@ public class Player extends Sprite {
     public Player(String name, int lifeTotal, Point2D position) {
         this.name = name;
         this.lifeTotal = lifeTotal;
-        this.setImageView(makeImage("res/topdownsmall.png", 0,0, 50,80,1,400));
+        this.setImageView(makeImage("src/res/topdownsmall.png"));
+        this.setOffsets(0,0);
+        this.setViewport(50,80);
+        this.makeAnimation(4,200);
         this.getChildren().add(this.getImageView());
         this.translocator = new Translocator(position);
         this.translocator.setThrown(false);
@@ -72,6 +75,15 @@ public class Player extends Sprite {
     public Translocator getTranslocator() {
         return this.translocator;
     }
+
+    public void refreshAnimation(int newOffSetX, int newOffsetY) {
+        if (newOffSetX != this.getOffSetX() || newOffsetY != this.getOffSetY()) {
+            this.getAnimation().stop();
+            this.setOffsets(newOffSetX, newOffsetY);
+            this.makeAnimation(4,300);
+        }
+    }
+
 
     @Override
     public void setPosition(double x, double y) {
