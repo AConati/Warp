@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.geometry.Point2D;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -124,9 +125,6 @@ public class Controller implements EventHandler<KeyEvent> {
         model.getPlayer().step();
         model.getPlayer().getTranslocator().step();
         model.getPlayer().getTranslocator().decelerate(1);
-        System.out.println(model.getPlayer().getTranslocator().getImageView().getX());
-        System.out.println(model.getPlayer().getTranslocator().getImageView().getY());
-        System.out.println(model.getPlayer().getTranslocator().getPosition());
 
     }
 
@@ -171,7 +169,8 @@ public class Controller implements EventHandler<KeyEvent> {
             if(model.getPlayer().getTranslocator().isThrown()) {
                 model.getPlayer().teleport();
             } else {
-                model.getPlayer().throwTranslocator(0, 10);
+                double angle = calculateThrowingAngle(model.getPlayer().getVelocity());
+                model.getPlayer().throwTranslocator(angle, 15);
             }
         }
     }
@@ -192,6 +191,39 @@ public class Controller implements EventHandler<KeyEvent> {
         else if(code == KeyCode.DOWN || code == KeyCode.S) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, 0);
+        }
+
+    }
+
+    public static double calculateThrowingAngle(Point2D playerVelocity) {
+        double xVelocity = playerVelocity.getX();
+        double yVelocity = playerVelocity.getY();
+        if(xVelocity > 0) {
+            if(yVelocity > 0) {
+                return 45;
+            } else if (yVelocity < 0){
+                return 315;
+            } else {
+                return 0;
+            }
+        }
+        else if (xVelocity < 0) {
+            if(yVelocity > 0) {
+                return 135;
+            } else if (yVelocity < 0) {
+                return 225;
+            } else {
+                return 180;
+            }
+        }
+        else {
+            if(yVelocity > 0) {
+                return 90;
+            } else if(yVelocity < 0) {
+                return 270;
+            } else {
+                return 0;
+            }
         }
 
     }

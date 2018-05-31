@@ -50,7 +50,23 @@ public class Translocator extends Sprite {
     }
 
     public void decelerate(double deceleration) {
+        double x = this.getVelocity().getX();
+        double y = this.getVelocity().getY();
+        double v = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+        if(deceleration > v){
+            this.setVelocity(0,0);
+            return;
+        }
 
+        double newV = v - deceleration;
+        double angle = Math.asin(y/v);
+        double newX = Math.abs(newV * Math.cos(angle));
+        double newY = Math.abs(newV * Math.sin(angle));
+        if(x < 0)
+            newX = -newX;
+        if(y < 0)
+            newY = -newY;
+        this.setVelocity(newX,newY);
     }
 }
 
