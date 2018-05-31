@@ -150,25 +150,25 @@ public class Controller implements EventHandler<KeyEvent> {
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(-stepSize, yVel);
-            model.getPlayer().setOffsets(0,150);
+            model.getPlayer().refreshAnimation(0,150);
             model.getPlayer().getAnimation().play();
         }
         else if(code == KeyCode.RIGHT || code == KeyCode.D) {
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(stepSize, yVel);
-            model.getPlayer().setOffsets(0,230);
+            model.getPlayer().refreshAnimation(0,230);
             model.getPlayer().getAnimation().play();
         }
         else if(code == KeyCode.UP || code == KeyCode.W) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, -stepSize);
-            model.getPlayer().setOffsets(0,80);
+            model.getPlayer().refreshAnimation(0,80);
             model.getPlayer().getAnimation().play();
         }
         else if(code == KeyCode.DOWN || code == KeyCode.S) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
-            model.getPlayer().setOffsets(0,0);
+            model.getPlayer().refreshAnimation(0,0);
             model.getPlayer().getAnimation().play();
         }
         else if(code == KeyCode.E) {

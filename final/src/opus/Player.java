@@ -76,6 +76,15 @@ public class Player extends Sprite {
         return this.translocator;
     }
 
+    public void refreshAnimation(int newOffSetX, int newOffsetY) {
+        if (newOffSetX != this.getOffSetX() || newOffsetY != this.getOffSetY()) {
+            this.getAnimation().stop();
+            this.setOffsets(newOffSetX, newOffsetY);
+            this.makeAnimation(4,300);
+        }
+    }
+
+
     @Override
     public void setPosition(double x, double y) {
         super.setPosition(x,y);
