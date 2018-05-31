@@ -27,6 +27,9 @@ public abstract class Sprite extends Group {
     private String name;
     private Point2D velocity;
     private ImageView imageView;
+    private Animation animation;
+    private double offSetX;
+    private double offSetY;
 
 
     public Sprite() {}
@@ -64,6 +67,14 @@ public abstract class Sprite extends Group {
         return this.size.getY();
     }
 
+    public double getOffSetX() {
+        return this.offSetX;
+    }
+
+    public double getOffSetY() {
+        return this.offSetY;
+    }
+
     public void setPosition(double x, double y) {
         this.setLayoutX(x);
         this.setLayoutY(y);
@@ -79,8 +90,8 @@ public abstract class Sprite extends Group {
         this.velocity = new Point2D(vx, vy);
     }
 
-    public ImageView makeImage(String file, double offsetX, double offsetY, double width, double height, int columns, int speed) {
-        this.setSize(width, height);
+    public ImageView makeImage(String file) {
+
         File pic = new File(file);
         BufferedImage buffImage = null;
 
@@ -94,15 +105,31 @@ public abstract class Sprite extends Group {
 
         Image IMAGE = SwingFXUtils.toFXImage(buffImage, null);
         ImageView imageView = new ImageView(IMAGE);
-        imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
 
-        Animation animation = new SpriteAnimation(imageView, Duration.millis(speed), columns, columns, offsetX, offsetY, width, height);
-        animation.setCycleCount(Animation.INDEFINITE);
-        animation.play();
 
         return imageView;
     }
 
+    public void setOffsets(double offsetX, double offsetY) {
+        this.offSetY = offsetY;
+        this.offSetX = offsetX;
+    }
+
+    public void setViewport(double width, double height) {
+        this.setSize(width, height);
+        this.imageView.setImage(imageView.getImage());
+        this.imageView.setViewport(new Rectangle2D(this.getOffSetX(), this.getOffSetY(), width, height));
+
+    }
+
+    public void makeAnimation(int columns, int speed) {
+        this.animation = new SpriteAnimation(imageView, Duration.millis(speed), columns, columns, this.getOffSetX(), this.getOffSetY(), this.getWidth(), this.getHeight());
+        animation.setCycleCount(Animation.INDEFINITE);
+    }
+
+    public Animation getAnimation() {
+        return animation;
+    }
 
     public void step() {
         Point2D position = this.getPosition();

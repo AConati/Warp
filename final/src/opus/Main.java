@@ -14,7 +14,7 @@ import javafx.stage.WindowEvent;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Opus.fxml"));
 
         Parent root = loader.load();
