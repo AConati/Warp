@@ -25,25 +25,6 @@ public class Player extends Sprite {
         this.getChildren().add(this.getImageView());
     }
 
-    /*
-     * Sets the height and width of the sprite representing the player.
-     *
-     * @param width The width of the sprite.
-     * @param height The height of the sprite
-     */
-
-    public void setSize(double width, double height) {
-    }
-
-    /*
-     * Throws the player's translocator in the direction specified by the parameter. This will be designed
-     * to be extremely flexible (throwable in any direction) or extremely inflexible (throwable in 1 or a few directions)
-     * based on time constraints.
-     *
-     * @param angle A double between 0 and 360 which represents the angle in degrees which represent the angle at which
-     * the translocator is thrown.
-     *
-     */
 
     public void throwTranslocator(double angle, int power) {
         if(this.translocator.getPosition().equals(this.getPosition()))

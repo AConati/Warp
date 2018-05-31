@@ -51,6 +51,14 @@ public class Controller implements EventHandler<KeyEvent> {
         this.update();
     }
 
+    public double getFrameHeight() {
+        return playerView.FRAME_HEIGHT;
+    }
+
+    public double getFrameWidth() {
+        return playerView.FRAME_WIDTH;
+    }
+
     /**
      * Survival game needs to keep track of time survived
      */
@@ -76,7 +84,7 @@ public class Controller implements EventHandler<KeyEvent> {
     private void updateAnimation() {
         //ChordStone Movement
 
-        if (model.getChordStone().getPosition().getX()  >= 900 && model.getChordStone().getVelocity().getX() > 0) {
+        if (model.getChordStone().getPosition().getX() + model.getChordStone().getWidth() >= playerView.FRAME_WIDTH && model.getChordStone().getVelocity().getX() > 0) {
             model.getChordStone().makeSound();
             model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
         }
@@ -86,7 +94,7 @@ public class Controller implements EventHandler<KeyEvent> {
             model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
         }
 
-        else if(model.getChordStone().getPosition().getY() >= 900 && model.getChordStone().getVelocity().getY() > 0) {
+        else if(model.getChordStone().getPosition().getY() + model.getChordStone().getHeight() >= playerView.FRAME_HEIGHT && model.getChordStone().getVelocity().getY() > 0) {
             model.getChordStone().makeSound();
             model.getChordStone().setVelocity(model.getChordStone().getVelocity().getX(), -model.getChordStone().getVelocity().getY());
         }
@@ -96,9 +104,20 @@ public class Controller implements EventHandler<KeyEvent> {
             model.getChordStone().setVelocity(model.getChordStone().getVelocity().getX(), -model.getChordStone().getVelocity().getY());
         }
 
+        //Player Movement
+
+        if(model.getPlayer().getPosition().getX()  >= playerView.FRAME_WIDTH) {
+            model.getPlayer().setPosition(-model.getPlayer().getWidth(),model.getPlayer().getPosition().getY());
+        }
+
+        System.out.println(model.getPlayer().getWidth());
+
+        System.out.println(model.getPlayer().getPosition().getX() + model.getPlayer().getWidth());
+
         model.getChordStone().step();
         model.getPlayer().step();
-        System.out.println(model.getChordStone().getVelocity());
+
+        System.out.println(model.getPlayer().getPosition());
     }
 
     @Override

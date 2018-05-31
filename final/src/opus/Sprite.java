@@ -52,6 +52,18 @@ public abstract class Sprite extends Group {
         return position;
     }
 
+    public void setSize(double width, double height) {
+        this.size = new Point2D(width, height);
+    }
+
+    public double getWidth() {
+        return this.size.getX();
+    }
+
+    public double getHeight() {
+        return this.size.getY();
+    }
+
     public final void setPosition(double x, double y) {
         this.setLayoutX(x);
         this.setLayoutY(y);
@@ -67,11 +79,8 @@ public abstract class Sprite extends Group {
         this.velocity = new Point2D(vx, vy);
     }
 
-    public void setSize(double width, double height) {
-        this.size = new Point2D(width, height);
-    }
-
     public ImageView makeImage(String file, double offsetX, double offsetY, double width, double height, int columns, int speed) {
+        this.setSize(width, height);
         File pic = new File(file);
         BufferedImage buffImage = null;
 
