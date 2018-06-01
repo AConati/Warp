@@ -10,10 +10,17 @@ package opus;
 
 import javafx.geometry.Point2D;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Shooter extends Sprite {
 
-    public Shooter() {
+    private List<Projectile> projectiles;
+    private int cycleLifeForProjectiles;
 
+    public Shooter(int cycles) {
+        this.projectiles = new ArrayList<Projectile>();
+        this.cycleLifeForProjectiles = cycles;
     }
     /*
      * Sets the height and width of the sprite representing the shooter.
@@ -33,7 +40,13 @@ public class Shooter extends Sprite {
     * @param size The size of the projectile fired.
      */
 
-    public void shoot(int power, Point2D size) {
+    public void shoot(double power, double velocity, Point2D playerLocation) {
+        Projectile projectile = new Projectile(power, this.cycleLifeForProjectiles);
+        double angle = Math.atan(playerLocation.getY()/playerLocation.getX());
+        double xVel = Math.cos(angle) * velocity;
+        double yVel = Math.sin(angle) * velocity;
+        projectile.setVelocity(xVel, yVel);
+        projectiles.add(projectile);
 
     }
 

@@ -150,30 +150,34 @@ public class Controller implements EventHandler<KeyEvent> {
             model.getPlayer().setVelocity(-stepSize, yVel);
             model.getPlayer().refreshAnimation(0,150);
             model.getPlayer().getAnimation().play();
+            model.getPlayer().setDirection(Player.Direction.LEFT);
         }
         else if(code == KeyCode.RIGHT || code == KeyCode.D) {
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(stepSize, yVel);
             model.getPlayer().refreshAnimation(0,230);
             model.getPlayer().getAnimation().play();
+            model.getPlayer().setDirection(Player.Direction.RIGHT);
         }
         else if(code == KeyCode.UP || code == KeyCode.W) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, -stepSize);
             model.getPlayer().refreshAnimation(0,80);
             model.getPlayer().getAnimation().play();
+            model.getPlayer().setDirection(Player.Direction.UP);
         }
         else if(code == KeyCode.DOWN || code == KeyCode.S) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
             model.getPlayer().refreshAnimation(0,0);
             model.getPlayer().getAnimation().play();
+            model.getPlayer().setDirection(Player.Direction.DOWN);
         }
         else if(code == KeyCode.E) {
             if(model.getPlayer().getTranslocator().isThrown()) {
                 model.getPlayer().teleport();
             } else {
-                double angle = calculateThrowingAngle(model.getPlayer().getVelocity());
+                double angle = calculateThrowingAngle(model.getPlayer());
                 model.getPlayer().throwTranslocator(angle, 15);
             }
         }
@@ -203,9 +207,9 @@ public class Controller implements EventHandler<KeyEvent> {
 
     }
 
-    public static double calculateThrowingAngle(Point2D playerVelocity) {
-        double xVelocity = playerVelocity.getX();
-        double yVelocity = playerVelocity.getY();
+    public static double calculateThrowingAngle(Player player) {
+        double xVelocity = player.getVelocity().getX();
+        double yVelocity = player.getVelocity().getY();
         if(xVelocity > 0) {
             if(yVelocity > 0) {
                 return 45;
@@ -230,10 +234,20 @@ public class Controller implements EventHandler<KeyEvent> {
             } else if(yVelocity < 0) {
                 return 270;
             } else {
-                return 0;
+                switch(player.getDirection()){
+                    case RIGHT:
+                        return 0;
+                    case LEFT:
+                        return 180;
+                    case DOWN:
+                        return 90;
+                    case UP:
+                        return 270;
+                    default:
+                        return 0;
+                }
             }
         }
-
     }
 
     /**

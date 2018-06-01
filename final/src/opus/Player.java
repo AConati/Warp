@@ -17,6 +17,12 @@ public class Player extends Sprite {
     private int lifeTotal;
     private String name;
 
+    public enum Direction {
+        RIGHT, LEFT, UP, DOWN;
+    }
+
+    private Direction direction;
+
     public Player(String name, int lifeTotal, Point2D position) {
         this.name = name;
         this.lifeTotal = lifeTotal;
@@ -28,6 +34,7 @@ public class Player extends Sprite {
         this.translocator = new Translocator(position);
         this.translocator.setThrown(false);
         this.setPosition(position.getX(), position.getY());
+        this.direction = Direction.DOWN;
     }
 
 
@@ -82,6 +89,14 @@ public class Player extends Sprite {
             this.setOffsets(newOffSetX, newOffsetY);
             this.makeAnimation(4,300);
         }
+    }
+
+    public Direction getDirection() {
+        return this.direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
 

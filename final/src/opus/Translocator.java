@@ -18,7 +18,6 @@ public class Translocator extends Sprite {
     public Translocator(Point2D position) {
        this.setThrown(false);
        this.setImageView(makeImage("src/res/chordStone.png"));
-       this.setImageView(makeImage("src/res/chordStone.png"));
        this.setOffsets(0,50);
        this.setViewport(26,33);
        this.makeAnimation(8,400);
