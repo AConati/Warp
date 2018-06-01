@@ -32,7 +32,7 @@ public class Model {
         player = new Player("hero", 100, playerPosition);
         player.setVelocity(0,0);
 
-        Point2D shooterPosition = new Point2D(50,50);
+        Point2D shooterPosition = new Point2D(100,100);
         Shooter shooter = new Shooter(10, shooterPosition);
         shooter.setFireRate(10);
         shooters.add(shooter);

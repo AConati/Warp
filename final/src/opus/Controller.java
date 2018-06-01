@@ -92,18 +92,19 @@ public class Controller implements EventHandler<KeyEvent> {
         model.getPlayer().getTranslocator().step();
         model.getPlayer().getTranslocator().decelerate(3);
 
-        System.out.println(this.playerView.getChildren().size());
         for(Shooter shooter : model.getShooters()){
-            Projectile newProjectile = new Projectile(10, 25);
-            if(shooter.shoot(newProjectile,10,model.getPlayer().getPosition())) {
+            if(shooter.isReadyToShoot()) {
+                Projectile newProjectile = new Projectile(10, 25);
+                shooter.shoot(newProjectile, 15, model.getPlayer().getPosition());
                 this.playerView.getChildren().add(newProjectile);
             }
+            shooter.decrementFireCount();
             Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
             while(iterator.hasNext()) {
                 Projectile projectile = iterator.next();
                 projectile.decrementCycles();
                 if(projectile.getCyclesUntilDisappear() <= 0) {
-                    this.playerView.getChildren().remove(this.playerView.getChildren().size() - 1);
+                    this.playerView.getChildren().remove(projectile);
                     projectile.getChildren().remove(projectile.getImageView());
                     iterator.remove();
                 } else {
