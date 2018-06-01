@@ -22,6 +22,7 @@ public class Translocator extends Sprite {
        this.setOffsets(0,50);
        this.setViewport(26,33);
        this.makeAnimation(8,400);
+       this.getAnimation().play();
        this.getChildren().add(this.getImageView());
        this.setPosition(position.getX(), position.getY());
        this.setVelocity(0,0);

@@ -27,6 +27,7 @@ public class ChordStone extends Sprite {
         this.setOffsets(0,50);
         this.setViewport(26,33);
         this.makeAnimation(8,400);
+        this.getAnimation().play();
         this.getChildren().add(this.getImageView());
         this.audioClip = new AudioClip(getClass().getResource("/res/ding.wav").toString());
     }
