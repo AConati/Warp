@@ -94,11 +94,10 @@ public class Controller implements EventHandler<KeyEvent> {
         model.getPlayer().getTranslocator().decelerate(3);
 
         for(Shooter shooter : model.getShooters()){
-            if(shooter.isReadyToShoot()) {
-                Projectile newProjectile = new Projectile(10, 25);
-                shooter.shoot(newProjectile, 15, model.getPlayer().getPosition());
+            Projectile newProjectile = shooter.shootIfReady(10, 25, 15, model.getPlayer().getPosition());
+            if(newProjectile != null)
                 this.playerView.getChildren().add(newProjectile);
-            }
+
             shooter.decrementFireCount();
             Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
             while(iterator.hasNext()) {

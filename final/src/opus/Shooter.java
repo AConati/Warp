@@ -40,13 +40,27 @@ public class Shooter extends Sprite {
     * @param size The size of the projectile fired.
      */
 
-    public void shoot(Projectile projectile, double velocity, Point2D target) {
+    public Projectile shootIfReady(int power, int cycles, double velocity, Point2D target) {
+        if(!isReadyToShoot()) {
+            return null;
+        }
+        fireCount = fireRate;
 
-        double angle = Math.atan(target.getY()/target.getX());
+        Projectile projectile = new Projectile(power, cycles, this.getPosition());
+        double xDistanceToTarget = target.getX()-this.getPosition().getX();
+        double yDistanceToTarget = target.getY()-this.getPosition().getY();
+        Point2D distanceToTarget = new Point2D(Math.abs(xDistanceToTarget), Math.abs(yDistanceToTarget));
+
+        double angle = Math.atan(distanceToTarget.getY()/distanceToTarget.getX());
         double xVel = Math.cos(angle) * velocity;
         double yVel = Math.sin(angle) * velocity;
+        if(xDistanceToTarget < 0)
+            xVel = -xVel;
+        if(yDistanceToTarget < 0)
+            yVel = -yVel;
         projectile.setVelocity(xVel, yVel);
         projectiles.add(projectile);
+        return projectile;
 
     }
 
