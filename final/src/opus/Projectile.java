@@ -19,10 +19,10 @@ public class Projectile extends Sprite{
         this.power = power;
         cyclesUntilDisappear = cycles;
 
-        this.setImageView(makeImage("src/res/translocator.png"));
+        this.setImageView(makeImage("src/res/bullet.png"));
         this.setOffsets(0,0);
-        this.setViewport(23, 23);
-        this.makeAnimation(16,1000);
+        this.setViewport(12, 12);
+        this.makeAnimation(1,1);
         this.getAnimation().play();
         this.getChildren().add(this.getImageView());
     }

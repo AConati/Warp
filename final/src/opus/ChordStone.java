@@ -38,11 +38,4 @@ public class ChordStone extends Sprite {
         this.audioClip.play();
     }
 
-    public double getCenterX() {
-        return this.getPosition().getX() + this.getWidth()/2;
-    }
-
-    public double getCenterY() {
-        return this.getPosition().getY() + this.getHeight()/2;
-    }
 }
