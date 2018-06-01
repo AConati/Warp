@@ -27,7 +27,7 @@ public class Model {
     }
 
     private void initialize() {
-        Point2D playerPosition = new Point2D(200,200);
+        Point2D playerPosition = new Point2D(10,10);
         player = new Player("hero", 100, playerPosition);
 
         player.setVelocity(0,0);

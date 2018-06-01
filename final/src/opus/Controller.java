@@ -124,7 +124,7 @@ public class Controller implements EventHandler<KeyEvent> {
         model.getChordStone().step();
         model.getPlayer().step();
         model.getPlayer().getTranslocator().step();
-        model.getPlayer().getTranslocator().decelerate(1);
+        model.getPlayer().getTranslocator().decelerate(3);
 
     }
 
@@ -178,7 +178,7 @@ public class Controller implements EventHandler<KeyEvent> {
                 model.getPlayer().teleport();
             } else {
                 double angle = calculateThrowingAngle(model.getPlayer());
-                model.getPlayer().throwTranslocator(angle, 15);
+                model.getPlayer().throwTranslocator(angle, 20);
             }
         }
     }
