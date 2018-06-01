@@ -95,8 +95,9 @@ public class Controller implements EventHandler<KeyEvent> {
         System.out.println(this.playerView.getChildren().size());
         for(Shooter shooter : model.getShooters()){
             Projectile newProjectile = new Projectile(10, 25);
-            this.playerView.getChildren().add(newProjectile);
-            shooter.shoot(newProjectile,10,model.getPlayer().getPosition());
+            if(shooter.shoot(newProjectile,10,model.getPlayer().getPosition())) {
+                this.playerView.getChildren().add(newProjectile);
+            }
             Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
             while(iterator.hasNext()) {
                 Projectile projectile = iterator.next();

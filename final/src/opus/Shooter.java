@@ -40,10 +40,10 @@ public class Shooter extends Sprite {
     * @param size The size of the projectile fired.
      */
 
-    public void shoot(Projectile projectile, double velocity, Point2D playerLocation) {
+    public boolean shoot(Projectile projectile, double velocity, Point2D playerLocation) {
         if(fireCount != 0){
             fireCount--;
-            return;
+            return false;
         }
 
         fireCount = fireRate;
@@ -52,7 +52,7 @@ public class Shooter extends Sprite {
         double yVel = Math.sin(angle) * velocity;
         projectile.setVelocity(xVel, yVel);
         projectiles.add(projectile);
-
+        return true;
 
     }
 
