@@ -85,7 +85,7 @@ public class Player extends Sprite {
 
     public void refreshAnimation(int newOffSetX, int newOffsetY) {
         if (newOffSetX != this.getOffSetX() || newOffsetY != this.getOffSetY()) {
-            this.getAnimation().stop();
+            this.getAnimation().pause();
             this.setOffsets(newOffSetX, newOffsetY);
             this.makeAnimation(4,300);
         }

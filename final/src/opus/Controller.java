@@ -103,7 +103,7 @@ public class Controller implements EventHandler<KeyEvent> {
                 Projectile projectile = iterator.next();
                 projectile.decrementCycles();
                 if(projectile.getCyclesUntilDisappear() <= 0) {
-                    this.playerView.getChildren().remove(projectile);
+                    this.playerView.getChildren().remove(this.playerView.getChildren().size() - 1);
                     projectile.getChildren().remove(projectile.getImageView());
                     iterator.remove();
                 } else {
