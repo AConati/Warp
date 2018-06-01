@@ -23,10 +23,10 @@ public class Shooter extends Sprite {
     public Shooter(int cycles, Point2D position) {
         this.projectiles = new ArrayList<Projectile>();
         this.cycleLifeForProjectiles = cycles;
-        this.setImageView(makeImage("src/res/translocator.png"));
+        this.setImageView(makeImage("src/res/turret.png"));
         this.setOffsets(0,0);
         this.setViewport(23, 23);
-        this.makeAnimation(16,1000);
+        this.makeAnimation(4,400);
         this.getAnimation().play();
         this.getChildren().add(this.getImageView());
         this.setPosition(position.getX(), position.getY());
