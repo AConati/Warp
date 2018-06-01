@@ -27,8 +27,8 @@ public class Player extends Sprite {
         this.name = name;
         this.lifeTotal = lifeTotal;
         this.setImageView(makeImage("src/res/topdownsmall.png"));
-        this.setOffsets(0,0);
-        this.setViewport(50,80);
+        this.setOffsets(0,11);
+        this.setViewport(50,60);
         this.makeAnimation(4,200);
         this.getChildren().add(this.getImageView());
         this.translocator = new Translocator(position);

@@ -71,6 +71,8 @@ public class Controller implements EventHandler<KeyEvent> {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         updateAnimation();
+                        checkBoundaries();
+                        checkCollision();
                     }
                 });
             }
@@ -84,26 +86,54 @@ public class Controller implements EventHandler<KeyEvent> {
      * Code that is responsible for updating the position of objects
      */
     private void updateAnimation() {
-        //ChordStone Movement
-        if (model.getChordStone().getPosition().getX() + model.getChordStone().getWidth() >= playerView.FRAME_WIDTH && model.getChordStone().getVelocity().getX() > 0) {
-            model.getChordStone().makeSound();
-            model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
-        }
 
-        else if(model.getChordStone().getPosition().getX() < 0 && model.getChordStone().getVelocity().getX() < 0) {
-            model.getChordStone().makeSound();
-            model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
-        }
+        model.getChordStone().step();
+        model.getPlayer().step();
+        model.getPlayer().getTranslocator().step();
+        model.getPlayer().getTranslocator().decelerate(3);
 
-        else if(model.getChordStone().getPosition().getY() + model.getChordStone().getHeight() >= playerView.FRAME_HEIGHT && model.getChordStone().getVelocity().getY() > 0) {
-            model.getChordStone().makeSound();
-            model.getChordStone().setVelocity(model.getChordStone().getVelocity().getX(), -model.getChordStone().getVelocity().getY());
+        System.out.println(this.playerView.getChildren().size());
+        for(Shooter shooter : model.getShooters()){
+            Projectile newProjectile = new Projectile(10, 25);
+            this.playerView.getChildren().add(newProjectile);
+            shooter.shoot(newProjectile,10,model.getPlayer().getPosition());
+            Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
+            while(iterator.hasNext()) {
+                Projectile projectile = iterator.next();
+                projectile.decrementCycles();
+                if(projectile.getCyclesUntilDisappear() <= 0) {
+                    this.playerView.getChildren().remove(projectile);
+                    projectile.getChildren().remove(projectile.getImageView());
+                    iterator.remove();
+                } else {
+                    projectile.step();
+                }
+            }
         }
+    }
 
-        else if(model.getChordStone().getPosition().getY() < 0 && model.getChordStone().getVelocity().getX() < 0) {
-            model.getChordStone().makeSound();
-            model.getChordStone().setVelocity(model.getChordStone().getVelocity().getX(), -model.getChordStone().getVelocity().getY());
+    /**
+     * Code that checks for contact between certain sprites
+     */
+    public void checkCollision() {
+        //ChordStone and Player
+        double CstoneCenterPositionX = this.model.getChordStone().getCenterX();
+        double CstoneCenterPositionY = this.model.getChordStone().getCenterY();
+        double playerPositionX = this.model.getPlayer().getPosition().getX();
+        double playerPositionY = this.model.getPlayer().getPosition().getY();
+        double playerWidth = this.model.getPlayer().getWidth();
+        double playerHeight = this.model.getPlayer().getHeight();
+
+        if(CstoneCenterPositionX > playerPositionX && CstoneCenterPositionX < playerPositionX + playerWidth && CstoneCenterPositionY > playerPositionY && CstoneCenterPositionY < playerPositionY + playerHeight) {
+            this.model.getChordStone().makeSound();
+            this.model.spawnChordStone(this.playerView.FRAME_WIDTH, this.playerView.FRAME_HEIGHT);
         }
+    }
+
+    /**
+     * Code that checks for the boundaries of sprites and teleports to them to their correct position
+     */
+    public void checkBoundaries() {
 
         //Player Movement
 
@@ -120,33 +150,22 @@ public class Controller implements EventHandler<KeyEvent> {
             model.getPlayer().setPosition(model.getPlayer().getPosition().getX(), playerView.FRAME_HEIGHT + model.getPlayer().getHeight());
         }
 
+        //Translocator Movement
 
-        model.getChordStone().step();
-        model.getPlayer().step();
-        model.getPlayer().getTranslocator().step();
-        model.getPlayer().getTranslocator().decelerate(3);
-        for(Shooter shooter : model.getShooters()){
-            Projectile projectile = new Projectile(10, 10);
-            this.playerView.getChildren().add(projectile);
-            shooter.shoot(projectile,10,model.getPlayer().getPosition());
+        if (model.getPlayer().getTranslocator().getPosition().getX() + model.getPlayer().getTranslocator().getWidth() >= playerView.FRAME_WIDTH && model.getPlayer().getTranslocator().getVelocity().getX() > 0) {
+            model.getPlayer().getTranslocator().setPosition(-model.getPlayer().getTranslocator().getWidth(),model.getPlayer().getTranslocator().getPosition().getY());
         }
-        for(Shooter shooter : model.getShooters()) {
-            Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
-            System.out.println(this.playerView.getChildren().size());
-            while(iterator.hasNext()) {
-                Projectile projectile = iterator.next();
-                projectile.decrementCycles();
-                if(projectile.getCyclesUntilDisappear() <= 0) {
-                    this.playerView.getChildren().remove(projectile);
-                    projectile.getChildren().remove(projectile.getImageView());
-                    iterator.remove();
-                }else {
-                    projectile.step();
-                }
-            }
+        else if(model.getPlayer().getTranslocator().getPosition().getX() < 0 && model.getPlayer().getTranslocator().getVelocity().getX() < 0) {
+            model.getPlayer().getTranslocator().setPosition(playerView.FRAME_WIDTH + model.getPlayer().getTranslocator().getWidth(), model.getPlayer().getTranslocator().getPosition().getY());
+        }
+        else if(model.getPlayer().getTranslocator().getPosition().getY() >= playerView.FRAME_HEIGHT && model.getPlayer().getTranslocator().getVelocity().getY() > 0) {
+            model.getPlayer().getTranslocator().setPosition(model.getPlayer().getTranslocator().getPosition().getX(), -model.getPlayer().getTranslocator().getHeight());
+        }
+        else if(model.getPlayer().getTranslocator().getPosition().getY() < 0 && model.getPlayer().getTranslocator().getVelocity().getY() < 0) {
+            model.getPlayer().getTranslocator().setPosition(model.getPlayer().getTranslocator().getPosition().getX(), playerView.FRAME_HEIGHT + model.getPlayer().getTranslocator().getHeight());
         }
     }
-
+    
     @Override
     /**
      * Code required for controlling movement with keys
@@ -197,7 +216,7 @@ public class Controller implements EventHandler<KeyEvent> {
                 model.getPlayer().teleport();
             } else {
                 double angle = calculateThrowingAngle(model.getPlayer());
-                model.getPlayer().throwTranslocator(angle, 25);
+                model.getPlayer().throwTranslocator(angle, 30);
             }
         }
     }
