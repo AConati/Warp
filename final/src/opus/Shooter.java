@@ -40,20 +40,26 @@ public class Shooter extends Sprite {
     * @param size The size of the projectile fired.
      */
 
-    public boolean shoot(Projectile projectile, double velocity, Point2D playerLocation) {
-        if(fireCount != 0){
-            fireCount--;
-            return false;
-        }
+    public void shoot(Projectile projectile, double velocity, Point2D target) {
 
-        fireCount = fireRate;
-        double angle = Math.atan(playerLocation.getY()/playerLocation.getX());
+        double angle = Math.atan(target.getY()/target.getX());
         double xVel = Math.cos(angle) * velocity;
         double yVel = Math.sin(angle) * velocity;
         projectile.setVelocity(xVel, yVel);
         projectiles.add(projectile);
-        return true;
 
+    }
+
+    public boolean isReadyToShoot(){
+        return fireCount == 0;
+    }
+
+    public void decrementFireCount() {
+        if(fireCount <= 0) {
+            fireCount = fireRate;
+        } else {
+            fireCount--;
+        }
     }
 
     public List<Projectile> getProjectiles() {
