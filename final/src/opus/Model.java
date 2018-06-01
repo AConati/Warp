@@ -72,12 +72,13 @@ public class Model {
      * Sets the chord stone's location to a new location and increments the player's score by 1.
      */
 
-    public void spawnChordStone(int xBoundary, int yBoundary) {
+    public void spawnChordStone(double xBoundary, double yBoundary) {
         this.score++;
         Random random = new Random();
-        double newXPosition = random.nextInt(xBoundary);
-        double newYPosition = random.nextInt(yBoundary);
+        double newXPosition = Math.random()*xBoundary;
+        double newYPosition = Math.random()*yBoundary;
         this.chordStone.setPosition(newXPosition, newYPosition);
+        this.chordStone.makeSound();
     }
 
     /*

@@ -78,8 +78,6 @@ public abstract class Sprite extends Group {
     public void setPosition(double x, double y) {
         this.setLayoutX(x);
         this.setLayoutY(y);
-        this.imageView.setY(y);
-        this.imageView.setX(x);
     }
 
     public final Point2D getVelocity() {
