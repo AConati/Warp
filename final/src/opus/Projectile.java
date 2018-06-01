@@ -15,7 +15,7 @@ public class Projectile extends Sprite{
     private double power; // var representing the amount of damage dealt to the player if hit by this projectile
     private int cyclesUntilDisappear;
 
-    public Projectile(double power, int cycles) {
+    public Projectile(double power, int cycles, Point2D position) {
         this.power = power;
         cyclesUntilDisappear = cycles;
 
@@ -25,6 +25,7 @@ public class Projectile extends Sprite{
         this.makeAnimation(16,1000);
         this.getAnimation().play();
         this.getChildren().add(this.getImageView());
+        this.setPosition(position.getX(), position.getY());
     }
 
 
