@@ -10,11 +10,12 @@ package opus;
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Model {
     private Player player;
-    private ArrayList<Shooter> shooters;
+    private List<Shooter> shooters = new ArrayList<Shooter>();
     private ChordStone chordStone;
 
     private boolean gameOver;
@@ -29,14 +30,12 @@ public class Model {
     private void initialize() {
         Point2D playerPosition = new Point2D(10,10);
         player = new Player("hero", 100, playerPosition);
-
         player.setVelocity(0,0);
 
-//        Shooter shooter = new Shooter();
-//        shooter.setPosition(5,5);
-//        shooter.setSize(20,20);
-//        shooter.setVelocity(0,1);
-//        shooters.add(shooter);
+        Point2D shooterPosition = new Point2D(50,50);
+        Shooter shooter = new Shooter(10, shooterPosition);
+        shooter.setFireRate(10);
+        shooters.add(shooter);
 
         chordStone = new ChordStone();
         chordStone.setPosition(200,200);
@@ -48,7 +47,7 @@ public class Model {
         return this.player;
     }
 
-    public ArrayList<Shooter> getShooters() {
+    public List<Shooter> getShooters() {
         return this.shooters;
     }
 

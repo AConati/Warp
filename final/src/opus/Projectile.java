@@ -18,6 +18,13 @@ public class Projectile extends Sprite{
     public Projectile(double power, int cycles) {
         this.power = power;
         cyclesUntilDisappear = cycles;
+
+        this.setImageView(makeImage("src/res/translocator.png"));
+        this.setOffsets(0,0);
+        this.setViewport(23, 23);
+        this.makeAnimation(16,1000);
+        this.getAnimation().play();
+        this.getChildren().add(this.getImageView());
     }
 
 
@@ -27,6 +34,10 @@ public class Projectile extends Sprite{
 
     public void decrementCycles() {
         cyclesUntilDisappear--;
+    }
+
+    public int getCyclesUntilDisappear() {
+        return this.cyclesUntilDisappear;
     }
 
 }

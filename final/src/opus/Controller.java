@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.geometry.Point2D;
 
+import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -84,7 +85,6 @@ public class Controller implements EventHandler<KeyEvent> {
      */
     private void updateAnimation() {
         //ChordStone Movement
-
         if (model.getChordStone().getPosition().getX() + model.getChordStone().getWidth() >= playerView.FRAME_WIDTH && model.getChordStone().getVelocity().getX() > 0) {
             model.getChordStone().makeSound();
             model.getChordStone().setVelocity(-model.getChordStone().getVelocity().getX(), model.getChordStone().getVelocity().getY());
@@ -125,7 +125,26 @@ public class Controller implements EventHandler<KeyEvent> {
         model.getPlayer().step();
         model.getPlayer().getTranslocator().step();
         model.getPlayer().getTranslocator().decelerate(3);
-
+        for(Shooter shooter : model.getShooters()){
+            Projectile projectile = new Projectile(10, 10);
+            this.playerView.getChildren().add(projectile);
+            shooter.shoot(projectile,10,model.getPlayer().getPosition());
+        }
+        for(Shooter shooter : model.getShooters()) {
+            Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
+            System.out.println(this.playerView.getChildren().size());
+            while(iterator.hasNext()) {
+                Projectile projectile = iterator.next();
+                projectile.decrementCycles();
+                if(projectile.getCyclesUntilDisappear() <= 0) {
+                    this.playerView.getChildren().remove(projectile);
+                    projectile.getChildren().remove(projectile.getImageView());
+                    iterator.remove();
+                }else {
+                    projectile.step();
+                }
+            }
+        }
     }
 
     @Override
@@ -178,7 +197,7 @@ public class Controller implements EventHandler<KeyEvent> {
                 model.getPlayer().teleport();
             } else {
                 double angle = calculateThrowingAngle(model.getPlayer());
-                model.getPlayer().throwTranslocator(angle, 20);
+                model.getPlayer().throwTranslocator(angle, 25);
             }
         }
     }

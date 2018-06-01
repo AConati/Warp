@@ -17,20 +17,20 @@ public class Shooter extends Sprite {
 
     private List<Projectile> projectiles;
     private int cycleLifeForProjectiles;
+    private int fireRate = 0;
+    private int fireCount;
 
-    public Shooter(int cycles) {
+    public Shooter(int cycles, Point2D position) {
         this.projectiles = new ArrayList<Projectile>();
         this.cycleLifeForProjectiles = cycles;
-    }
-    /*
-     * Sets the height and width of the sprite representing the shooter.
-     *
-     * @param width The width of the sprite.
-     * @param height The height of the sprite
-     */
-
-    public void setSize(double width, double height) {
-
+        this.setImageView(makeImage("src/res/translocator.png"));
+        this.setOffsets(0,0);
+        this.setViewport(23, 23);
+        this.makeAnimation(16,1000);
+        this.getAnimation().play();
+        this.getChildren().add(this.getImageView());
+        this.setPosition(position.getX(), position.getY());
+        this.setVelocity(0,0);
     }
 
     /*
@@ -40,14 +40,32 @@ public class Shooter extends Sprite {
     * @param size The size of the projectile fired.
      */
 
-    public void shoot(double power, double velocity, Point2D playerLocation) {
-        Projectile projectile = new Projectile(power, this.cycleLifeForProjectiles);
+    public void shoot(Projectile projectile, double velocity, Point2D playerLocation) {
+        if(fireCount != 0){
+            fireCount--;
+            return;
+        }
+
+        fireCount = fireRate;
         double angle = Math.atan(playerLocation.getY()/playerLocation.getX());
         double xVel = Math.cos(angle) * velocity;
         double yVel = Math.sin(angle) * velocity;
         projectile.setVelocity(xVel, yVel);
         projectiles.add(projectile);
 
+
+    }
+
+    public List<Projectile> getProjectiles() {
+        return this.projectiles;
+    }
+
+    public void setFireRate(int fireRate) {
+        this.fireRate = fireRate;
+    }
+
+    public int getFireRate() {
+        return this.fireRate;
     }
 
 }

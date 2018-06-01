@@ -25,8 +25,9 @@ public class PlayerView extends Group {
         this.getChildren().add(model.getChordStone());
         this.getChildren().add(model.getPlayer());
         this.getChildren().add(model.getPlayer().getTranslocator());
-
-
+        for (Shooter shooter : model.getShooters()) {
+            this.getChildren().add(shooter);
+        }
     }
 
 
