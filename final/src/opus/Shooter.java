@@ -25,7 +25,14 @@ public class Shooter extends Sprite {
     public Shooter(int cycles, Point2D position, boolean isSmart) {
         this.projectiles = new ArrayList<Projectile>();
         this.cycleLifeForProjectiles = cycles;
-        this.setImageView(makeImage("src/res/turret.png"));
+
+        if(isSmart) {
+            this.setImageView(makeImage("src/res/turretSmart.png"));
+        }
+        else {
+            this.setImageView(makeImage("src/res/turretDumb.png"));
+            }
+
         this.setOffsets(0,0);
         this.setViewport(33, 32);
         this.makeAnimation(4,400);
