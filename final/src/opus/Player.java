@@ -73,6 +73,7 @@ public class Player extends Sprite {
 
     public void destroy() {
 
+
     }
 
     public int getLifeTotal() {

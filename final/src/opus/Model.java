@@ -38,7 +38,7 @@ public class Model {
 
     private void initialize(double xBoundary, double yBoundary) {
         Point2D playerPosition = new Point2D(10,10);
-        player = new Player("hero", 100, playerPosition);
+        player = new Player("hero", 5, playerPosition);
         player.setVelocity(0,0);
 
         Point2D shooterPosition = new Point2D(100,100);
@@ -47,7 +47,7 @@ public class Model {
         shooters.add(shooter);
 
         chordStone = new ChordStone();
-        chordStone.setPosition(xBoundary - this.getChordStone().getWidth(), yBoundary - this.getChordStone().getHeight());
+        chordStone.setPosition(Math.random()*(xBoundary - this.getChordStone().getWidth()), Math.random()*(yBoundary - this.getChordStone().getHeight()));
         chordStone.setVelocity(0,0);
     }
 
@@ -85,7 +85,7 @@ public class Model {
         double newYPosition = Math.random()*yBoundary;
         this.chordStone.setPosition(newXPosition, newYPosition);
         this.chordStone.makeSound();
-        this.score++;  
+        this.score++;
     }
 
     /*
@@ -104,8 +104,8 @@ public class Model {
      */
 
     private Shooter spawnSmartShooter(int cycles, double xBoundary, double yBoundary) {
-        double xPosition = Math.random()*xBoundary;
-        double yPosition = Math.random()*yBoundary;
+        double xPosition = Math.random()*xBoundary - this.getShooters().get(0).getWidth();
+        double yPosition = Math.random()*yBoundary - this.getShooters().get(0).getHeight();
         Shooter shooter = new Shooter(cycles, new Point2D(xPosition, yPosition), true);
         shooter.setFireRate(SMART_SHOOTER_FIRE_RATE);
         shooters.add(shooter);
@@ -113,8 +113,8 @@ public class Model {
     }
 
     private Shooter spawnShooter(int cycles, double xBoundary, double yBoundary) {
-        double xPosition = Math.random()*xBoundary;
-        double yPosition = Math.random()*yBoundary;
+        double xPosition = Math.random()*xBoundary - this.getShooters().get(0).getWidth();
+        double yPosition = Math.random()*yBoundary - this.getShooters().get(0).getHeight();
         Shooter shooter = new Shooter(cycles, new Point2D(xPosition, yPosition), false);
         shooter.setFireRate(SHOOTER_FIRE_RATE);
         double targetX = Math.random()*xBoundary;
