@@ -144,23 +144,24 @@ public class Controller implements EventHandler<KeyEvent> {
             this.model.getChordStone().makeSound();
             this.model.spawnChordStone(this.playerView.FRAME_WIDTH - this.model.getChordStone().getWidth(), this.playerView.FRAME_HEIGHT - this.model.getChordStone().getHeight());
         }
+        for(Shooter shooter : this.model.getShooters()) {
+            //Projectile and Player
+            Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
+            while (iterator.hasNext()) {
+                Projectile projectile = iterator.next();
+                double projectileX = projectile.getPosition().getX();
+                double projectileY = projectile.getPosition().getY();
+                double projectileOuterX = projectile.getXOuter();
+                double projectileOuterY = projectile.getYOuter();
 
-        //Projectile and Player
-        Iterator<Projectile> iterator = this.model.getShooters().get(0).getProjectiles().iterator();
-        while(iterator.hasNext()) {
-            Projectile projectile = iterator.next();
-            double projectileX = projectile.getPosition().getX();
-            double projectileY = projectile.getPosition().getY();
-            double projectileOuterX = projectile.getXOuter();
-            double projectileOuterY = projectile.getYOuter();
+                if ((projectileOuterX >= playerPositionX && projectileX <= playerPositionXOuter) && (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)) {
+                    iterator.remove();
+                    this.playerView.getChildren().remove(projectile);
+                    this.model.getChordStone().makeSound();
+                    this.model.getPlayer().takeDamage(1);
+                    this.healthLabel.setText(String.format("Life: %d", this.model.getPlayer().getLifeTotal()));
 
-            if((projectileOuterX >= playerPositionX && projectileX <= playerPositionXOuter) && (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)) {
-                iterator.remove();
-                this.playerView.getChildren().remove(projectile);
-                this.model.getChordStone().makeSound();
-                this.model.getPlayer().takeDamage(1);
-                this.healthLabel.setText(String.format("Life: %d", this.model.getPlayer().getLifeTotal()));
-
+                }
             }
         }
     }
