@@ -19,6 +19,7 @@ public class Shooter extends Sprite {
     private int cycleLifeForProjectiles;
     private int fireRate = 0;
     private int fireCount;
+    private boolean isSmart;
 
     public Shooter(int cycles, Point2D position) {
         this.projectiles = new ArrayList<Projectile>();

@@ -18,6 +18,10 @@ public class Model {
     private List<Shooter> shooters = new ArrayList<Shooter>();
     private ChordStone chordStone;
 
+    public enum DifficultyModifier {
+        SHOOTER_SPEED_INCREASE, ADD_SHOOTER, ADD_SMART_SHOOTER, SHOOTER_RATE_INCREASE;
+    }
+
     private boolean gameOver;
     private int score;
 
@@ -95,7 +99,7 @@ public class Model {
      * Creates a new Shooter object and adds it to the array of shooters.
      */
 
-    public void spawnShooter() {
+    public void spawnShooter(boolean smart) {
 
     }
 
