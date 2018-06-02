@@ -16,7 +16,9 @@ import java.util.Random;
 public class Model {
     public final int SMART_SHOOTER_FIRE_RATE = 60;
     public final int SHOOTER_FIRE_RATE = 30;
-    public final int SHOOTER_PROJECTILE_LIFE = 10;
+    public final int SHOOTER_PROJECTILE_LIFE = 25;
+    public final int SHOOTER_BULLET_VELOCITY = 15;
+    public final int TRANSLOCATOR_DECELERATION = 3;
 
     private Player player;
     private List<Shooter> shooters = new ArrayList<Shooter>();
@@ -103,19 +105,19 @@ public class Model {
      * Creates a new Shooter object and adds it to the array of shooters.
      */
 
-    private Shooter spawnSmartShooter(int cycles, double xBoundary, double yBoundary) {
+    private Shooter spawnSmartShooter(double xBoundary, double yBoundary) {
         double xPosition = Math.random()*xBoundary - this.getShooters().get(0).getWidth();
         double yPosition = Math.random()*yBoundary - this.getShooters().get(0).getHeight();
-        Shooter shooter = new Shooter(cycles, new Point2D(xPosition, yPosition), true);
+        Shooter shooter = new Shooter(SHOOTER_PROJECTILE_LIFE, new Point2D(xPosition, yPosition), true);
         shooter.setFireRate(SMART_SHOOTER_FIRE_RATE);
         shooters.add(shooter);
         return shooter;
     }
 
-    private Shooter spawnShooter(int cycles, double xBoundary, double yBoundary) {
+    private Shooter spawnShooter(double xBoundary, double yBoundary) {
         double xPosition = Math.random()*xBoundary - this.getShooters().get(0).getWidth();
         double yPosition = Math.random()*yBoundary - this.getShooters().get(0).getHeight();
-        Shooter shooter = new Shooter(cycles, new Point2D(xPosition, yPosition), false);
+        Shooter shooter = new Shooter(SHOOTER_PROJECTILE_LIFE, new Point2D(xPosition, yPosition), false);
         shooter.setFireRate(SHOOTER_FIRE_RATE);
         double targetX = Math.random()*xBoundary;
         double targetY = Math.random()* yBoundary;
@@ -128,10 +130,10 @@ public class Model {
         switch(nextDifficultyMod) {
             case ADD_SHOOTER:
                 nextDifficultyMod = DifficultyModifier.ADD_SMART_SHOOTER;
-                return spawnShooter(SHOOTER_PROJECTILE_LIFE, xBoundary, yBoundary);
+                return spawnShooter(xBoundary, yBoundary);
             case ADD_SMART_SHOOTER:
                 nextDifficultyMod = DifficultyModifier.ADD_SHOOTER;
-                return spawnSmartShooter(SHOOTER_PROJECTILE_LIFE, xBoundary, yBoundary);
+                return spawnSmartShooter(xBoundary, yBoundary);
             default:
                 return null;
         }

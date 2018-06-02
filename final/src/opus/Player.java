@@ -16,6 +16,8 @@ public class Player extends Sprite {
     private Translocator translocator;
     private int lifeTotal;
     private String name;
+    private double speed = 10;
+    private double throwPower = 30;
 
     public enum Direction {
         RIGHT, LEFT, UP, DOWN;
@@ -38,7 +40,7 @@ public class Player extends Sprite {
     }
 
 
-    public void throwTranslocator(double angle, int power) {
+    public void throwTranslocator(double angle, double power) {
         this.translocator.setPosition(this.getPosition().getX(), this.getPosition().getY());
         this.translocator.setThrown(true);
         double xVel = Math.cos(Math.toRadians(angle)) * power;
@@ -55,6 +57,13 @@ public class Player extends Sprite {
         this.translocator.setThrown(false);
         this.setPosition(this.translocator.getPosition().getX(), this.translocator.getPosition().getY());
     }
+
+    public void recallTranslocator() {
+        this.translocator.setVelocity(0,0);
+        this.translocator.setThrown(false);
+        this.translocator.setPosition(this.getPosition().getX(), this.getPosition().getY());
+    }
+
     /*
      * Lowers the player's lifeTotal by the amount specified by the parameter. If this lowers the
      * lifeTotal of the player to 0 or less, it destroys the player (invokes this.destroy()).
@@ -98,6 +107,22 @@ public class Player extends Sprite {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public double getSpeed() {
+        return this.speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public double getThrowPower() {
+        return this.throwPower;
+    }
+
+    public void setThrowPower(double throwPower) {
+        this.throwPower = throwPower;
     }
 
 

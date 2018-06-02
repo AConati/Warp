@@ -43,7 +43,7 @@ public class Shooter extends Sprite {
     * @param size The size of the projectile fired.
      */
 
-    public Projectile shootIfReady(int power, int cycles, double velocity, Point2D target) {
+    public Projectile shootIfReady(int cycles, double velocity, Point2D target) {
         if(!isReadyToShoot()) {
             return null;
         }
@@ -52,7 +52,7 @@ public class Shooter extends Sprite {
 
         fireCount = fireRate;
 
-        Projectile projectile = new Projectile(power, cycles, this.getPosition());
+        Projectile projectile = new Projectile(cycles, this.getPosition());
         double xDistanceToTarget = target.getX()-this.getPosition().getX();
         double yDistanceToTarget = target.getY()-this.getPosition().getY();
         Point2D distanceToTarget = new Point2D(Math.abs(xDistanceToTarget), Math.abs(yDistanceToTarget));

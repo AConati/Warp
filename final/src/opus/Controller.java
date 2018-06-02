@@ -100,10 +100,10 @@ public class Controller implements EventHandler<KeyEvent> {
         model.getChordStone().step();
         model.getPlayer().step();
         model.getPlayer().getTranslocator().step();
-        model.getPlayer().getTranslocator().decelerate(3);
+        model.getPlayer().getTranslocator().decelerate(model.TRANSLOCATOR_DECELERATION);
 
         for(Shooter shooter : model.getShooters()){
-            Projectile newProjectile = shooter.shootIfReady(10, 25, 15, model.getPlayer().getCenter());
+            Projectile newProjectile = shooter.shootIfReady(model.SHOOTER_PROJECTILE_LIFE, model.SHOOTER_BULLET_VELOCITY, model.getPlayer().getCenter());
             if(newProjectile != null)
                 this.playerView.getChildren().add(newProjectile);
 
@@ -218,7 +218,7 @@ public class Controller implements EventHandler<KeyEvent> {
     }
 
     private void handleKeyPressed(KeyCode code) {
-        double stepSize = 10;
+        double stepSize = model.getPlayer().getSpeed();
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(-stepSize, yVel);
@@ -252,8 +252,11 @@ public class Controller implements EventHandler<KeyEvent> {
                 model.getPlayer().teleport();
             } else {
                 double angle = calculateThrowingAngle(model.getPlayer());
-                model.getPlayer().throwTranslocator(angle, 30);
+                model.getPlayer().throwTranslocator(angle, model.getPlayer().getThrowPower());
             }
+        }
+        else if(code == KeyCode.R) {
+            model.getPlayer().recallTranslocator();
         }
     }
 

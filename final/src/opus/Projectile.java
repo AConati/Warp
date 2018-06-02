@@ -12,11 +12,9 @@ import javafx.geometry.Point2D;
 
 public class Projectile extends Sprite{
 
-    private double power; // var representing the amount of damage dealt to the player if hit by this projectile
     private int cyclesUntilDisappear;
 
-    public Projectile(double power, int cycles, Point2D position) {
-        this.power = power;
+    public Projectile( int cycles, Point2D position) {
         cyclesUntilDisappear = cycles;
 
         this.setImageView(makeImage("src/res/bullet.png"));
@@ -26,12 +24,6 @@ public class Projectile extends Sprite{
         this.getChildren().add(this.getImageView());
         this.setPosition(position.getX(), position.getY());
     }
-
-
-    public double getPower() {
-        return this.power;
-    }
-
     public void decrementCycles() {
         cyclesUntilDisappear--;
     }
