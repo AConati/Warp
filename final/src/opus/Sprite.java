@@ -88,6 +88,10 @@ public abstract class Sprite extends Group {
         return this.getPosition().getY() + this.getHeight()/2;
     }
 
+    public Point2D getCenter() {
+        return new Point2D(this.getCenterX(), this.getCenterY());
+    }
+
     public double getXOuter() {
         return this.getPosition().getX() + this.getWidth();
     }
