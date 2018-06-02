@@ -3,14 +3,22 @@
 <?import javafx.scene.layout.*?>
 <?import opus.PlayerView?>
 
-<BorderPane fx:controller="opus.Controller" xmlns:fx="http://javafx.com/fxml">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<AnchorPane fx:controller="opus.Controller" xmlns:fx="http://javafx.com/fxml">
 
-    <top></top>
 
 
     <PlayerView fx:id="playerView"></PlayerView>
 
 
-    <bottom></bottom>
+    <Button fx:id="pauseButton" text="Pause" AnchorPane.leftAnchor="30" AnchorPane.topAnchor="15" onAction="#onPauseButton"/>
 
-</BorderPane>
+    <Label fx:id="scoreLabel" AnchorPane.leftAnchor="120" AnchorPane.topAnchor="15" />
+
+    <Label fx:id="healthLabel" AnchorPane.leftAnchor="200" AnchorPane.topAnchor="15" />
+
+
+
+
+</AnchorPane>

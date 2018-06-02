@@ -21,9 +21,8 @@ public class Projectile extends Sprite{
 
         this.setImageView(makeImage("src/res/bullet.png"));
         this.setOffsets(0,0);
-        this.setViewport(12, 12);
+        this.setViewport(13, 13);
         this.makeAnimation(1,1);
-        this.getAnimation().play();
         this.getChildren().add(this.getImageView());
         this.setPosition(position.getX(), position.getY());
     }

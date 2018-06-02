@@ -22,12 +22,12 @@ public class Model {
     private int score;
 
     //Initialize instance variables
-    public Model() {
-        this.initialize();
+    public Model(double xBoundary, double yBoundary) {
+        this.initialize(xBoundary, yBoundary);
         this.score = 0;
     }
 
-    private void initialize() {
+    private void initialize(double xBoundary, double yBoundary) {
         Point2D playerPosition = new Point2D(10,10);
         player = new Player("hero", 100, playerPosition);
         player.setVelocity(0,0);
@@ -38,7 +38,7 @@ public class Model {
         shooters.add(shooter);
 
         chordStone = new ChordStone();
-        chordStone.setPosition(200,200);
+        chordStone.setPosition(xBoundary - this.getChordStone().getWidth(), yBoundary - this.getChordStone().getHeight());
         chordStone.setVelocity(0,0);
     }
 

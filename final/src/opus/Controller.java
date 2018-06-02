@@ -29,6 +29,7 @@ public class Controller implements EventHandler<KeyEvent> {
     final private double FRAMES_PER_SECOND = 20.0;
 
     @FXML private Button pauseButton;
+    @FXML private Label healthLabel;
     @FXML private Label scoreLabel;
     @FXML private AnchorPane gameBoard;
     @FXML private ChordStone stone;
@@ -38,17 +39,15 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private PlayerView playerView;
     private Model model;
 
-    private int score;
     private boolean paused;
     private Timer timer;
 
     public Controller() {
         this.paused = false;
-        this.score = 0;
-    }
+   }
 
     public void initialize() {
-        this.model = new Model();
+        this.model = new Model(this.playerView.FRAME_WIDTH,this.playerView.FRAME_HEIGHT);
         this.startTimer();
         this.update();
     }
@@ -73,6 +72,7 @@ public class Controller implements EventHandler<KeyEvent> {
                         checkBoundaries();
                         checkCollision();
                         updateAnimation();
+                        scoreLabel.setText(String.format("Score: %d", model.getScore()));
 
                     }
                 });
@@ -112,8 +112,6 @@ public class Controller implements EventHandler<KeyEvent> {
                 }
             }
         }
-//        System.out.println(this.model.getShooters().get(0).getProjectiles().get(0).getPosition());
-        //System.out.println(this.model.getPlayer().getLifeTotal());
     }
 
     /**
@@ -131,19 +129,24 @@ public class Controller implements EventHandler<KeyEvent> {
         if(CstoneCenterPositionX >= playerPositionX && CstoneCenterPositionX <= playerPositionXOuter &&
                 CstoneCenterPositionY >= playerPositionY && CstoneCenterPositionY <= playerPositionYOuter) {
             this.model.getChordStone().makeSound();
-            this.model.spawnChordStone(this.playerView.FRAME_WIDTH, this.playerView.FRAME_HEIGHT);
+            this.model.spawnChordStone(this.playerView.FRAME_WIDTH - this.model.getChordStone().getWidth(), this.playerView.FRAME_HEIGHT - this.model.getChordStone().getHeight());
         }
 
         //Projectile and Player
-        for(Projectile projectile : this.model.getShooters().get(0).getProjectiles()) {
+        Iterator<Projectile> iterator = this.model.getShooters().get(0).getProjectiles().iterator();
+        while(iterator.hasNext()) {
+            Projectile projectile = iterator.next();
             double projectileX = projectile.getPosition().getX();
             double projectileY = projectile.getPosition().getY();
             double projectileOuterX = projectile.getXOuter();
             double projectileOuterY = projectile.getYOuter();
-            if((projectileOuterX == playerPositionX || projectileX == playerPositionXOuter) /*&& (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)*/) {
+            if((projectileOuterX >= playerPositionX && projectileX <= playerPositionXOuter) && (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)) {
+                iterator.remove();
+                this.playerView.getChildren().remove(projectile);
                 this.model.getChordStone().makeSound();
                 this.model.getPlayer().takeDamage(1);
-            System.out.println(projectile.getPosition());
+                this.healthLabel.setText(String.format("Life: %d", this.model.getPlayer().getLifeTotal()));
+
             }
         }
     }
@@ -306,6 +309,7 @@ public class Controller implements EventHandler<KeyEvent> {
         }
     }
 
+
     /**
      * Code for pausing the game
      * @param actionEvent game event
@@ -320,6 +324,9 @@ public class Controller implements EventHandler<KeyEvent> {
         }
         this.paused = !this.paused;
     }
+
+
+
 
     private void update() {
         this.playerView.update(this.model);
