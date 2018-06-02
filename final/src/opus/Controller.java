@@ -70,9 +70,10 @@ public class Controller implements EventHandler<KeyEvent> {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        updateAnimation();
                         checkBoundaries();
                         checkCollision();
+                        updateAnimation();
+
                     }
                 });
             }
@@ -111,6 +112,8 @@ public class Controller implements EventHandler<KeyEvent> {
                 }
             }
         }
+//        System.out.println(this.model.getShooters().get(0).getProjectiles().get(0).getPosition());
+        //System.out.println(this.model.getPlayer().getLifeTotal());
     }
 
     /**
@@ -122,12 +125,26 @@ public class Controller implements EventHandler<KeyEvent> {
         double CstoneCenterPositionY = this.model.getChordStone().getCenterY();
         double playerPositionX = this.model.getPlayer().getPosition().getX();
         double playerPositionY = this.model.getPlayer().getPosition().getY();
-        double playerWidth = this.model.getPlayer().getWidth();
-        double playerHeight = this.model.getPlayer().getHeight();
+        double playerPositionXOuter = this.model.getPlayer().getXOuter();
+        double playerPositionYOuter = this.model.getPlayer().getYOuter();
 
-        if(CstoneCenterPositionX > playerPositionX && CstoneCenterPositionX < playerPositionX + playerWidth && CstoneCenterPositionY > playerPositionY && CstoneCenterPositionY < playerPositionY + playerHeight) {
+        if(CstoneCenterPositionX >= playerPositionX && CstoneCenterPositionX <= playerPositionXOuter &&
+                CstoneCenterPositionY >= playerPositionY && CstoneCenterPositionY <= playerPositionYOuter) {
             this.model.getChordStone().makeSound();
             this.model.spawnChordStone(this.playerView.FRAME_WIDTH, this.playerView.FRAME_HEIGHT);
+        }
+
+        //Projectile and Player
+        for(Projectile projectile : this.model.getShooters().get(0).getProjectiles()) {
+            double projectileX = projectile.getPosition().getX();
+            double projectileY = projectile.getPosition().getY();
+            double projectileOuterX = projectile.getXOuter();
+            double projectileOuterY = projectile.getYOuter();
+            if((projectileOuterX == playerPositionX || projectileX == playerPositionXOuter) /*&& (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)*/) {
+                this.model.getChordStone().makeSound();
+                this.model.getPlayer().takeDamage(1);
+            System.out.println(projectile.getPosition());
+            }
         }
     }
 

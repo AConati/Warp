@@ -80,6 +80,22 @@ public abstract class Sprite extends Group {
         this.setLayoutY(y);
     }
 
+    public double getCenterX() {
+        return this.getPosition().getX() + this.getWidth()/2;
+    }
+
+    public double getCenterY() {
+        return this.getPosition().getY() + this.getHeight()/2;
+    }
+
+    public double getXOuter() {
+        return this.getPosition().getX() + this.getWidth();
+    }
+
+    public double getYOuter() {
+        return this.getPosition().getY() + this.getHeight();
+    }
+
     public final Point2D getVelocity() {
         return this.velocity;
     }

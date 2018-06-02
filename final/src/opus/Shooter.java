@@ -26,7 +26,7 @@ public class Shooter extends Sprite {
         this.cycleLifeForProjectiles = cycles;
         this.setImageView(makeImage("src/res/turret.png"));
         this.setOffsets(0,0);
-        this.setViewport(23, 23);
+        this.setViewport(33, 32);
         this.makeAnimation(4,400);
         this.getAnimation().play();
         this.getChildren().add(this.getImageView());
