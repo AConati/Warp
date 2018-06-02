@@ -19,8 +19,10 @@ public class Shooter extends Sprite {
     private int cycleLifeForProjectiles;
     private int fireRate = 0;
     private int fireCount;
+    private boolean isSmart;
+    private Point2D defaultTarget = new Point2D(0,0);
 
-    public Shooter(int cycles, Point2D position) {
+    public Shooter(int cycles, Point2D position, boolean isSmart) {
         this.projectiles = new ArrayList<Projectile>();
         this.cycleLifeForProjectiles = cycles;
         this.setImageView(makeImage("src/res/turret.png"));
@@ -31,6 +33,7 @@ public class Shooter extends Sprite {
         this.getChildren().add(this.getImageView());
         this.setPosition(position.getX(), position.getY());
         this.setVelocity(0,0);
+        this.isSmart = isSmart;
     }
 
     /*
@@ -44,6 +47,9 @@ public class Shooter extends Sprite {
         if(!isReadyToShoot()) {
             return null;
         }
+        if(!isSmart || target == null)
+            target = defaultTarget;
+
         fireCount = fireRate;
 
         Projectile projectile = new Projectile(power, cycles, this.getPosition());
@@ -82,6 +88,10 @@ public class Shooter extends Sprite {
 
     public void setFireRate(int fireRate) {
         this.fireRate = fireRate;
+    }
+
+    public void setTarget(Point2D target) {
+        this.defaultTarget = target;
     }
 
     public int getFireRate() {

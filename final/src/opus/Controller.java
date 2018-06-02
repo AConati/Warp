@@ -27,6 +27,7 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 
 public class Controller implements EventHandler<KeyEvent> {
     final private double FRAMES_PER_SECOND = 20.0;
+    public final int INCREASE_DIFFICULTY_TIMER = 1000;
 
     @FXML private Button pauseButton;
     @FXML private Label healthLabel;
@@ -41,23 +42,25 @@ public class Controller implements EventHandler<KeyEvent> {
 
     private boolean paused;
     private Timer timer;
+    private int difficultyIncreaseCounter;
 
     public Controller() {
         this.paused = false;
-   }
+    }
 
     public void initialize() {
         this.model = new Model(this.playerView.FRAME_WIDTH,this.playerView.FRAME_HEIGHT);
         this.startTimer();
         this.update();
-    }
-
-    public double getFrameHeight() {
-        return playerView.FRAME_HEIGHT;
+        this.difficultyIncreaseCounter = INCREASE_DIFFICULTY_TIMER;
     }
 
     public double getFrameWidth() {
-        return playerView.FRAME_WIDTH;
+        return this.playerView.FRAME_WIDTH;
+    }
+
+    public double getFrameHeight() {
+        return this.playerView.FRAME_HEIGHT;
     }
 
     /**
@@ -88,13 +91,19 @@ public class Controller implements EventHandler<KeyEvent> {
      */
     private void updateAnimation() {
 
+        if(difficultyIncreaseCounter == 0){
+            this.difficultyIncreaseCounter = INCREASE_DIFFICULTY_TIMER;
+            Shooter shooter = model.increaseDifficulty(this.playerView.FRAME_WIDTH, this.playerView.FRAME_HEIGHT);
+            this.playerView.getChildren().add(shooter);
+        }
+
         model.getChordStone().step();
         model.getPlayer().step();
         model.getPlayer().getTranslocator().step();
         model.getPlayer().getTranslocator().decelerate(3);
 
         for(Shooter shooter : model.getShooters()){
-            Projectile newProjectile = shooter.shootIfReady(10, 25, 15, model.getPlayer().getPosition());
+            Projectile newProjectile = shooter.shootIfReady(10, 25, 15, model.getPlayer().getCenter());
             if(newProjectile != null)
                 this.playerView.getChildren().add(newProjectile);
 
@@ -112,6 +121,10 @@ public class Controller implements EventHandler<KeyEvent> {
                 }
             }
         }
+
+        this.difficultyIncreaseCounter--;
+//        System.out.println(this.model.getShooters().get(0).getProjectiles().get(0).getPosition());
+        //System.out.println(this.model.getPlayer().getLifeTotal());
     }
 
     /**
@@ -140,6 +153,7 @@ public class Controller implements EventHandler<KeyEvent> {
             double projectileY = projectile.getPosition().getY();
             double projectileOuterX = projectile.getXOuter();
             double projectileOuterY = projectile.getYOuter();
+
             if((projectileOuterX >= playerPositionX && projectileX <= playerPositionXOuter) && (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)) {
                 iterator.remove();
                 this.playerView.getChildren().remove(projectile);

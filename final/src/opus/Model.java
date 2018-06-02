@@ -14,12 +14,21 @@ import java.util.List;
 import java.util.Random;
 
 public class Model {
+    public final int SMART_SHOOTER_FIRE_RATE = 30;
+    public final int SHOOTER_FIRE_RATE = 15;
+    public final int SHOOTER_PROJECTILE_LIFE = 10;
+
     private Player player;
     private List<Shooter> shooters = new ArrayList<Shooter>();
     private ChordStone chordStone;
 
-    private boolean gameOver;
+    public enum DifficultyModifier {
+        ADD_SHOOTER, ADD_SMART_SHOOTER;
+    }
+
+    private boolean gameOver = false;
     private int score;
+    private DifficultyModifier nextDifficultyMod = DifficultyModifier.ADD_SHOOTER;
 
     //Initialize instance variables
     public Model(double xBoundary, double yBoundary) {
@@ -33,8 +42,8 @@ public class Model {
         player.setVelocity(0,0);
 
         Point2D shooterPosition = new Point2D(100,100);
-        Shooter shooter = new Shooter(10, shooterPosition);
-        shooter.setFireRate(10);
+        Shooter shooter = new Shooter(SHOOTER_PROJECTILE_LIFE, shooterPosition, true);
+        shooter.setFireRate(SMART_SHOOTER_FIRE_RATE);
         shooters.add(shooter);
 
         chordStone = new ChordStone();
@@ -72,12 +81,11 @@ public class Model {
      */
 
     public void spawnChordStone(double xBoundary, double yBoundary) {
-        this.score++;
-        Random random = new Random();
         double newXPosition = Math.random()*xBoundary;
         double newYPosition = Math.random()*yBoundary;
         this.chordStone.setPosition(newXPosition, newYPosition);
         this.chordStone.makeSound();
+        this.score++;  
     }
 
     /*
@@ -95,8 +103,38 @@ public class Model {
      * Creates a new Shooter object and adds it to the array of shooters.
      */
 
-    public void spawnShooter() {
+    private Shooter spawnSmartShooter(int cycles, double xBoundary, double yBoundary) {
+        double xPosition = Math.random()*xBoundary;
+        double yPosition = Math.random()*yBoundary;
+        Shooter shooter = new Shooter(cycles, new Point2D(xPosition, yPosition), true);
+        shooter.setFireRate(SMART_SHOOTER_FIRE_RATE);
+        shooters.add(shooter);
+        return shooter;
+    }
 
+    private Shooter spawnShooter(int cycles, double xBoundary, double yBoundary) {
+        double xPosition = Math.random()*xBoundary;
+        double yPosition = Math.random()*yBoundary;
+        Shooter shooter = new Shooter(cycles, new Point2D(xPosition, yPosition), false);
+        shooter.setFireRate(SHOOTER_FIRE_RATE);
+        double targetX = Math.random()*xBoundary;
+        double targetY = Math.random()* yBoundary;
+        shooter.setTarget(new Point2D(targetX, targetY));
+        shooters.add(shooter);
+        return shooter;
+    }
+
+    public Shooter increaseDifficulty(double xBoundary, double yBoundary) {
+        switch(nextDifficultyMod) {
+            case ADD_SHOOTER:
+                nextDifficultyMod = DifficultyModifier.ADD_SMART_SHOOTER;
+                return spawnShooter(SHOOTER_PROJECTILE_LIFE, xBoundary, yBoundary);
+            case ADD_SMART_SHOOTER:
+                nextDifficultyMod = DifficultyModifier.ADD_SHOOTER;
+                return spawnSmartShooter(SHOOTER_PROJECTILE_LIFE, xBoundary, yBoundary);
+            default:
+                return null;
+        }
     }
 
 }
