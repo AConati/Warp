@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Model {
-    public final int SMART_SHOOTER_FIRE_RATE = 30;
-    public final int SHOOTER_FIRE_RATE = 15;
+    public final int SMART_SHOOTER_FIRE_RATE = 60;
+    public final int SHOOTER_FIRE_RATE = 30;
     public final int SHOOTER_PROJECTILE_LIFE = 10;
 
     private Player player;
