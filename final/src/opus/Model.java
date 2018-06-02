@@ -28,7 +28,6 @@ public class Model {
         ADD_SHOOTER, ADD_SMART_SHOOTER;
     }
 
-    private boolean gameOver = false;
     private int score;
     private DifficultyModifier nextDifficultyMod = DifficultyModifier.ADD_SHOOTER;
 
@@ -67,7 +66,7 @@ public class Model {
     }
 
     public boolean isGameOver() {
-        return this.gameOver;
+        return this.player.getLifeTotal() <= 0;
     }
 
     public int getScore() {

@@ -16,7 +16,7 @@ import java.util.List;
 public class Shooter extends Sprite {
 
     private List<Projectile> projectiles;
-    private int cycleLifeForProjectiles;
+    private int cycleLifeForProjectiles; //the number of frames the shooter's projectiles last
     private int fireRate = 0;
     private int fireCount;
     private boolean isSmart;
@@ -43,14 +43,20 @@ public class Shooter extends Sprite {
         this.isSmart = isSmart;
     }
 
-    /*
-    * Shoots a projectile in the direction that this object is facing.
-    *
-    * @param power The amount of damage the projectile will deal.
-    * @param size The size of the projectile fired.
+    /**
+     * Shoots a projectile at the designated target. If fireCount is not 0 or less,
+     * a projectile is not fired. The fireCount is decremented at the start of any call to
+     * this method. If fireCount is 0 at the start of a call to this method, it will be reset
+     * to this.fireRate.
+     *
+     * @param velocity The speed at which the projectile travels.
+     * @param target The location at which the projectile is aimed.
+     *
+     * @Return The projectile object shot. null if no projectile fired.
      */
 
-    public Projectile shootIfReady(int cycles, double velocity, Point2D target) {
+    public Projectile shootIfReady( double velocity, Point2D target) {
+        this.decrementFireCount();
         if(!isReadyToShoot()) {
             return null;
         }
@@ -59,7 +65,7 @@ public class Shooter extends Sprite {
 
         fireCount = fireRate;
 
-        Projectile projectile = new Projectile(cycles, this.getPosition());
+        Projectile projectile = new Projectile(this.cycleLifeForProjectiles, this.getPosition());
         double xDistanceToTarget = target.getX()-this.getPosition().getX();
         double yDistanceToTarget = target.getY()-this.getPosition().getY();
         Point2D distanceToTarget = new Point2D(Math.abs(xDistanceToTarget), Math.abs(yDistanceToTarget));
@@ -77,11 +83,21 @@ public class Shooter extends Sprite {
 
     }
 
+    /**
+     * @Return true if the shooter will fire on the next call to
+     * shootIfReady(...)
+     */
+
     public boolean isReadyToShoot(){
         return fireCount == 0;
     }
 
-    public void decrementFireCount() {
+    /**
+     * Decrements the shooter's fireCount. If the fireCount is 0, it sets
+     * it to the shooter's fire rate.
+     */
+
+    private void decrementFireCount() {
         if(fireCount <= 0) {
             fireCount = fireRate;
         } else {

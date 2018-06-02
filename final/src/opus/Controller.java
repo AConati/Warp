@@ -32,11 +32,6 @@ public class Controller implements EventHandler<KeyEvent> {
     @FXML private Button pauseButton;
     @FXML private Label healthLabel;
     @FXML private Label scoreLabel;
-    @FXML private AnchorPane gameBoard;
-    @FXML private ChordStone stone;
-    @FXML private Player player;
-    @FXML private Shooter shooter;
-    @FXML private Translocator glissando;
     @FXML private PlayerView playerView;
     private Model model;
 
@@ -91,6 +86,11 @@ public class Controller implements EventHandler<KeyEvent> {
      */
     private void updateAnimation() {
 
+        if(model.isGameOver())  {
+            this.playerView.getChildren().remove(model.getPlayer());
+            this.playerView.getChildren().remove(model.getPlayer().getTranslocator());
+        }
+
         if(difficultyIncreaseCounter == 0){
             this.difficultyIncreaseCounter = INCREASE_DIFFICULTY_TIMER;
             Shooter shooter = model.increaseDifficulty(this.playerView.FRAME_WIDTH, this.playerView.FRAME_HEIGHT);
@@ -103,11 +103,10 @@ public class Controller implements EventHandler<KeyEvent> {
         model.getPlayer().getTranslocator().decelerate(model.TRANSLOCATOR_DECELERATION);
 
         for(Shooter shooter : model.getShooters()){
-            Projectile newProjectile = shooter.shootIfReady(model.SHOOTER_PROJECTILE_LIFE, model.SHOOTER_BULLET_VELOCITY, model.getPlayer().getCenter());
+            Projectile newProjectile = shooter.shootIfReady(model.SHOOTER_BULLET_VELOCITY, model.getPlayer().getCenter());
             if(newProjectile != null)
                 this.playerView.getChildren().add(newProjectile);
 
-            shooter.decrementFireCount();
             Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
             while(iterator.hasNext()) {
                 Projectile projectile = iterator.next();
@@ -121,10 +120,7 @@ public class Controller implements EventHandler<KeyEvent> {
                 }
             }
         }
-
         this.difficultyIncreaseCounter--;
-//        System.out.println(this.model.getShooters().get(0).getProjectiles().get(0).getPosition());
-        //System.out.println(this.model.getPlayer().getLifeTotal());
     }
 
     /**

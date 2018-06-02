@@ -39,6 +39,12 @@ public class Player extends Sprite {
         this.direction = Direction.DOWN;
     }
 
+    /**
+     * Throws the player's translocator object.
+     * @param angle - The angle in degrees at which the translocator is thrown.
+     * @param power - The initial velocity imparted to the translocator object.
+     */
+
 
     public void throwTranslocator(double angle, double power) {
         this.translocator.setPosition(this.getPosition().getX(), this.getPosition().getY());
@@ -48,8 +54,8 @@ public class Player extends Sprite {
         this.translocator.setVelocity(xVel, yVel);
     }
 
-    /*
-     * Teleports the user to the location of the translocator. Has no effect if the translocator has not been thrown.
+    /**
+     * Teleports the player to the location of the translocator. Has no effect if the translocator has not been thrown.
      */
 
     public void teleport() {
@@ -58,6 +64,10 @@ public class Player extends Sprite {
         this.setPosition(this.translocator.getPosition().getX(), this.translocator.getPosition().getY());
     }
 
+    /**
+     * Returns the player's translocator object to their current position so it is ready to be thrown again.
+     */
+
     public void recallTranslocator() {
         this.translocator.setVelocity(0,0);
         this.translocator.setThrown(false);
@@ -65,25 +75,14 @@ public class Player extends Sprite {
     }
 
     /*
-     * Lowers the player's lifeTotal by the amount specified by the parameter. If this lowers the
-     * lifeTotal of the player to 0 or less, it destroys the player (invokes this.destroy()).
+     * Lowers the player's lifeTotal by the amount specified by the parameter.
      *
      * @param damage The amount of hit points to be subtracted from the player's current life total.
      */
     public void takeDamage(int damage) {
         this.lifeTotal -= damage;
-        if(this.lifeTotal <= 0)
-            this.destroy();
     }
 
-    /*
-     * Destroys the player and removes its sprite and its translocator's sprite from the game board.
-     */
-
-    public void destroy() {
-
-
-    }
 
     public int getLifeTotal() {
         return this.lifeTotal;

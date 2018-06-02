@@ -27,8 +27,7 @@ public class Main extends Application {
         root.setOnKeyPressed(controller);
         root.setOnKeyReleased(controller);
 
-        Paint background = BLUE;
-        primaryStage.setScene(new Scene(root, controller.getFrameWidth(), controller.getFrameHeight(), background));
+        primaryStage.setScene(new Scene(root, controller.getFrameWidth(), controller.getFrameHeight()));
         primaryStage.show();
         root.requestFocus();
 
