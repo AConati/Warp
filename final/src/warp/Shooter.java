@@ -6,7 +6,7 @@
  * The class that emits the projectile object.
  */
 
-package opus;
+package warp;
 
 import javafx.geometry.Point2D;
 

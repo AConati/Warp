@@ -5,13 +5,12 @@
  *
  * The class that represents the model/the underlying game logic.
  */
-package opus;
+package warp;
 
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Model {
     public final int SMART_SHOOTER_FIRE_RATE = 60;

@@ -6,7 +6,7 @@
  * The class that represents the objects that the player must evade.
  */
 
-package opus;
+package warp;
 
 import javafx.geometry.Point2D;
 

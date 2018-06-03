@@ -6,7 +6,7 @@
  * The class that represents the object that the player can throw and teleport to.
  */
  
- package opus;
+ package warp;
 
 
 import javafx.geometry.Point2D;

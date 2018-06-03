@@ -1,23 +1,14 @@
-package opus;
+package warp;
 
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.media.AudioClip;
 
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-
-public class PlayerView extends Group {
+public class GameView extends Group {
 
     public final double FRAME_HEIGHT = 600;
     public final double FRAME_WIDTH = 800;
-    final private double FRAMES_PER_SECOND = 20.0;
-    private Image missleImage;
-    private ArrayList<Sprite> spriteList;
 
 
-    public PlayerView() {
+    public GameView() {
     }
 
     public void update(Model model) {

@@ -13,7 +13,7 @@ We will implement a Model View Controller, where the each component corresponds 
 
     - View: The view window shows the player's character, the background, and the projectiles that need to be dodged. The view will be presented as an aerial (top-down) view of the character.
 
-   - Model: The xy-coordinates of the player and the projectiles; stats regarding stones collected, time; timer that updates positions of projectiles and player character based on controller input.                 
+   - Model: The xy-coordinates of the player and the projectiles; stats regarding stones collected, time; timer that updates positions of projectiles and player character based on gameController input.                 
 
 **Core Classes:**
 
