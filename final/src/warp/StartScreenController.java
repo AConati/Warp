@@ -2,9 +2,14 @@ package warp;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
@@ -13,6 +18,7 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
         @FXML private Label title;
         @FXML private Label start;
         @FXML private Label help;
+        @FXML private AnchorPane startScreenPane;
         @FXML StartScreenView startScreenView;
 
         private boolean keyPressed;
@@ -46,9 +52,23 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
             }
             else if(code == KeyCode.ENTER) {
                 if(startScreenView.selector.getPosition().getY() == 347) {
+                    try {
+                        Parent newRootNode = FXMLLoader.load(getClass().getResource("HelpScreenView.fxml"));
+                        Scene scene = this.startScreenPane.getScene();
+                        scene.setRoot(newRootNode);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
 
                 }
-                else if(startScreenView.selector.getPosition().getX() == 294) {
+                else if(startScreenView.selector.getPosition().getY() == 294) {
+                    try {
+                        Parent newRootNode = FXMLLoader.load(getClass().getResource("GameView.fxml"));
+                        Scene scene = this.startScreenPane.getScene();
+                        scene.setRoot(newRootNode);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
                 }
             }
         }

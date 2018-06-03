@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import warp.StartScreenView?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane fx:id="startScreenPane"
+            xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="warp.StartScreenController"
             prefHeight="400.0" prefWidth="600.0">
