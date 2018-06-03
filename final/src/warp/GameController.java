@@ -30,7 +30,6 @@ public class GameController implements EventHandler<KeyEvent> {
     @FXML private Label scoreLabel;
     @FXML private Label pauseLabel;
     @FXML private GameView gameView;
-
     private Model model;
 
     private boolean paused;
@@ -87,6 +86,11 @@ public class GameController implements EventHandler<KeyEvent> {
      */
     private void updateAnimation() {
 
+        if(model.isGameOver())  {
+            this.gameView.getChildren().remove(model.getPlayer());
+            this.gameView.getChildren().remove(model.getPlayer().getTranslocator());
+        }
+
         if(difficultyIncreaseCounter == 0){
             this.difficultyIncreaseCounter = INCREASE_DIFFICULTY_TIMER;
             Shooter shooter = model.increaseDifficulty(this.gameView.FRAME_WIDTH, this.gameView.FRAME_HEIGHT);
@@ -96,14 +100,13 @@ public class GameController implements EventHandler<KeyEvent> {
         model.getChordStone().step();
         model.getPlayer().step();
         model.getPlayer().getTranslocator().step();
-        model.getPlayer().getTranslocator().decelerate(3);
+        model.getPlayer().getTranslocator().decelerate(model.TRANSLOCATOR_DECELERATION);
 
         for(Shooter shooter : model.getShooters()){
-            Projectile newProjectile = shooter.shootIfReady(10, 25, 15, model.getPlayer().getCenter());
+            Projectile newProjectile = shooter.shootIfReady(model.SHOOTER_BULLET_VELOCITY, model.getPlayer().getCenter());
             if(newProjectile != null)
                 this.gameView.getChildren().add(newProjectile);
 
-            shooter.decrementFireCount();
             Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
             while(iterator.hasNext()) {
                 Projectile projectile = iterator.next();
@@ -117,10 +120,7 @@ public class GameController implements EventHandler<KeyEvent> {
                 }
             }
         }
-
         this.difficultyIncreaseCounter--;
-        //System.out.println(this.model.getShooters().get(0).getProjectiles().get(0).getPosition());
-        //System.out.println(this.model.getPlayer().getLifeTotal());
     }
 
     /**
@@ -214,8 +214,8 @@ public class GameController implements EventHandler<KeyEvent> {
     }
 
     private void handleKeyPressed(KeyCode code) {
-        double stepSize = 10;
-        if (code == KeyCode.LEFT || code == KeyCode.A) {
+        double stepSize = model.getPlayer().getSpeed();
+        if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(-stepSize, yVel);
             model.getPlayer().refreshAnimation(0, 160);
@@ -244,7 +244,7 @@ public class GameController implements EventHandler<KeyEvent> {
                 model.getPlayer().teleport();
             } else {
                 double angle = calculateThrowingAngle(model.getPlayer());
-                model.getPlayer().throwTranslocator(angle, 30);
+                model.getPlayer().throwTranslocator(angle, model.getPlayer().getThrowPower());
             }
         } else if (code == KeyCode.ESCAPE) {
             if (this.paused) {
@@ -255,6 +255,9 @@ public class GameController implements EventHandler<KeyEvent> {
                 this.pauseLabel.setText("Paused");
             }
             this.paused = !this.paused;
+        }
+        else if(code == KeyCode.R) {
+            model.getPlayer().recallTranslocator();
         }
     }
 

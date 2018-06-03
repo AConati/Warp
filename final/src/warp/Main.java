@@ -15,11 +15,6 @@ import static javafx.scene.paint.Color.BLUE;
 public class Main extends Application {
 
     @Override
-    public void init() {
-        System.out.println("Hello");
-    }
-
-    @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loaderInitial = new FXMLLoader((getClass().getResource("StartScreenView.fxml")));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameView.fxml"));

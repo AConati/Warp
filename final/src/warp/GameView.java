@@ -11,10 +11,6 @@ public class GameView extends Group {
     public GameView() {
     }
 
-    public void initialScreen() {
-
-    }
-
     public void update(Model model) {
         this.getChildren().add(model.getChordStone());
         this.getChildren().add(model.getPlayer());
