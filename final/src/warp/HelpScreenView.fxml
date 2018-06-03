@@ -3,6 +3,9 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane fx:id="helpScreenPane" fx:controller="warp.HelpScreenController" xmlns:fx="http://javafx.com/fxml" >
+    <top>
+        <Label fx:id = "helpLabel"/>
+    </top>
     <center>
         <Label fx:id = "helpText"/>
     </center>
