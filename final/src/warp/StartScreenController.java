@@ -46,10 +46,9 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
             }
             else if(code == KeyCode.ENTER) {
                 if(startScreenView.selector.getPosition().getY() == 347) {
-                    
+
                 }
                 else if(startScreenView.selector.getPosition().getX() == 294) {
-
                 }
             }
         }
