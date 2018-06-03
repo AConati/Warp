@@ -37,9 +37,6 @@ public class HelpScreenController implements EventHandler<KeyEvent> {
 
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
-        if(code == KeyCode.DOWN || code == KeyCode.S) {
-            System.out.println("HELLO");
-        }
         if(code == KeyCode.ESCAPE) {
             try {
                 Parent newRootNode = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));

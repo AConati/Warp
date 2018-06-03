@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
@@ -51,21 +52,28 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
                 startScreenView.selector.setPosition(250,294);
             }
             else if(code == KeyCode.ENTER) {
-                if(startScreenView.selector.getPosition().getY() == 347) {
+                if(startScreenView.selector.getPosition().getY() == 294) {
                     try {
-                        Parent newRootNode = FXMLLoader.load(getClass().getResource("HelpScreenView.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameView.fxml"));
+                        Parent newRootNode = loader.load();
                         Scene scene = this.startScreenPane.getScene();
                         scene.setRoot(newRootNode);
+                        GameController gameController = loader.getController();
+                        scene.setOnKeyPressed(gameController);
+                        scene.setOnKeyReleased(gameController);
                     } catch (Exception e) {
                         System.err.println(e.getMessage());
                     }
 
                 }
-                else if(startScreenView.selector.getPosition().getY() == 294) {
+                else if(startScreenView.selector.getPosition().getY() == 347) {
                     try {
-                        Parent newRootNode = FXMLLoader.load(getClass().getResource("GameView.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("HelpScreenView.fxml"));
+                        Parent newRootNode = loader.load();
                         Scene scene = this.startScreenPane.getScene();
                         scene.setRoot(newRootNode);
+                        HelpScreenController helpController = loader.getController();
+                        scene.setOnKeyPressed(helpController);
                     } catch (Exception e) {
                         System.err.println(e.getMessage());
                     }
