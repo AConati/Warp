@@ -16,17 +16,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loaderInitial = new FXMLLoader((getClass().getResource("StartScreenView.fxml")));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameView.fxml"));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("StartScreenView.fxml")));
         Parent root = loader.load();
-        primaryStage.setTitle("Opus");
+        primaryStage.setTitle("Warp");
 
-        GameController gameController = loader.getController();
-        root.setOnKeyPressed(gameController);
-        root.setOnKeyReleased(gameController);
+        StartScreenController startScreenController = loader.getController();
+        root.setOnKeyPressed(startScreenController);
+        root.setOnKeyReleased(startScreenController);
 
         Paint background = BLUE;
-        primaryStage.setScene(new Scene(root, gameController.getFrameWidth(), gameController.getFrameHeight(), background));
+        primaryStage.setScene(new Scene(root, startScreenController.getFrameWidth(), startScreenController.getFrameHeight(), background));
         primaryStage.show();
         root.requestFocus();
 
