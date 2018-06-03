@@ -10,6 +10,7 @@ package warp;
 
 
 import javafx.geometry.Point2D;
+import javafx.scene.media.AudioClip;
 
 public class Player extends Sprite {
 
@@ -18,6 +19,8 @@ public class Player extends Sprite {
     private String name;
     private double speed = 10;
     private double throwPower = 30;
+
+    private AudioClip audioClip;
 
     public enum Direction {
         RIGHT, LEFT, UP, DOWN;
@@ -59,6 +62,8 @@ public class Player extends Sprite {
      */
 
     public void teleport() {
+        audioClip = new AudioClip(getClass().getResource("/res/teleport.wav").toString());
+        audioClip.play();
         this.translocator.setVelocity(0,0);
         this.translocator.setThrown(false);
         this.setPosition(this.translocator.getPosition().getX(), this.translocator.getPosition().getY());

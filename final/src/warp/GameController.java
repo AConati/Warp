@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 
 import java.util.Iterator;
@@ -31,6 +32,8 @@ public class GameController implements EventHandler<KeyEvent> {
     @FXML private Label pauseLabel;
     @FXML private GameView gameView;
     private Model model;
+
+    private AudioClip audioclip;
 
     private boolean paused;
     private Timer timer;
@@ -71,6 +74,7 @@ public class GameController implements EventHandler<KeyEvent> {
                         checkCollision();
                         updateAnimation();
                         scoreLabel.setText(String.format("Score: %d", model.getScore()));
+                        healthLabel.setText(String.format("Life: %d", model.getPlayer().getLifeTotal()));
 
                     }
                 });
@@ -142,6 +146,9 @@ public class GameController implements EventHandler<KeyEvent> {
         }
         for(Shooter shooter : this.model.getShooters()) {
             //Projectile and Player
+
+            audioclip = new AudioClip(getClass().getResource("/res/Bump.wav").toString());
+
             Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
             while (iterator.hasNext()) {
                 Projectile projectile = iterator.next();
@@ -153,9 +160,8 @@ public class GameController implements EventHandler<KeyEvent> {
                 if ((projectileOuterX >= playerPositionX && projectileX <= playerPositionXOuter) && (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)) {
                     iterator.remove();
                     this.gameView.getChildren().remove(projectile);
-                    this.model.getChordStone().makeSound();
+                    this.audioclip.play();
                     this.model.getPlayer().takeDamage(1);
-                    this.healthLabel.setText(String.format("Life: %d", this.model.getPlayer().getLifeTotal()));
 
                 }
             }
@@ -249,10 +255,15 @@ public class GameController implements EventHandler<KeyEvent> {
                 model.getPlayer().throwTranslocator(angle, model.getPlayer().getThrowPower());
             }
         } else if (code == KeyCode.ESCAPE) {
+
+            audioclip = new AudioClip(getClass().getResource("/res/Pause.wav").toString());
+
             if (this.paused) {
+                audioclip.play();
                 this.startTimer();
                 this.pauseLabel.setText("");
             } else {
+                audioclip.play();
                 this.timer.cancel();
                 this.pauseLabel.setText("Paused");
             }
