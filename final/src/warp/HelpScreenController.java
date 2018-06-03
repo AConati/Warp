@@ -32,6 +32,7 @@ public class HelpScreenController implements EventHandler<KeyEvent> {
         "  Red turrets shoot infrequently,\n  but target your character.\n\n" +
         "  Yellow turrets shoot frequently,\n  but can only shoot in one direction.\n\n" +
         "  Collect as many magic rocks \n  as you can as you survive!\n\n" +
+        "  Press ESC while in game to pause\n  and again to resume.\n\n" +
         "  (ESC to exit)");
     }
 
@@ -39,9 +40,12 @@ public class HelpScreenController implements EventHandler<KeyEvent> {
         KeyCode code = keyEvent.getCode();
         if(code == KeyCode.ESCAPE) {
             try {
-                Parent newRootNode = FXMLLoader.load(getClass().getResource("StartScreenView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("StartScreenView.fxml"));
+                Parent newRootNode = loader.load();
                 Scene scene = this.helpScreenPane.getScene();
                 scene.setRoot(newRootNode);
+                StartScreenController startScreenController = loader.getController();
+                scene.setOnKeyPressed(startScreenController);
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
