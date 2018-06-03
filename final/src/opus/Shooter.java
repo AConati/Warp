@@ -15,11 +15,11 @@ import java.util.List;
 
 public class Shooter extends Sprite {
 
-    private List<Projectile> projectiles;
+    private List<Projectile> projectiles; //list of shooter's active projectiles
     private int cycleLifeForProjectiles; //the number of frames the shooter's projectiles last
-    private int fireRate = 0;
-    private int fireCount;
-    private boolean isSmart;
+    private int fireRate = 0; //shooter fires a projectile every fireRate - 1 calls to shootIfReady function
+    private int fireCount; //keeps track of whether the shooter is ready to fire or not
+    private boolean isSmart; //if !isSmart, can only fire in the direction of default target
     private Point2D defaultTarget = new Point2D(0,0);
 
     public Shooter(int cycles, Point2D position, boolean isSmart) {
@@ -85,7 +85,7 @@ public class Shooter extends Sprite {
 
     /**
      * @Return true if the shooter will fire on the next call to
-     * shootIfReady(...)
+     * shootIfReady function
      */
 
     public boolean isReadyToShoot(){

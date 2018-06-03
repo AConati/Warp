@@ -12,7 +12,7 @@ import javafx.geometry.Point2D;
 
 public class Projectile extends Sprite{
 
-    private int cyclesUntilDisappear;
+    private int cyclesUntilDisappear; //counter to keep track of how long projectile stays active
 
     public Projectile( int cycles, Point2D position) {
         cyclesUntilDisappear = cycles;
@@ -24,6 +24,7 @@ public class Projectile extends Sprite{
         this.getChildren().add(this.getImageView());
         this.setPosition(position.getX(), position.getY());
     }
+
     public void decrementCycles() {
         cyclesUntilDisappear--;
     }

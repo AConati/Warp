@@ -205,6 +205,8 @@ public class Controller implements EventHandler<KeyEvent> {
      * @param keyEvent user input
      */
     public void handle(KeyEvent keyEvent) {
+        if(model.isGameOver())
+            return;
         KeyCode code = keyEvent.getCode();
         if(keyEvent.getEventType().equals(KEY_PRESSED)){
             handleKeyPressed(code);
