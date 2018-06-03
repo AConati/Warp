@@ -1,38 +1,39 @@
-package opus;
+package warp;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Paint;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import static javafx.scene.paint.Color.AZURE;
 import static javafx.scene.paint.Color.BLUE;
 
 public class Main extends Application {
 
     @Override
+    public void init() {
+        System.out.println("Hello");
+    }
+
+    @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Opus.fxml"));
+        FXMLLoader loaderInitial = new FXMLLoader((getClass().getResource("StartScreenView.fxml")));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameView.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Opus");
 
-        Controller controller = loader.getController();
-        root.setOnKeyPressed(controller);
-        root.setOnKeyReleased(controller);
+        GameController gameController = loader.getController();
+        root.setOnKeyPressed(gameController);
+        root.setOnKeyReleased(gameController);
 
         Paint background = BLUE;
-        primaryStage.setScene(new Scene(root, controller.getFrameWidth(), controller.getFrameHeight(), background));
+        primaryStage.setScene(new Scene(root, gameController.getFrameWidth(), gameController.getFrameHeight(), background));
         primaryStage.show();
         root.requestFocus();
-
-
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -41,6 +42,7 @@ public class Main extends Application {
                 System.exit(0);
             }
         });
+
     }
 
 

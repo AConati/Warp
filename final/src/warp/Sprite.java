@@ -6,7 +6,7 @@
  * The class that represents the sprites.
  */
 
- package opus;
+ package warp;
 
  import javafx.animation.Animation;
  import javafx.embed.swing.SwingFXUtils;

@@ -6,7 +6,7 @@
  * The class that represents the main player
  */
 
-package opus;
+package warp;
 
 
 import javafx.geometry.Point2D;

@@ -1,23 +1,20 @@
 /**
- * Controller.java
+ * GameController.java
  * Ari Conati & Grant Lee
  * 22 May 2018
  *
  * The class that manipulates the view to reflect the model.
  */
 
-package opus;
+package warp;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.geometry.Point2D;
+import javafx.scene.text.Font;
 
 import java.util.Iterator;
 import java.util.Timer;
@@ -25,42 +22,41 @@ import java.util.TimerTask;
 
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 
-public class Controller implements EventHandler<KeyEvent> {
+public class GameController implements EventHandler<KeyEvent> {
     final private double FRAMES_PER_SECOND = 20.0;
     public final int INCREASE_DIFFICULTY_TIMER = 1000;
 
-    @FXML private Button pauseButton;
     @FXML private Label healthLabel;
     @FXML private Label scoreLabel;
-    @FXML private AnchorPane gameBoard;
-    @FXML private ChordStone stone;
-    @FXML private Player player;
-    @FXML private Shooter shooter;
-    @FXML private Translocator glissando;
-    @FXML private PlayerView playerView;
+    @FXML private Label pauseLabel;
+    @FXML private GameView gameView;
+
     private Model model;
 
     private boolean paused;
     private Timer timer;
     private int difficultyIncreaseCounter;
 
-    public Controller() {
+    public GameController() {
         this.paused = false;
     }
 
     public void initialize() {
-        this.model = new Model(this.playerView.FRAME_WIDTH,this.playerView.FRAME_HEIGHT);
+        this.model = new Model(this.gameView.FRAME_WIDTH,this.gameView.FRAME_HEIGHT);
         this.startTimer();
         this.update();
         this.difficultyIncreaseCounter = INCREASE_DIFFICULTY_TIMER;
+        this.healthLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
+        this.pauseLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
+        this.scoreLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
     }
 
     public double getFrameWidth() {
-        return this.playerView.FRAME_WIDTH;
+        return this.gameView.FRAME_WIDTH;
     }
 
     public double getFrameHeight() {
-        return this.playerView.FRAME_HEIGHT;
+        return this.gameView.FRAME_HEIGHT;
     }
 
     /**
@@ -93,8 +89,8 @@ public class Controller implements EventHandler<KeyEvent> {
 
         if(difficultyIncreaseCounter == 0){
             this.difficultyIncreaseCounter = INCREASE_DIFFICULTY_TIMER;
-            Shooter shooter = model.increaseDifficulty(this.playerView.FRAME_WIDTH, this.playerView.FRAME_HEIGHT);
-            this.playerView.getChildren().add(shooter);
+            Shooter shooter = model.increaseDifficulty(this.gameView.FRAME_WIDTH, this.gameView.FRAME_HEIGHT);
+            this.gameView.getChildren().add(shooter);
         }
 
         model.getChordStone().step();
@@ -105,7 +101,7 @@ public class Controller implements EventHandler<KeyEvent> {
         for(Shooter shooter : model.getShooters()){
             Projectile newProjectile = shooter.shootIfReady(10, 25, 15, model.getPlayer().getCenter());
             if(newProjectile != null)
-                this.playerView.getChildren().add(newProjectile);
+                this.gameView.getChildren().add(newProjectile);
 
             shooter.decrementFireCount();
             Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
@@ -113,7 +109,7 @@ public class Controller implements EventHandler<KeyEvent> {
                 Projectile projectile = iterator.next();
                 projectile.decrementCycles();
                 if(projectile.getCyclesUntilDisappear() <= 0) {
-                    this.playerView.getChildren().remove(projectile);
+                    this.gameView.getChildren().remove(projectile);
                     projectile.getChildren().remove(projectile.getImageView());
                     iterator.remove();
                 } else {
@@ -123,7 +119,7 @@ public class Controller implements EventHandler<KeyEvent> {
         }
 
         this.difficultyIncreaseCounter--;
-//        System.out.println(this.model.getShooters().get(0).getProjectiles().get(0).getPosition());
+        //System.out.println(this.model.getShooters().get(0).getProjectiles().get(0).getPosition());
         //System.out.println(this.model.getPlayer().getLifeTotal());
     }
 
@@ -142,7 +138,7 @@ public class Controller implements EventHandler<KeyEvent> {
         if(CstoneCenterPositionX >= playerPositionX && CstoneCenterPositionX <= playerPositionXOuter &&
                 CstoneCenterPositionY >= playerPositionY && CstoneCenterPositionY <= playerPositionYOuter) {
             this.model.getChordStone().makeSound();
-            this.model.spawnChordStone(this.playerView.FRAME_WIDTH - this.model.getChordStone().getWidth(), this.playerView.FRAME_HEIGHT - this.model.getChordStone().getHeight());
+            this.model.spawnChordStone(this.gameView.FRAME_WIDTH - this.model.getChordStone().getWidth(), this.gameView.FRAME_HEIGHT - this.model.getChordStone().getHeight());
         }
         for(Shooter shooter : this.model.getShooters()) {
             //Projectile and Player
@@ -156,7 +152,7 @@ public class Controller implements EventHandler<KeyEvent> {
 
                 if ((projectileOuterX >= playerPositionX && projectileX <= playerPositionXOuter) && (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)) {
                     iterator.remove();
-                    this.playerView.getChildren().remove(projectile);
+                    this.gameView.getChildren().remove(projectile);
                     this.model.getChordStone().makeSound();
                     this.model.getPlayer().takeDamage(1);
                     this.healthLabel.setText(String.format("Life: %d", this.model.getPlayer().getLifeTotal()));
@@ -173,32 +169,32 @@ public class Controller implements EventHandler<KeyEvent> {
 
         //Player Movement
 
-        if(model.getPlayer().getPosition().getX() >= playerView.FRAME_WIDTH && model.getPlayer().getVelocity().getX() > 0) {
+        if(model.getPlayer().getPosition().getX() >= gameView.FRAME_WIDTH && model.getPlayer().getVelocity().getX() > 0) {
             model.getPlayer().setPosition(-model.getPlayer().getWidth(),model.getPlayer().getPosition().getY());
         }
         else if(model.getPlayer().getPosition().getX() < 0 && model.getPlayer().getVelocity().getX() < 0) {
-            model.getPlayer().setPosition(playerView.FRAME_WIDTH + model.getPlayer().getWidth(), model.getPlayer().getPosition().getY());
+            model.getPlayer().setPosition(gameView.FRAME_WIDTH + model.getPlayer().getWidth(), model.getPlayer().getPosition().getY());
         }
-        else if(model.getPlayer().getPosition().getY() >= playerView.FRAME_HEIGHT && model.getPlayer().getVelocity().getY() > 0) {
+        else if(model.getPlayer().getPosition().getY() >= gameView.FRAME_HEIGHT && model.getPlayer().getVelocity().getY() > 0) {
             model.getPlayer().setPosition(model.getPlayer().getPosition().getX(), -model.getPlayer().getHeight());
         }
         else if(model.getPlayer().getPosition().getY() < 0 && model.getPlayer().getVelocity().getY() < 0) {
-            model.getPlayer().setPosition(model.getPlayer().getPosition().getX(), playerView.FRAME_HEIGHT + model.getPlayer().getHeight());
+            model.getPlayer().setPosition(model.getPlayer().getPosition().getX(), gameView.FRAME_HEIGHT + model.getPlayer().getHeight());
         }
 
         //Translocator Movement
 
-        if (model.getPlayer().getTranslocator().getPosition().getX() + model.getPlayer().getTranslocator().getWidth() >= playerView.FRAME_WIDTH && model.getPlayer().getTranslocator().getVelocity().getX() > 0) {
+        if (model.getPlayer().getTranslocator().getPosition().getX() + model.getPlayer().getTranslocator().getWidth() >= gameView.FRAME_WIDTH && model.getPlayer().getTranslocator().getVelocity().getX() > 0) {
             model.getPlayer().getTranslocator().setPosition(-model.getPlayer().getTranslocator().getWidth(),model.getPlayer().getTranslocator().getPosition().getY());
         }
         else if(model.getPlayer().getTranslocator().getPosition().getX() < 0 && model.getPlayer().getTranslocator().getVelocity().getX() < 0) {
-            model.getPlayer().getTranslocator().setPosition(playerView.FRAME_WIDTH + model.getPlayer().getTranslocator().getWidth(), model.getPlayer().getTranslocator().getPosition().getY());
+            model.getPlayer().getTranslocator().setPosition(gameView.FRAME_WIDTH + model.getPlayer().getTranslocator().getWidth(), model.getPlayer().getTranslocator().getPosition().getY());
         }
-        else if(model.getPlayer().getTranslocator().getPosition().getY() >= playerView.FRAME_HEIGHT && model.getPlayer().getTranslocator().getVelocity().getY() > 0) {
+        else if(model.getPlayer().getTranslocator().getPosition().getY() >= gameView.FRAME_HEIGHT && model.getPlayer().getTranslocator().getVelocity().getY() > 0) {
             model.getPlayer().getTranslocator().setPosition(model.getPlayer().getTranslocator().getPosition().getX(), -model.getPlayer().getTranslocator().getHeight());
         }
         else if(model.getPlayer().getTranslocator().getPosition().getY() < 0 && model.getPlayer().getTranslocator().getVelocity().getY() < 0) {
-            model.getPlayer().getTranslocator().setPosition(model.getPlayer().getTranslocator().getPosition().getX(), playerView.FRAME_HEIGHT + model.getPlayer().getTranslocator().getHeight());
+            model.getPlayer().getTranslocator().setPosition(model.getPlayer().getTranslocator().getPosition().getX(), gameView.FRAME_HEIGHT + model.getPlayer().getTranslocator().getHeight());
         }
     }
     
@@ -219,41 +215,46 @@ public class Controller implements EventHandler<KeyEvent> {
 
     private void handleKeyPressed(KeyCode code) {
         double stepSize = 10;
-        if(code == KeyCode.LEFT || code == KeyCode.A){
+        if (code == KeyCode.LEFT || code == KeyCode.A) {
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(-stepSize, yVel);
-            model.getPlayer().refreshAnimation(0,150);
+            model.getPlayer().refreshAnimation(0, 160);
             model.getPlayer().getAnimation().play();
             model.getPlayer().setDirection(Player.Direction.LEFT);
-        }
-        else if(code == KeyCode.RIGHT || code == KeyCode.D) {
+        } else if (code == KeyCode.RIGHT || code == KeyCode.D) {
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(stepSize, yVel);
-            model.getPlayer().refreshAnimation(0,230);
+            model.getPlayer().refreshAnimation(0, 230);
             model.getPlayer().getAnimation().play();
             model.getPlayer().setDirection(Player.Direction.RIGHT);
-        }
-        else if(code == KeyCode.UP || code == KeyCode.W) {
+        } else if (code == KeyCode.UP || code == KeyCode.W) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, -stepSize);
-            model.getPlayer().refreshAnimation(0,80);
+            model.getPlayer().refreshAnimation(0, 90);
             model.getPlayer().getAnimation().play();
             model.getPlayer().setDirection(Player.Direction.UP);
-        }
-        else if(code == KeyCode.DOWN || code == KeyCode.S) {
+        } else if (code == KeyCode.DOWN || code == KeyCode.S) {
             double xVel = model.getPlayer().getVelocity().getX();
             model.getPlayer().setVelocity(xVel, stepSize);
-            model.getPlayer().refreshAnimation(0,0);
+            model.getPlayer().refreshAnimation(0, 10);
             model.getPlayer().getAnimation().play();
             model.getPlayer().setDirection(Player.Direction.DOWN);
-        }
-        else if(code == KeyCode.E) {
-            if(model.getPlayer().getTranslocator().isThrown()) {
+        } else if (code == KeyCode.E) {
+            if (model.getPlayer().getTranslocator().isThrown()) {
                 model.getPlayer().teleport();
             } else {
                 double angle = calculateThrowingAngle(model.getPlayer());
                 model.getPlayer().throwTranslocator(angle, 30);
             }
+        } else if (code == KeyCode.ESCAPE) {
+            if (this.paused) {
+                this.startTimer();
+                this.pauseLabel.setText("");
+            } else {
+                this.timer.cancel();
+                this.pauseLabel.setText("Paused");
+            }
+            this.paused = !this.paused;
         }
     }
 
@@ -324,26 +325,7 @@ public class Controller implements EventHandler<KeyEvent> {
         }
     }
 
-
-    /**
-     * Code for pausing the game
-     * @param actionEvent game event
-     */
-    public void onPauseButton(ActionEvent actionEvent) {
-        if (this.paused) {
-            this.pauseButton.setText("Pause");
-            this.startTimer();
-        } else {
-            this.pauseButton.setText("Continue");
-            this.timer.cancel();
-        }
-        this.paused = !this.paused;
-    }
-
-
-
-
     private void update() {
-        this.playerView.update(this.model);
+        this.gameView.update(this.model);
     }
 }
