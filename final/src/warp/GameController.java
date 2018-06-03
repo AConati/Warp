@@ -154,7 +154,8 @@ public class GameController implements EventHandler<KeyEvent> {
                     iterator.remove();
                     this.gameView.getChildren().remove(projectile);
                     this.model.getChordStone().makeSound();
-                    this.model.getPlayer().takeDamage(1);
+                    if(model.getPlayer().getLifeTotal() > 0)
+                        this.model.getPlayer().takeDamage(1);
                     this.healthLabel.setText(String.format("Life: %d", this.model.getPlayer().getLifeTotal()));
 
                 }

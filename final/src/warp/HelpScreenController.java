@@ -32,7 +32,7 @@ public class HelpScreenController implements EventHandler<KeyEvent> {
         "  Red turrets shoot infrequently,\n  but target your character.\n\n" +
         "  Yellow turrets shoot frequently,\n  but can only shoot in one direction.\n\n" +
         "  Collect as many magic rocks \n  as you can as you survive!\n\n" +
-        "  Press ESC while in game to pause\n and again to resume.\n\n" +
+        "  Press ESC while in game to pause\n  and again to resume.\n\n" +
         "  (ESC to exit)");
     }
 
