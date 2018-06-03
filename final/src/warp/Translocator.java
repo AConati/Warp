@@ -36,6 +36,13 @@ public class Translocator extends Sprite {
         return this.thrown;
     }
 
+    /**
+     * Decelerates this object while maintaining its current direction.
+     * @param deceleration The amount by which the current velocity of the translocator is lowered. If
+     *                     it is greater than the translocator's current velocity, the velocity of the
+     *                     translocator is set to 0.
+     */
+
     public void decelerate(double deceleration) {
         double x = this.getVelocity().getX();
         double y = this.getVelocity().getY();

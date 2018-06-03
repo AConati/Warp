@@ -45,6 +45,7 @@ public class GameController implements EventHandler<KeyEvent> {
         this.startTimer();
         this.update();
         this.difficultyIncreaseCounter = INCREASE_DIFFICULTY_TIMER;
+        System.out.println(healthLabel);
         this.healthLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
         this.pauseLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
         this.scoreLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
@@ -205,6 +206,8 @@ public class GameController implements EventHandler<KeyEvent> {
      * @param keyEvent user input
      */
     public void handle(KeyEvent keyEvent) {
+        if(model.isGameOver())
+            return;
         KeyCode code = keyEvent.getCode();
         if(keyEvent.getEventType().equals(KEY_PRESSED)){
             handleKeyPressed(code);
