@@ -18,15 +18,19 @@ public class GameOverScreenController implements EventHandler<KeyEvent> {
     @FXML private Label gameOverLabel;
     @FXML private Label gameOverText;
 
-    public GameOverScreenController(){}
+    private int score = 0;
+
+    public GameOverScreenController(){
+    }
 
     public void initialize() {
-        this.gameOverLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",200));
+        this.gameOverLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",150));
         this.gameOverLabel.setText("GAME\nOVER");
         this.gameOverText.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
-        this.gameOverText.setText("Press ENTER to return\n to the main menu.");
 
     }
+
+
 
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
@@ -42,6 +46,12 @@ public class GameOverScreenController implements EventHandler<KeyEvent> {
                 System.err.println(e.getMessage());
             }
         }
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+        this.gameOverText.setText( String.format("Your score: %d", this.score) +
+                "\nPress ENTER to return\n to the main menu.");
     }
 
 

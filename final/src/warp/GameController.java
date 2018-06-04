@@ -151,6 +151,7 @@ public class GameController implements EventHandler<KeyEvent> {
             Scene scene = this.gamePane.getScene();
             scene.setRoot(newRootNode);
             GameOverScreenController gameOverScreenController = loader.getController();
+            gameOverScreenController.setScore(this.model.getScore());
             scene.setOnKeyPressed(gameOverScreenController);
         } catch (Exception e) {
             System.err.println(e.getMessage());
