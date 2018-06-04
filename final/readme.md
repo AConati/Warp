@@ -1,4 +1,4 @@
-# The Final Project
+# The Final Project: WARP
 
 **Authors of this project**: Ari Conati & Grant Lee                 
 
@@ -20,9 +20,7 @@ We will implement a Model View Controller, where the each component corresponds 
 - Shooters
 - Shooters' Projectiles
 - Player
-- Player's Teleport Object
-- Arena
-- Blocks (Random Obstacles) (Time permitting)
-- Chord Stones (Objective Pieces)
+- Player's Translocator (Teleport Object)
+- Magic Stones (Objective Pieces)
 
 
