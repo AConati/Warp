@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class HelpScreenController implements EventHandler<KeyEvent> {
@@ -22,8 +23,10 @@ public class HelpScreenController implements EventHandler<KeyEvent> {
     public void initialize() {
         this.helpLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",25));
         this.helpLabel.setText("\n\t\t\tHelp");
+        this.helpLabel.setTextFill(Color.WHITE);
         this.helpText.setFont(Font.loadFont("file:src/res/arcadia.ttf",15));
-        //this.helpText.setStyle("-fx-text-fill: white");
+        this.helpText.setTextFill(Color.WHITE);
+        
 
         helpText.setText("  Move your character with the \n  arrow keys or with WASD.\n\n" +
         "  Press E to throw your translocator \n  and E again to teleport to it.\n\n" +
