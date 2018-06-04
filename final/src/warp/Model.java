@@ -9,8 +9,11 @@ package warp;
 
 import javafx.geometry.Point2D;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Model {
     public final int SMART_SHOOTER_FIRE_RATE = 60;
@@ -22,6 +25,7 @@ public class Model {
     private Player player;
     private List<Shooter> shooters = new ArrayList<Shooter>();
     private ChordStone chordStone;
+    private List<Integer> scores;
 
     public enum DifficultyModifier {
         ADD_SHOOTER, ADD_SMART_SHOOTER;
@@ -72,10 +76,65 @@ public class Model {
         return this.score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+
+    public boolean loadHighScores(String filePath) {
+        File file = new File(filePath);
+        Scanner scanner = null;
+        this.scores = new ArrayList<Integer>();
+        try {
+            scanner = new Scanner(file);
+        } catch(FileNotFoundException e) {
+            System.err.println("Could not find high scores file");
+            return false;
+        }
+        while(scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            int score = 0;
+            try {
+                score = Integer.parseInt(line);
+            } catch (NumberFormatException e) {
+                System.err.println("Improperly formatted high scores file");
+                return false;
+            }
+            scores.add(score);
+        }
+        Collections.sort(scores);
+        Collections.reverse(scores);
+        if(scores.size() > 5)
+            scores = scores.subList(0,5);
+        return true;
     }
 
+    public boolean writeHighScore(String filePath, int score) {
+
+        FileWriter writer;
+        try {
+            writer = new FileWriter(filePath);
+        } catch(IOException e) {
+            System.err.println("High score could not be written");
+            return false;
+        }
+
+        this.scores.add(score);
+        Collections.sort(this.scores);
+        Collections.reverse(this.scores);
+
+        for(int i = 0; i < 5; i++) {
+            String scoreAsString = String.valueOf(this.scores.get(i));
+            try {
+                writer.write(scoreAsString + "\n");
+            } catch (IOException e) {
+                System.err.println("High score could not be written.");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public List<Integer> getHighScores() {
+        return this.scores;
+    }
     /*
      * Sets the chord stone's location to a new location and increments the player's score by 1.
      */

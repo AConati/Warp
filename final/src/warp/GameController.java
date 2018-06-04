@@ -48,6 +48,9 @@ public class GameController implements EventHandler<KeyEvent> {
         this.healthLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
         this.pauseLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
         this.scoreLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
+        this.model.loadHighScores("src/warp/highScores.txt");
+        System.out.println(this.model.getHighScores());
+        //this.model.writeHighScore("src/warp/highScores.txt", 5);
     }
 
     public double getFrameWidth() {
