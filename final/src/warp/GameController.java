@@ -169,7 +169,6 @@ public class GameController implements EventHandler<KeyEvent> {
                     iterator.remove();
                     this.gameView.getChildren().remove(projectile);
                     this.audioclip.play();
-                    this.model.getPlayer().takeDamage(1);
                     this.model.getChordStone().makeSound();
                     if(model.getPlayer().getLifeTotal() > 0)
                         this.model.getPlayer().takeDamage(1);
