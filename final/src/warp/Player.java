@@ -79,7 +79,7 @@ public class Player extends Sprite {
         this.translocator.setPosition(this.getPosition().getX(), this.getPosition().getY());
     }
 
-    /*
+    /**
      * Lowers the player's lifeTotal by the amount specified by the parameter.
      *
      * @param damage The amount of hit points to be subtracted from the player's current life total.

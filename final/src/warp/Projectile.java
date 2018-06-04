@@ -9,10 +9,14 @@
 package warp;
 
 import javafx.geometry.Point2D;
+import javafx.scene.media.AudioClip;
 
-public class Projectile extends Sprite{
+public class Projectile extends Sprite {
 
-    private int cyclesUntilDisappear; //counter to keep track of how long projectile stays active
+    //counter to keep track of how long projectile stays active
+    private int cyclesUntilDisappear;
+    private AudioClip audioclip;
+
 
     public Projectile( int cycles, Point2D position) {
         cyclesUntilDisappear = cycles;
@@ -23,6 +27,9 @@ public class Projectile extends Sprite{
         this.makeAnimation(1,1);
         this.getChildren().add(this.getImageView());
         this.setPosition(position.getX(), position.getY());
+
+        audioclip = new AudioClip(getClass().getResource("/res/Bump.wav").toString());
+
     }
 
     public void decrementCycles() {
@@ -31,6 +38,10 @@ public class Projectile extends Sprite{
 
     public int getCyclesUntilDisappear() {
         return this.cyclesUntilDisappear;
+    }
+
+    public void playAudioClip() {
+        this.audioclip.play();
     }
 
 }

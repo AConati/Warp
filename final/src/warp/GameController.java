@@ -38,11 +38,11 @@ public class GameController implements EventHandler<KeyEvent> {
     @FXML private AnchorPane gamePane;
     private Model model;
 
-    private AudioClip audioclip;
 
     private boolean paused;
     private Timer timer;
     private int difficultyIncreaseCounter;
+    private AudioClip audioclip;
 
     public GameController() {
         this.paused = false;
@@ -116,7 +116,7 @@ public class GameController implements EventHandler<KeyEvent> {
             this.gameView.getChildren().add(shooter);
         }
 
-        model.getChordStone().step();
+        model.getMagicStone().step();
         model.getPlayer().step();
         model.getPlayer().getTranslocator().step();
         model.getPlayer().getTranslocator().decelerate(model.TRANSLOCATOR_DECELERATION);
@@ -160,24 +160,22 @@ public class GameController implements EventHandler<KeyEvent> {
      * Code that checks for contact between certain sprites
      */
     public void checkCollision() {
-        //ChordStone and Player
-        double CstoneCenterPositionX = this.model.getChordStone().getCenterX();
-        double CstoneCenterPositionY = this.model.getChordStone().getCenterY();
+        double CstoneCenterPositionX = this.model.getMagicStone().getCenterX();
+        double CstoneCenterPositionY = this.model.getMagicStone().getCenterY();
         double playerPositionX = this.model.getPlayer().getPosition().getX();
         double playerPositionY = this.model.getPlayer().getPosition().getY();
         double playerPositionXOuter = this.model.getPlayer().getXOuter();
         double playerPositionYOuter = this.model.getPlayer().getYOuter();
 
-        if(CstoneCenterPositionX >= playerPositionX && CstoneCenterPositionX <= playerPositionXOuter &&
+        //MagicStone and Player
+        if (CstoneCenterPositionX >= playerPositionX && CstoneCenterPositionX <= playerPositionXOuter &&
                 CstoneCenterPositionY >= playerPositionY && CstoneCenterPositionY <= playerPositionYOuter) {
-            this.model.getChordStone().makeSound();
-            this.model.spawnChordStone(this.gameView.FRAME_WIDTH - this.model.getChordStone().getWidth(), this.gameView.FRAME_HEIGHT - this.model.getChordStone().getHeight());
+            this.model.getMagicStone().makeSound();
+            this.model.spawnChordStone(this.gameView.FRAME_WIDTH - this.model.getMagicStone().getWidth(), this.gameView.FRAME_HEIGHT - this.model.getMagicStone().getHeight());
         }
-        for(Shooter shooter : this.model.getShooters()) {
-            //Projectile and Player
 
-            audioclip = new AudioClip(getClass().getResource("/res/Bump.wav").toString());
-
+        //Projectile and Player
+        for (Shooter shooter : this.model.getShooters()) {
             Iterator<Projectile> iterator = shooter.getProjectiles().iterator();
             while (iterator.hasNext()) {
                 Projectile projectile = iterator.next();
@@ -187,10 +185,9 @@ public class GameController implements EventHandler<KeyEvent> {
                 double projectileOuterY = projectile.getYOuter();
 
                 if ((projectileOuterX >= playerPositionX && projectileX <= playerPositionXOuter) && (projectileY <= playerPositionYOuter && projectileOuterY >= playerPositionY)) {
+                    projectile.playAudioClip();
                     iterator.remove();
                     this.gameView.getChildren().remove(projectile);
-                    this.audioclip.play();
-                    this.model.getChordStone().makeSound();
                     if(model.getPlayer().getLifeTotal() > 0)
                         this.model.getPlayer().takeDamage(1);
                 }

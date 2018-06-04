@@ -1,5 +1,5 @@
 /**
- * ChordStone.java
+ * MagicStone.java
  * Ari Conati & Grant Lee
  * 22 May 201
  *
@@ -14,12 +14,12 @@ package warp;
 import javafx.scene.media.AudioClip;
 
 
-public class ChordStone extends Sprite {
+public class MagicStone extends Sprite {
     private AudioClip audioClip;
     private boolean isActive;
 
 
-    public ChordStone() {
+    public MagicStone() {
         this.isActive = false;
         this.setImageView(makeImage("src/res/chordStone.png"));
         this.setOffsets(0,50);

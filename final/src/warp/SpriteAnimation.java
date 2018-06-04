@@ -1,3 +1,11 @@
+/**
+ * SpriteAnimation.java
+ *
+ * This class is not written by us, but it is
+ * responsible for all the animations of the sprites
+ * through the use of a sprite sheet.
+ */
+
 package warp;
 
 import javafx.animation.Interpolator;

@@ -1,3 +1,11 @@
+/**
+ * Main.java
+ * Ari Conati & Grant Lee
+ * 22 May 2018
+ *
+ * Class that launches the game
+ */
+
 package warp;
 
 import javafx.application.Application;
@@ -6,11 +14,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import static javafx.scene.paint.Color.BLUE;
 
 public class Main extends Application {
 
