@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="gameOverScreenPane" fx:controller="warp.GameOverScreenController" xmlns:fx="http://javafx.com/fxml" >
+    <top>
+        <Label fx:id = "gameOverLabel"/>
+    </top>
+    <center>
+        <Label fx:id = "gameOverText" />
+    </center>
+</BorderPane>

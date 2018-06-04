@@ -11,9 +11,13 @@ package warp;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 
@@ -31,6 +35,7 @@ public class GameController implements EventHandler<KeyEvent> {
     @FXML private Label scoreLabel;
     @FXML private Label pauseLabel;
     @FXML private GameView gameView;
+    @FXML private AnchorPane gamePane;
     private Model model;
 
     private AudioClip audioclip;
@@ -99,8 +104,10 @@ public class GameController implements EventHandler<KeyEvent> {
     private void updateAnimation() {
 
         if(model.isGameOver())  {
+            this.timer.cancel();
             this.gameView.getChildren().remove(model.getPlayer());
             this.gameView.getChildren().remove(model.getPlayer().getTranslocator());
+            this.goToGameOverScreen();
         }
 
         if(difficultyIncreaseCounter == 0){
@@ -133,6 +140,20 @@ public class GameController implements EventHandler<KeyEvent> {
             }
         }
         this.difficultyIncreaseCounter--;
+    }
+
+    private void goToGameOverScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOverScreen.fxml"));
+            Parent newRootNode = loader.load();
+            Scene scene = this.gamePane.getScene();
+            scene.setRoot(newRootNode);
+            GameOverScreenController gameOverScreenController = loader.getController();
+            scene.setOnKeyPressed(gameOverScreenController);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
     /**
