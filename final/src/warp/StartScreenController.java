@@ -11,6 +11,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
@@ -22,19 +24,16 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
         @FXML private AnchorPane startScreenPane;
         @FXML StartScreenView startScreenView;
 
-        private boolean keyPressed;
-
-        public StartScreenController() {
-            this.keyPressed = false;
-        }
-
         public void initialize() {
             this.title.setText("Warp");
             this.title.setFont(Font.loadFont("file:src/res/olga.ttf", 200));
+            this.title.setTextFill(Color.WHITE);
             this.start.setText("Start Game");
             this.start.setFont(Font.loadFont("file:src/res/arcadia.ttf", 20));
+            this.start.setTextFill(Color.GREENYELLOW);
             this.help.setText("Help");
             this.help.setFont(Font.loadFont("file:src/res/arcadia.ttf", 20));
+            this.help.setTextFill(Color.WHITE);
             startScreenView.initialize();
         }
 
@@ -54,6 +53,7 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
             else if(code == KeyCode.ENTER) {
                 if(startScreenView.selector.getPosition().getY() == 294) {
                     try {
+                        this.startScreenView.startScreen.stopMusic();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameView.fxml"));
                         Parent newRootNode = loader.load();
                         Scene scene = this.startScreenPane.getScene();
