@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.List;
@@ -34,10 +35,19 @@ public class GameOverScreenController implements EventHandler<KeyEvent> {
     public void initialize() {
         this.gameOverLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",100));
         this.gameOverLabel.setText("GAME\nOVER");
+        this.gameOverLabel.setTextFill(Color.RED);
+
         this.gameOverText.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
+        this.gameOverText.setTextFill(Color.WHITE);
+
         this.highScoresLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
+        this.highScoresLabel.setTextFill(Color.WHITE);
+
         this.newHighScoreLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
+        this.newHighScoreLabel.setTextFill(Color.WHITE);
+
         this.highScoreNameLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
+        this.highScoreNameLabel.setTextFill(Color.WHITE);
 
     }
 

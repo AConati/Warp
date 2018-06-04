@@ -151,6 +151,9 @@ public class Model {
     }
 
     public boolean writeHighScore(String filePath, String name, int score) {
+        if(name.equals("") || name == null) {
+            name = "AAA";
+        }
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(filePath));
