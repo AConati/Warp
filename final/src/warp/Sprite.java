@@ -34,14 +34,6 @@ public abstract class Sprite extends Group {
 
     public Sprite() {}
 
-    public final String getName() {
-        return this.name;
-    }
-
-    public final void setName(String newName) {
-        this.name = newName;
-    }
-
     public ImageView getImageView() {
         return this.imageView;
     }
@@ -108,6 +100,11 @@ public abstract class Sprite extends Group {
         this.velocity = new Point2D(vx, vy);
     }
 
+    /**
+     * Creates the image that will be shown
+     * @param file representing the image
+     * @return Imageview which can be added to the group object
+     */
     public ImageView makeImage(String file) {
 
         File pic = new File(file);
@@ -140,6 +137,11 @@ public abstract class Sprite extends Group {
 
     }
 
+    /**
+     * Method that adds flips through the desired section of the sprite sheet
+     * @param columns the number of columns the sprite sheet contains
+     * @param speed the speed at which the images are flipped through
+     */
     public void makeAnimation(int columns, int speed) {
         this.animation = new SpriteAnimation(imageView, Duration.millis(speed), columns, columns, this.getOffSetX(), this.getOffSetY(), this.getWidth(), this.getHeight());
         animation.setCycleCount(Animation.INDEFINITE);

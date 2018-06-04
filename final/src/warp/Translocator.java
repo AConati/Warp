@@ -6,8 +6,7 @@
  * The class that represents the object that the player can throw and teleport to.
  */
  
- package warp;
-
+package warp;
 
 import javafx.geometry.Point2D;
 
@@ -26,7 +25,6 @@ public class Translocator extends Sprite {
        this.setPosition(position.getX(), position.getY());
        this.setVelocity(0,0);
     }
-
 
     public void setThrown(boolean thrown) {
         this.thrown = thrown;
@@ -47,7 +45,7 @@ public class Translocator extends Sprite {
         double x = this.getVelocity().getX();
         double y = this.getVelocity().getY();
         double v = Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
-        if(deceleration > v){
+        if(deceleration > v) {
             this.setVelocity(0,0);
             return;
         }

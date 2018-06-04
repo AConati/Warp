@@ -30,7 +30,7 @@ public class Shooter extends Sprite {
             this.setImageView(makeImage("src/res/turretSmart.png"));
         }
         else {
-            this.setImageView(makeImage("src/res/turretDumb.png"));
+            this.setImageView(makeImage("src/res/turretNormal.png"));
             }
 
         this.setOffsets(0,0);

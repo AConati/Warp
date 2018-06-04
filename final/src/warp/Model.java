@@ -5,6 +5,7 @@
  *
  * The class that represents the model/the underlying game logic.
  */
+
 package warp;
 
 import javafx.geometry.Point2D;
@@ -13,15 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    public final int SMART_SHOOTER_FIRE_RATE = 60;
-    public final int SHOOTER_FIRE_RATE = 30;
-    public final int SHOOTER_PROJECTILE_LIFE = 25;
-    public final int SHOOTER_BULLET_VELOCITY = 15;
-    public final int TRANSLOCATOR_DECELERATION = 3;
+    public final int SMART_SHOOTER_FIRE_RATE = 60; //the rate at which the projectiles are fired from smart turret
+    public final int SHOOTER_FIRE_RATE = 30; //the rate at which teh projectiles are fired from normal turret
+    public final int SHOOTER_PROJECTILE_LIFE = 25; //how many steps a projectile will take before disappearing
+    public final int SHOOTER_BULLET_VELOCITY = 15; //the speed at which the projectiles move
+    public final int TRANSLOCATOR_DECELERATION = 3; //how quickly the translocator stops
 
     private Player player;
     private List<Shooter> shooters = new ArrayList<Shooter>();
-    private ChordStone chordStone;
+    private MagicStone magicStone;
 
     public enum DifficultyModifier {
         ADD_SHOOTER, ADD_SMART_SHOOTER;
@@ -30,7 +31,6 @@ public class Model {
     private int score;
     private DifficultyModifier nextDifficultyMod = DifficultyModifier.ADD_SHOOTER;
 
-    //Initialize instance variables
     public Model(double xBoundary, double yBoundary) {
         this.initialize(xBoundary, yBoundary);
         this.score = 0;
@@ -46,9 +46,9 @@ public class Model {
         shooter.setFireRate(SMART_SHOOTER_FIRE_RATE);
         shooters.add(shooter);
 
-        chordStone = new ChordStone();
-        chordStone.setPosition(Math.random()*(xBoundary - this.getChordStone().getWidth()), Math.random()*(yBoundary - this.getChordStone().getHeight()));
-        chordStone.setVelocity(0,0);
+        magicStone = new MagicStone();
+        magicStone.setPosition(Math.random()*(xBoundary - this.getMagicStone().getWidth()), Math.random()*(yBoundary - this.getMagicStone().getHeight()));
+        magicStone.setVelocity(0,0);
     }
 
 
@@ -60,8 +60,8 @@ public class Model {
         return this.shooters;
     }
 
-    public ChordStone getChordStone() {
-        return this.chordStone;
+    public MagicStone getMagicStone() {
+        return this.magicStone;
     }
 
     public boolean isGameOver() {
@@ -76,33 +76,24 @@ public class Model {
         this.score = score;
     }
 
-    /*
+    /**
      * Sets the chord stone's location to a new location and increments the player's score by 1.
+     * @param xBoundary the maximum x boundary the stone can spawn within
+     * @param yBoundary the maximum y boundary the stone can spawn within
      */
-
     public void spawnChordStone(double xBoundary, double yBoundary) {
         double newXPosition = Math.random()*xBoundary;
         double newYPosition = Math.random()*yBoundary;
-        this.chordStone.setPosition(newXPosition, newYPosition);
-        this.chordStone.makeSound();
+        this.magicStone.setPosition(newXPosition, newYPosition);
+        this.magicStone.makeSound();
         this.score++;
     }
 
-    /*
-     * Determines if the player is in contact with the chord stone based on the player and chordstone's size
-     * and their respective positions.
-     *
-     * @return true if the player's location overlaps with that of the chord stone; false otherwise.
+    /**
+     * The method for Spawning each type of shooter
+     * A smart shooter targets the position of the player but has a low rate of fire
+     * A normal shooter targets a random position but has a higher rate of fire
      */
-
-    public boolean playerCollidesWithStone() {
-        return true;
-    }
-
-    /*
-     * Creates a new Shooter object and adds it to the array of shooters.
-     */
-
     private Shooter spawnSmartShooter(double xBoundary, double yBoundary) {
         double xPosition = Math.random()*xBoundary - this.getShooters().get(0).getWidth();
         double yPosition = Math.random()*yBoundary - this.getShooters().get(0).getHeight();
@@ -124,6 +115,9 @@ public class Model {
         return shooter;
     }
 
+    /**
+     * The method used to determine which type of shooter gets spawned
+     */
     public Shooter increaseDifficulty(double xBoundary, double yBoundary) {
         switch(nextDifficultyMod) {
             case ADD_SHOOTER:

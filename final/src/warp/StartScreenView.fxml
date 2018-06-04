@@ -12,13 +12,10 @@
 
     <StartScreenView fx:id="startScreenView"></StartScreenView>
 
-
-
     <Label fx:id="title" AnchorPane.leftAnchor="100" AnchorPane.topAnchor="20" />
 
-    <Label fx:id="start" AnchorPane.leftAnchor="300" AnchorPane.topAnchor="400" />
+    <Label fx:id="start" AnchorPane.leftAnchor="300" AnchorPane.topAnchor="300" />
 
-    <Label fx:id="help" AnchorPane.leftAnchor="300" AnchorPane.topAnchor="450" />
-
+    <Label fx:id="help" AnchorPane.leftAnchor="300" AnchorPane.topAnchor="350" />
 
 </AnchorPane>

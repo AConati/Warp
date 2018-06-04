@@ -1,30 +1,19 @@
+/**
+ * gameBg.java
+ * Ari Conati & Grant Lee
+ * 22 May 2018
+ *
+ * Sprite object that presents the background image
+ * of the game.
+ * Image belongs to Wallpaper Abyss: https://wall.alphacoders.com/big.php?i=885542
+ */
+
 package warp;
 
-import javafx.scene.media.AudioClip;
-import javafx.scene.transform.Rotate;
-
 public class gameBg extends Sprite {
-
-    private AudioClip audioClip;
 
     public gameBg() {
         this.setImageView(makeImage("src/res/gameBg.png"));
         this.getChildren().add(this.getImageView());
-
-        this.audioClip = new AudioClip(getClass().getResource("/res/intro.mp3").toString());
     }
-
-    public void step() {
-        this.getTransforms().add(new Rotate(2, this.getWidth() / 2.0, this.getHeight()/2.0));
-    }
-
-    public void playMusic() {
-        this.audioClip.setCycleCount(10);
-        this.audioClip.play();
-    }
-
-    public void stopMusic() {
-        this.audioClip.stop();
-    }
-
 }
