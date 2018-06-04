@@ -33,7 +33,7 @@ public class Model {
     }
 
     private int score;
-    private List<Integer> scores;
+    private List<HighScore> scores;
     private DifficultyModifier nextDifficultyMod = DifficultyModifier.ADD_SHOOTER;
 
     public Model(double xBoundary, double yBoundary) {
@@ -56,6 +56,36 @@ public class Model {
         magicStone.setVelocity(0,0);
     }
 
+    public class HighScore implements Comparable<HighScore>{
+        private String name;
+        private int score;
+
+        public HighScore(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public int getScore(){
+            return this.score;
+        }
+
+        @Override
+        public String toString() {
+            return this.name + ": " + this.score;
+        }
+
+        public int compareTo(HighScore other) {
+            return this.score - other.score;
+        }
+
+        public boolean equals(HighScore other) {
+            return this.compareTo(other) == 0;
+        }
+    }
 
     public Player getPlayer() {
         return this.player;
@@ -81,7 +111,7 @@ public class Model {
     public boolean loadHighScores(String filePath) {
         File file = new File(filePath);
         Scanner scanner = null;
-        this.scores = new ArrayList<Integer>();
+        this.scores = new ArrayList<HighScore>();
         try {
             scanner = new Scanner(file);
         } catch(FileNotFoundException e) {
@@ -90,14 +120,17 @@ public class Model {
         }
         while(scanner.hasNextLine()) {
             String line = scanner.nextLine();
+            String[] lineArray = line.split(",");
+            String name = "";
             int score = 0;
             try {
-                score = Integer.parseInt(line);
-            } catch (NumberFormatException e) {
+                name = lineArray[0];
+                score = Integer.parseInt(lineArray[1]);
+            } catch (Exception e) {
                 System.err.println("Improperly formatted high scores file");
                 return false;
             }
-            scores.add(score);
+            scores.add(new HighScore(name,score));
         }
         Collections.sort(scores);
         Collections.reverse(scores);
@@ -106,7 +139,18 @@ public class Model {
         return true;
     }
 
-    public boolean writeHighScore(String filePath, int score) {
+    public boolean isNewHighScore(int score) {
+        if(this.scores.size() < 5)
+            return true;
+        for(HighScore highScore : this.scores){
+            if (score > highScore.getScore()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean writeHighScore(String filePath, String name, int score) {
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(filePath));
@@ -115,14 +159,16 @@ public class Model {
             return false;
         }
 
-        this.scores.add(score);
+        this.scores.add(new HighScore(name, score));
         Collections.sort(this.scores);
         Collections.reverse(this.scores);
 
         int iterations = this.scores.size() >= 5 ? 5 : this.scores.size();
         for(int i = 0; i < iterations; i++) {
-            String scoreAsString = String.valueOf(this.scores.get(i));
+            String highScoreName = this.scores.get(i).getName();
+            String scoreAsString = String.valueOf(this.scores.get(i).getScore());
             try {
+                writer.write(highScoreName + ",");
                 writer.write(scoreAsString);
                 writer.newLine();
             } catch (IOException e) {
@@ -130,11 +176,18 @@ public class Model {
                 return false;
             }
         }
+
+        try {
+            writer.close();
+        } catch(IOException e) {
+            System.err.println(e);
+            return false;
+        }
         return true;
     }
 
 
-    public List<Integer> getHighScores() {
+    public List<HighScore> getHighScores() {
         return this.scores;
     }
     /**

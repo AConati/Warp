@@ -61,10 +61,7 @@ public class GameController implements EventHandler<KeyEvent> {
         this.healthLabel.setStyle("-fx-text-fill: white");
         this.scoreLabel.setStyle("-fx-text-fill: white");
         this.pauseLabel.setStyle("-fx-text-fill: white");
-
         this.model.loadHighScores("src/warp/highScores.txt");
-        System.out.println(this.model.getHighScores());
-        this.model.writeHighScore("src/warp/highScores.txt", 67);
     }
 
     public double getFrameWidth() {
@@ -109,7 +106,11 @@ public class GameController implements EventHandler<KeyEvent> {
             this.timer.cancel();
             this.gameView.getChildren().remove(model.getPlayer());
             this.gameView.getChildren().remove(model.getPlayer().getTranslocator());
-            this.goToGameOverScreen();
+            if(this.model.isNewHighScore(this.model.getScore())) {
+                this.goToGameOverScreen(true);
+            } else {
+                this.goToGameOverScreen(false);
+            }
         }
 
         if(difficultyIncreaseCounter == 0){
@@ -144,14 +145,17 @@ public class GameController implements EventHandler<KeyEvent> {
         this.difficultyIncreaseCounter--;
     }
 
-    private void goToGameOverScreen() {
+    private void goToGameOverScreen(boolean isHighScore) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOverScreen.fxml"));
             Parent newRootNode = loader.load();
             Scene scene = this.gamePane.getScene();
             scene.setRoot(newRootNode);
             GameOverScreenController gameOverScreenController = loader.getController();
-            gameOverScreenController.setScore(this.model.getScore());
+            gameOverScreenController.setModel(this.model);
+            gameOverScreenController.setScoreLabel();
+            gameOverScreenController.setHighScoresLabel();
+            gameOverScreenController.setIsNewHighScore(isHighScore);
             scene.setOnKeyPressed(gameOverScreenController);
         } catch (Exception e) {
             System.err.println(e.getMessage());
