@@ -50,10 +50,14 @@ public class Translocator extends Sprite {
             return;
         }
 
+        //adjust the velocity while maintaining its direction using trignometric functions
+
         double newV = v - deceleration;
         double angle = Math.asin(y/v);
         double newX = Math.abs(newV * Math.cos(angle));
         double newY = Math.abs(newV * Math.sin(angle));
+
+        //preserve the direction of the translocator
         if(x < 0)
             newX = -newX;
         if(y < 0)

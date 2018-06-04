@@ -42,7 +42,7 @@ public class GameController implements EventHandler<KeyEvent> {
 
     private boolean paused;
     private Timer timer;
-    private int difficultyIncreaseCounter;
+    private int difficultyIncreaseCounter; //keeps track of how long until the difficulty of the game increases
     private AudioClip audioclip;
 
     public GameController() {
@@ -61,10 +61,7 @@ public class GameController implements EventHandler<KeyEvent> {
         this.healthLabel.setStyle("-fx-text-fill: white");
         this.scoreLabel.setStyle("-fx-text-fill: white");
         this.pauseLabel.setStyle("-fx-text-fill: white");
-
         this.model.loadHighScores("src/warp/highScores.txt");
-        System.out.println(this.model.getHighScores());
-        this.model.writeHighScore("src/warp/highScores.txt", 67);
     }
 
     public double getFrameWidth() {
@@ -109,7 +106,11 @@ public class GameController implements EventHandler<KeyEvent> {
             this.timer.cancel();
             this.gameView.getChildren().remove(model.getPlayer());
             this.gameView.getChildren().remove(model.getPlayer().getTranslocator());
-            this.goToGameOverScreen();
+            if(this.model.isNewHighScore(this.model.getScore())) {
+                this.goToGameOverScreen(true);
+            } else {
+                this.goToGameOverScreen(false);
+            }
         }
 
         if(difficultyIncreaseCounter == 0){
@@ -144,13 +145,24 @@ public class GameController implements EventHandler<KeyEvent> {
         this.difficultyIncreaseCounter--;
     }
 
-    private void goToGameOverScreen() {
+    /**
+     * Switches to the game over screen. If the score in the model is higher than any
+     * of the high scores stored in the list of high scores, the player can input their
+     * name and their high score is stored in the file.
+     * @param isHighScore whether the score is a high score or not
+     */
+
+    private void goToGameOverScreen(boolean isHighScore) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameOverScreen.fxml"));
             Parent newRootNode = loader.load();
             Scene scene = this.gamePane.getScene();
             scene.setRoot(newRootNode);
             GameOverScreenController gameOverScreenController = loader.getController();
+            gameOverScreenController.setModel(this.model); //game over screen needs model so it can update high scores when user enters their name
+            gameOverScreenController.setScoreLabel();
+            gameOverScreenController.setHighScoresLabel();
+            gameOverScreenController.setIsNewHighScore(isHighScore);
             scene.setOnKeyPressed(gameOverScreenController);
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -173,7 +185,7 @@ public class GameController implements EventHandler<KeyEvent> {
         if (CstoneCenterPositionX >= playerPositionX && CstoneCenterPositionX <= playerPositionXOuter &&
                 CstoneCenterPositionY >= playerPositionY && CstoneCenterPositionY <= playerPositionYOuter) {
             this.model.getMagicStone().makeSound();
-            this.model.spawnChordStone(this.gameView.FRAME_WIDTH - this.model.getMagicStone().getWidth(), this.gameView.FRAME_HEIGHT - this.model.getMagicStone().getHeight());
+            this.model.spawnMagicStone(this.gameView.FRAME_WIDTH - this.model.getMagicStone().getWidth(), this.gameView.FRAME_HEIGHT - this.model.getMagicStone().getHeight());
         }
 
         //Projectile and Player
@@ -248,6 +260,11 @@ public class GameController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * Helper function invoked by handle to deal with KeyPressed events
+     * @param code the code of the key pressed
+     */
+
     private void handleKeyPressed(KeyCode code) {
         double stepSize = model.getPlayer().getSpeed();
         //Player Movement
@@ -304,6 +321,11 @@ public class GameController implements EventHandler<KeyEvent> {
         }
     }
 
+    /**
+     * Helper function called by handle to deal with key released events.
+     * @param code The key code of the key released.
+     */
+
     private void handleKeyReleased(KeyCode code) {
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
@@ -327,6 +349,11 @@ public class GameController implements EventHandler<KeyEvent> {
         }
 
     }
+
+    /**
+     * Method that calculates which direction the player should throw their translocator in
+     * based on their current velocity and direction. The player will throw in one of 8 cardinal directions.
+     */
 
     public static double calculateThrowingAngle(Player player) {
         double xVelocity = player.getVelocity().getX();
@@ -370,6 +397,8 @@ public class GameController implements EventHandler<KeyEvent> {
             }
         }
     }
+
+
 
     private void update() {
         this.gameView.update(this.model);

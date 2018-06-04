@@ -2,11 +2,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="gameOverScreenPane" fx:controller="warp.GameOverScreenController" xmlns:fx="http://javafx.com/fxml" >
-    <top>
-        <Label fx:id = "gameOverLabel"/>
-    </top>
-    <center>
-        <Label fx:id = "gameOverText" />
-    </center>
-</BorderPane>
+<AnchorPane fx:id="gameOverScreenPane" fx:controller="warp.GameOverScreenController" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: black;">
+
+        <Label fx:id = "gameOverLabel" AnchorPane.leftAnchor = "200" AnchorPane.topAnchor = "20"/>
+
+        <Label fx:id = "highScoresLabel" AnchorPane.leftAnchor = "250" AnchorPane.topAnchor = "250"/>
+
+        <Label fx:id = "newHighScoreLabel" AnchorPane.leftAnchor = "250" AnchorPane.topAnchor = "410" />
+
+        <Label fx:id = "highScoreNameLabel" AnchorPane.leftAnchor = "250" AnchorPane.topAnchor = "465" />
+
+        <Label fx:id = "gameOverText" AnchorPane.leftAnchor = "250" AnchorPane.topAnchor = "500"/>
+
+</AnchorPane>

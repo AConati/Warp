@@ -3,7 +3,8 @@
  * Ari Conati & Grant Lee
  * 22 May 2018
  *
- * The class that represents the sprites.
+ * The class that represents the classes which have sprites. All of these classes
+ * extend this class.
  */
 
  package warp;
