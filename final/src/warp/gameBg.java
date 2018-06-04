@@ -8,7 +8,7 @@ public class gameBg extends Sprite {
     private AudioClip audioClip;
 
     public gameBg() {
-        this.setImageView(makeImage("src/res/gameBg.png"));
+        this.setImageView(makeImage("res/background2.png"));
         this.getChildren().add(this.getImageView());
 
         this.audioClip = new AudioClip(getClass().getResource("/res/intro.mp3").toString());

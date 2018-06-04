@@ -48,12 +48,17 @@ public class GameController implements EventHandler<KeyEvent> {
         this.startTimer();
         this.update();
         this.difficultyIncreaseCounter = INCREASE_DIFFICULTY_TIMER;
+
         this.healthLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
         this.pauseLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
         this.scoreLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",20));
+        this.healthLabel.setStyle("-fx-text-fill: white");
+        this.scoreLabel.setStyle("-fx-text-fill: white");
+        this.pauseLabel.setStyle("-fx-text-fill: white");
+
         this.model.loadHighScores("src/warp/highScores.txt");
         System.out.println(this.model.getHighScores());
-        //this.model.writeHighScore("src/warp/highScores.txt", 5);
+        this.model.writeHighScore("src/warp/highScores.txt", 67);
     }
 
     public double getFrameWidth() {

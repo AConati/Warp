@@ -30,7 +30,7 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
             this.title.setTextFill(Color.WHITE);
             this.start.setText("Start Game");
             this.start.setFont(Font.loadFont("file:src/res/arcadia.ttf", 20));
-            this.start.setTextFill(Color.GREENYELLOW);
+            this.start.setTextFill(Color.WHITE);
             this.help.setText("Help");
             this.help.setFont(Font.loadFont("file:src/res/arcadia.ttf", 20));
             this.help.setTextFill(Color.WHITE);

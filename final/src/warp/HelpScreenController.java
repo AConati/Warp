@@ -23,7 +23,6 @@ public class HelpScreenController implements EventHandler<KeyEvent> {
         this.helpLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",25));
         this.helpLabel.setText("\n\t\t\tHelp");
         this.helpText.setFont(Font.loadFont("file:src/res/arcadia.ttf",15));
-        //this.helpText.setStyle("-fx-text-fill: white");
 
         helpText.setText("  Move your character with the \n  arrow keys or with WASD.\n\n" +
         "  Press E to throw your translocator \n  and E again to teleport to it.\n\n" +

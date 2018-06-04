@@ -10,6 +10,7 @@ package warp;
 import javafx.geometry.Point2D;
 
 import java.io.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -106,10 +107,9 @@ public class Model {
     }
 
     public boolean writeHighScore(String filePath, int score) {
-
-        FileWriter writer;
+        BufferedWriter writer;
         try {
-            writer = new FileWriter(filePath);
+            writer = new BufferedWriter(new FileWriter(filePath));
         } catch(IOException e) {
             System.err.println("High score could not be written");
             return false;
@@ -119,10 +119,11 @@ public class Model {
         Collections.sort(this.scores);
         Collections.reverse(this.scores);
 
-        for(int i = 0; i < 5; i++) {
+        int iterations = this.scores.size() >= 5 ? 5 : this.scores.size();
+        for(int i = 0; i < iterations; i++) {
             String scoreAsString = String.valueOf(this.scores.get(i));
             try {
-                writer.write(scoreAsString + "\n");
+                writer.append(scoreAsString + "\n");
             } catch (IOException e) {
                 System.err.println("High score could not be written.");
                 return false;

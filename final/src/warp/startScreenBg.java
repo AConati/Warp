@@ -8,7 +8,7 @@ public class startScreenBg extends Sprite {
     private AudioClip audioClip;
 
     public startScreenBg() {
-        this.setImageView(makeImage("src/res/spiral.jpg"));
+        this.setImageView(makeImage("res/title_screen.jpg"));
         this.getChildren().add(this.getImageView());
 
         this.audioClip = new AudioClip(getClass().getResource("/res/intro.mp3").toString());
