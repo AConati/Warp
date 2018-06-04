@@ -1,3 +1,11 @@
+/**
+ * GameOverScreenController.java
+ * Ari Conati & Grant Lee
+ * 22 May 2018
+ *
+ * The class that manipulates game over screen view to reflect key input.
+ */
+
 package warp;
 
 import javafx.event.EventHandler;
@@ -29,8 +37,7 @@ public class GameOverScreenController implements EventHandler<KeyEvent> {
     private List<Model.HighScore> highScores;
     private boolean newHighScore = false;
 
-    public GameOverScreenController(){
-    }
+    public GameOverScreenController(){}
 
     public void initialize() {
         this.gameOverLabel.setFont(Font.loadFont("file:src/res/arcadia.ttf",100));
@@ -50,8 +57,6 @@ public class GameOverScreenController implements EventHandler<KeyEvent> {
         this.highScoreNameLabel.setTextFill(Color.WHITE);
 
     }
-
-
 
     public void handle(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
@@ -85,6 +90,10 @@ public class GameOverScreenController implements EventHandler<KeyEvent> {
         this.model = model;
     }
 
+    /**
+     * Updates the score label to reflect the model.
+     */
+
     public void setScoreLabel() {
         if (model == null)
             return;
@@ -92,6 +101,10 @@ public class GameOverScreenController implements EventHandler<KeyEvent> {
         this.gameOverText.setText(String.format("Your score: %d", this.score) +
                 "\nPress ENTER to return\nto the main menu.");
     }
+
+    /**
+     * Updates the high scores listed to reflect the model.
+     */
 
     public void setHighScoresLabel() {
         if (model == null)
@@ -103,11 +116,18 @@ public class GameOverScreenController implements EventHandler<KeyEvent> {
         this.highScoresLabel.setText(highScoresText);
     }
 
+
     public void setIsNewHighScore(boolean isHighScore) {
         this.newHighScore = isHighScore;
         if(isHighScore)
             this.newHighScoreLabel.setText("New High Score!\nEnter your name:");
     }
+
+    /**
+     * Updates the high score name based on the next letter entered. If the
+     * name exceeds three letters, it sets it to the last three letters of the name.
+     * @param letter The next letter input by the user entering their name for the high score.
+     */
 
     private void updateNewHighScoreLabel(char letter) {
         if(this.highScoreNameLabel.getText().length() >= 3) {

@@ -1,3 +1,12 @@
+/**
+ * HelpScreenController.java
+ * Ari Conati & Grant Lee
+ * 22 May 2018
+ *
+ * The class that handles key input and initializes text for the help screen.
+ */
+
+
 package warp;
 
 import javafx.event.EventHandler;

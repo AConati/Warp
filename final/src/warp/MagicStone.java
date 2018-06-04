@@ -3,8 +3,8 @@
  * Ari Conati & Grant Lee
  * 22 May 201
  *
- * The class that represents the chord stone.
- * The chordstone is the main objective of the game and
+ * The class that represents the magic stone.
+ * The magic stone is the main objective of the game and
  * will be moving from place to place to prevent player from
  * obtaining the stone.
  */

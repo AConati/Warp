@@ -97,6 +97,12 @@ public class Player extends Sprite {
         return this.translocator;
     }
 
+    /**
+     * Refreshes the animation of this player's Imageview
+     * @param newOffSetX the new x offset value
+     * @param newOffsetY the new y offset value
+     */
+
     public void refreshAnimation(int newOffSetX, int newOffsetY) {
         if (newOffSetX != this.getOffSetX() || newOffsetY != this.getOffSetY()) {
             this.getAnimation().pause();
@@ -133,7 +139,7 @@ public class Player extends Sprite {
     @Override
     public void setPosition(double x, double y) {
         super.setPosition(x,y);
-        if(!(this.translocator.isThrown())) {
+        if(!(this.translocator.isThrown())) { //the translocator moves with the player unless it has been thrown
             this.translocator.setPosition(x,y);
         }
 

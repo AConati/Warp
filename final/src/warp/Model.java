@@ -11,7 +11,6 @@ package warp;
 import javafx.geometry.Point2D;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +27,8 @@ public class Model {
     private List<Shooter> shooters = new ArrayList<Shooter>();
     private MagicStone magicStone;
 
+
+    //represents the ways in which the difficulty can be increase
     public enum DifficultyModifier {
         ADD_SHOOTER, ADD_SMART_SHOOTER;
     }
@@ -55,6 +56,10 @@ public class Model {
         magicStone.setPosition(Math.random()*(xBoundary - this.getMagicStone().getWidth()), Math.random()*(yBoundary - this.getMagicStone().getHeight()));
         magicStone.setVelocity(0,0);
     }
+
+    /**
+     * The High Score class represents high score objects which include a name and a score.
+     */
 
     public class HighScore implements Comparable<HighScore>{
         private String name;
@@ -107,6 +112,12 @@ public class Model {
         return this.score;
     }
 
+    /**
+     * Loads a file containing high scores. Ensures that only the top 5 scores in the file are taken. File format name,score
+     * @param filePath The path of the file to be read from.
+     * @return true if the file was successfully read; false otherwise
+     */
+
 
     public boolean loadHighScores(String filePath) {
         File file = new File(filePath);
@@ -133,11 +144,17 @@ public class Model {
             scores.add(new HighScore(name,score));
         }
         Collections.sort(scores);
-        Collections.reverse(scores);
+        Collections.reverse(scores); //order scores from highest to lowest; take top 5
         if(scores.size() > 5)
             scores = scores.subList(0,5);
         return true;
     }
+
+    /**
+     * Determines if a score is a new high score or not
+     * @param score The score to be compared to the high scores
+     * @return true if the score is a new high score; false otherwise
+     */
 
     public boolean isNewHighScore(int score) {
         if(this.scores.size() < 5)
@@ -150,8 +167,16 @@ public class Model {
         return false;
     }
 
+    /**
+     * Writes a new high score to the high scores text file
+     * @param filePath The filepath of the file to be written
+     * @param name The name of the new high score
+     * @param score The score of the new high score
+     * @return true if the file was successfully written; false otherwise
+     */
+
     public boolean writeHighScore(String filePath, String name, int score) {
-        if(name.equals("") || name == null) {
+        if(name.equals("") || name == null) { //default name if nothing entered
             name = "AAA";
         }
         BufferedWriter writer;
@@ -163,7 +188,7 @@ public class Model {
         }
 
         this.scores.add(new HighScore(name, score));
-        Collections.sort(this.scores);
+        Collections.sort(this.scores); //sort scores from highest to lowest, only write top 5
         Collections.reverse(this.scores);
 
         int iterations = this.scores.size() >= 5 ? 5 : this.scores.size();
@@ -198,7 +223,7 @@ public class Model {
      * @param xBoundary the maximum x boundary the stone can spawn within
      * @param yBoundary the maximum y boundary the stone can spawn within
      */
-    public void spawnChordStone(double xBoundary, double yBoundary) {
+    public void spawnMagicStone(double xBoundary, double yBoundary) {
         double newXPosition = Math.random()*xBoundary;
         double newYPosition = Math.random()*yBoundary;
         this.magicStone.setPosition(newXPosition, newYPosition);
@@ -207,9 +232,12 @@ public class Model {
     }
 
     /**
-     * The method for Spawning each type of shooter
+     * The methods for Spawning each type of shooter
      * A smart shooter targets the position of the player but has a low rate of fire
      * A normal shooter targets a random position but has a higher rate of fire
+     *
+     * @param xBoundary the maximum x boundary the stone can spawn within
+     * @param yBoundary the maximum y boundary the stone can spawn within
      */
     private Shooter spawnSmartShooter(double xBoundary, double yBoundary) {
         double xPosition = Math.random()*xBoundary - this.getShooters().get(0).getWidth();
@@ -234,6 +262,9 @@ public class Model {
 
     /**
      * The method used to determine which type of shooter gets spawned
+     *
+     * @param xBoundary the maximum x boundary that the shooter can be spawned within
+     * @param yBoundary the maximum y boundary that the shooter can be spawned within
      */
     public Shooter increaseDifficulty(double xBoundary, double yBoundary) {
         switch(nextDifficultyMod) {

@@ -65,20 +65,26 @@ public class Shooter extends Sprite {
 
         fireCount = fireRate;
 
+        //Calculates the angle to fire in based on the target's location using trigonmetric functions
+
         Projectile projectile = new Projectile(this.cycleLifeForProjectiles, this.getPosition());
         double xDistanceToTarget = target.getX()-this.getPosition().getX();
         double yDistanceToTarget = target.getY()-this.getPosition().getY();
         Point2D distanceToTarget = new Point2D(Math.abs(xDistanceToTarget), Math.abs(yDistanceToTarget));
 
+
+
         double angle = Math.atan(distanceToTarget.getY()/distanceToTarget.getX());
         double xVel = Math.cos(angle) * velocity;
         double yVel = Math.sin(angle) * velocity;
+
+        //preserve direction of the target if negative
         if(xDistanceToTarget < 0)
             xVel = -xVel;
         if(yDistanceToTarget < 0)
             yVel = -yVel;
         projectile.setVelocity(xVel, yVel);
-        projectiles.add(projectile);
+        projectiles.add(projectile); //add projectile to this shooter's list of active projectiles
         return projectile;
 
     }
