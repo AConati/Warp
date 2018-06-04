@@ -19,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.Iterator;
@@ -87,8 +88,9 @@ public class GameController implements EventHandler<KeyEvent> {
                         checkCollision();
                         updateAnimation();
                         scoreLabel.setText(String.format("Score: %d", model.getScore()));
+                        scoreLabel.setTextFill(Color.WHITE);
                         healthLabel.setText(String.format("Life: %d", model.getPlayer().getLifeTotal()));
-
+                        healthLabel.setTextFill(Color.WHITE);
                     }
                 });
             }
@@ -201,7 +203,6 @@ public class GameController implements EventHandler<KeyEvent> {
     public void checkBoundaries() {
 
         //Player Movement
-
         if(model.getPlayer().getPosition().getX() >= gameView.FRAME_WIDTH && model.getPlayer().getVelocity().getX() > 0) {
             model.getPlayer().setPosition(-model.getPlayer().getWidth(),model.getPlayer().getPosition().getY());
         }
@@ -216,7 +217,6 @@ public class GameController implements EventHandler<KeyEvent> {
         }
 
         //Translocator Movement
-
         if (model.getPlayer().getTranslocator().getPosition().getX() + model.getPlayer().getTranslocator().getWidth() >= gameView.FRAME_WIDTH && model.getPlayer().getTranslocator().getVelocity().getX() > 0) {
             model.getPlayer().getTranslocator().setPosition(-model.getPlayer().getTranslocator().getWidth(),model.getPlayer().getTranslocator().getPosition().getY());
         }
@@ -250,6 +250,7 @@ public class GameController implements EventHandler<KeyEvent> {
 
     private void handleKeyPressed(KeyCode code) {
         double stepSize = model.getPlayer().getSpeed();
+        //Player Movement
         if(code == KeyCode.LEFT || code == KeyCode.A){
             double yVel = model.getPlayer().getVelocity().getY();
             model.getPlayer().setVelocity(-stepSize, yVel);
@@ -281,8 +282,9 @@ public class GameController implements EventHandler<KeyEvent> {
                 double angle = calculateThrowingAngle(model.getPlayer());
                 model.getPlayer().throwTranslocator(angle, model.getPlayer().getThrowPower());
             }
-        } else if (code == KeyCode.ESCAPE) {
-
+        }
+        //Pause Button
+        else if (code == KeyCode.ESCAPE) {
             audioclip = new AudioClip(getClass().getResource("/res/Pause.wav").toString());
 
             if (this.paused) {
@@ -293,6 +295,7 @@ public class GameController implements EventHandler<KeyEvent> {
                 audioclip.play();
                 this.timer.cancel();
                 this.pauseLabel.setText("Paused");
+                this.pauseLabel.setTextFill(Color.WHITE);
             }
             this.paused = !this.paused;
         }
